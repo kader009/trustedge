@@ -1,6 +1,6 @@
 const Category = () => {
   return (
-    <section className="mb-16 mx-4">
+    <section className="mb-16">
       <h1 className="text-2xl font-bold leading-tight tracking-[-0.015em] pb-6">
         Explore by Category
       </h1>
@@ -10,7 +10,9 @@ const Category = () => {
           href="#"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">phone_iphone</span>
+            <span className="material-symbols-outlined text-3xl">
+              phone_iphone
+            </span>
           </div>
           <span className="font-semibold">Electronics</span>
         </a>
@@ -19,7 +21,9 @@ const Category = () => {
           href="#"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">menu_book</span>
+            <span className="material-symbols-outlined text-3xl">
+              menu_book
+            </span>
           </div>
           <span className="font-semibold">Books</span>
         </a>
