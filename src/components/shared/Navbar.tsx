@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
@@ -11,24 +13,24 @@ const Navbar = () => {
               </h1>
             </div>
             <nav className="hidden md:flex items-center gap-9">
-              <a
+              <Link
                 className="text-sm font-medium leading-normal hover:text-primary transition-colors"
-                href="#"
+                href="/"
               >
                 Home
-              </a>
-              <a
+              </Link>
+              <Link
                 className="text-sm font-medium leading-normal hover:text-primary transition-colors"
-                href="#"
+                href="/categories"
               >
                 Categories
-              </a>
-              <a
+              </Link>
+              <Link
                 className="text-sm font-medium leading-normal hover:text-primary transition-colors"
                 href="#"
               >
                 Write a Review
-              </a>
+              </Link>
             </nav>
           </div>
           <div className="flex flex-1 items-center justify-end gap-4">
