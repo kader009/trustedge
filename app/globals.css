@@ -11,6 +11,14 @@
   --color-card-dark: #1a2b23;
   --color-border-light: #e2e8f0;
   --color-border-dark: #3b5447;
+  --color-accent: #f5a623;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-neutral-100: #ffffff;
+  --color-neutral-200: #f0f2f4;
+  --color-neutral-300: #617589;
+  --color-neutral-800: #111418;
+  --color-neutral-900: #101922;
 }
 
 :root {
@@ -33,6 +41,16 @@
   /* Border Colors */
   --border-light: #e2e8f0;
   --border-dark: #3b5447;
+
+  /* Additional Colors for Categories Page */
+  --accent: #f5a623;
+  --success: #10b981;
+  --danger: #ef4444;
+  --neutral-100: #ffffff;
+  --neutral-200: #f0f2f4;
+  --neutral-300: #617589;
+  --neutral-800: #111418;
+  --neutral-900: #101922;
 
   /* Legacy */
   --foreground: #171717;
