@@ -1,8 +1,8 @@
-import BannerSection from '@/src/components/BannerSection';
-import Category from '@/src/components/Category';
-import CommunityFavorites from '@/src/components/CommunityFavorites';
-import PopularThisWeek from '@/src/components/PopularThisWeek';
-import ReviewChart from '@/src/components/ReviewChart';
+import BannerSection from '@/src/components/home/BannerSection';
+import Category from '@/src/components/home/Category';
+import CommunityFavorites from '@/src/components/home/CommunityFavorites';
+import PopularThisWeek from '@/src/components/home/PopularThisWeek';
+import ReviewChart from '@/src/components/home/ReviewChart';
 import Footer from '@/src/components/shared/Footer';
 import Navbar from '@/src/components/shared/Navbar';
 

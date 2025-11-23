@@ -1,7 +1,7 @@
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard';
 
-const PopularThisWeek = () => {
-  const popularProducts = [
+const CommunityFavorites = () => {
+  const favoriteProducts = [
     {
       id: 1,
       title: 'A Timeless Masterpiece',
@@ -13,8 +13,8 @@ const PopularThisWeek = () => {
       userName: 'JaneDoe',
       userAvatar:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuA47fqo8J6p62tR5ofxnuMKG8m0mnEC3XSCBluMmV_IOcfDacw6Z1A_cRu1HXVZ1idm1lkg925h90-1Mz9HdqTAkO_8r1FGfPnn7jsUpzDFckovplX7ikcC2Ms2Ktj0OG-432XXrCmLVXyE15aY4SaGSFCO3jmNPe-OKhMAEyhHrvdnjufwATwx0XVHJ9ZQYdFulOoqhYlWrXG2FGw2zGsliREmmf-x5v8jMX9jNHuulKX39xisM9N79MN2OM6_7NDdhMu60Pvs_qM',
-      likes: 128,
-      isFavorite: false,
+      likes: 210,
+      isFavorite: true,
     },
     {
       id: 2,
@@ -27,25 +27,11 @@ const PopularThisWeek = () => {
       userName: 'JohnSmith',
       userAvatar:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDWIFI88myiu3qHAbuu_Fr5NI0XWfkRb6KSvx3d9a1WZFKIqSMC-l3dacPb1NpgKFMIG-j_k5-UMjBW8du97mLB3iV8ekiInBjDHNu9PBWyJxxCs1VA1VF_fZr19eQwINrYnNXn2y9XT7H_UuCr9oXy4VHS0joYpjn027yQ9msqY7DWCDo7YREw0Yt_FPhQIiLAydzbBURa5okD0f8R2EV-L9HXet7jMJ73eR9SVOrhNC1hbmhXYlI8x9G1ujR5P5kRQ22MphHVGUA',
-      likes: 97,
-      isFavorite: false,
+      likes: 185,
+      isFavorite: true,
     },
     {
       id: 3,
-      title: 'Amazing Sound Quality',
-      rating: 4.0,
-      review:
-        '"The bass is deep and the highs are crisp. Noise cancellation is a game changer."',
-      imageUrl:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuCec2NBUJUdTEx8YUro9t68zcgZVKzGcsUm2zqPIr8692pc4-rUiZ8MCsk_S3okq400_3je0SV3eoyPDzhNlJLef8Guj_cpj7Dx2YoPcn9B7j1jKcVx06Je2Xaeus0xt4wT_2PR57OeivqGOMw3SwNTJIQ83kNAd5mqHJEAuEbpByHaFQbjVWb1NZcH4qCYR7b-D8rvJhydHgjgc7aklsM87HMS19r1a4CzUm-pGAj3uG4M0Khzwx6hDZ_GXSGSkzQziHPOymaMWRo',
-      userName: 'EmilyR',
-      userAvatar:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuA3ZhyvdgslBANr6XgSiHemSeWYoPe5EWS0JvxUFlLSMe3kDIQXrH03QWpkPTMQn8LxKOz2n-IYkONgUevzQk1nhrCEjvrfgihOBYKHl0bwTLaWPBaa3j7C-eZ_klN1tP0vfkjwW4ZblxNOdEIJxHGQYYYYYeod0dJmoJjcqWprWnxFV8Sdr0BrPxu6iAoEiBeE1CN9fPGifD0suc5suunFazbCZ3bL77GC7Xo1JOmGM9L9rBMgU1Yek8px1nmAhc7_Z8xNRIHBPxs',
-      likes: 88,
-      isFavorite: false,
-    },
-    {
-      id: 4,
       title: 'Next-Gen is Here',
       rating: 5.0,
       review:
@@ -55,18 +41,32 @@ const PopularThisWeek = () => {
       userName: 'GamerX',
       userAvatar:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuBwRyqmGTVESZrwuGWGOMaqPuSQdvc4gMrHm4Fz6SnupVwSODxOlCCad9OvYH8B89qTlG8nbqnPKuJZtr5ZDU32LTg5PsRVtq5YlPp2Zx297GqwACfXWxUX3E9yZ0nd6yHOVYpzPXs-8PfAHjt38bSIOo8Y4WZFvGVk5QsKiLZkGEQ8b9qq1gVd8Rlk1n4yYAjWmJchSxPpH1AIyeAJqu1lA4f4g6P8R19qtKejsH8YsMYH4KwB7MCeljQ8ewphXiSg3CSPOAvpf0g',
-      likes: 72,
-      isFavorite: false,
+      likes: 150,
+      isFavorite: true,
+    },
+    {
+      id: 4,
+      title: 'Gripping Storyline!',
+      rating: 4.5,
+      review:
+        '"Couldn\'t put it down. A must-read for anyone who loves a good thriller."',
+      imageUrl:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBbOfRUYR6wwFH8Rt2ghDDTIzH5iSOUhIdsH-vY_R6KoSwzMO9JQTnMdb1jPK7ruxd5Y2strcjUzWKqZo9gs-ETW0jqsr2-Ii3Cx2i-Hic4kDPvRk3-ts5Y_TdE_BnPZ1b9GyLGhJ_mJ77ULe2kkzADzSvA1BAFK5i13ZyJrX7UZts6q53_UBKVI3iTFK2ZbEoTygHqO3hy_xXM4uTI7cdF-zfE_rA5zqBOd0sRqDJ-bBbn0BG1sHR78j7vPzHTMWJLgtn-ozaplsw',
+      userName: 'BookwormBabe',
+      userAvatar:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAcwSEXAsJctDxvLXA-aQhYT5TNDda0pPnQ6nEShkEp_HcaHYLByvAQEklM6ety32qXl4zZmw0nwItWRfxmpKuPoTiuQeKfnAgsC3HDblWNQ4gZkUdr539ulGdzSWbNOgfBzap-k36QrQ7Ih7Z5wi9my98vZMW-zd18bTBH3AnyvxIOpRtYCCVTVyxBqRe_Ab_TwUcA3PjdP9vBSYJ2AATDbTj-_LCGT3o2j16gPDADsJhzyegGSzX9fRUbfsLpiEq_M4u_pT_FWYs',
+      likes: 130,
+      isFavorite: true,
     },
   ];
 
   return (
-    <section>
+    <section className="mb-16">
       <h2 className="text-2xl font-bold leading-tight tracking-[-0.015em] mb-6">
-        Popular This Week
+        Community Favorites
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {popularProducts.map((product) => (
+        {favoriteProducts.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}
       </div>
@@ -74,4 +74,4 @@ const PopularThisWeek = () => {
   );
 };
 
-export default PopularThisWeek;
+export default CommunityFavorites;
