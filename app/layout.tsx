@@ -12,6 +12,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'Review Portal',
   description: 'Get reviews from the community for your products',
+  icons: {
+    icon: '/icons8-review-96.png',
+  },
 };
 
 export default function RootLayout({

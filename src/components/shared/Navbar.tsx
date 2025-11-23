@@ -61,10 +61,10 @@ const Navbar = () => {
             </label>
             <div className="flex gap-2">
               <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-                <span className="truncate">Sign Up</span>
+                <span className="truncate"><Link href='/register'>Sign Up</Link></span>
               </button>
               <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-border-dark text-text-light dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-300 dark:hover:bg-opacity-80 transition-colors">
-                <span className="truncate">Log In</span>
+                <span className="truncate"><Link href='/login'>Log In</Link></span>
               </button>
             </div>
           </div>
