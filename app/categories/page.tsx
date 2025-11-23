@@ -1,6 +1,6 @@
-import FilterSidebar from '@/src/components/FilterSidebar';
-import Pagination from '@/src/components/Pagination';
-import ReviewCard from '@/src/components/ReviewCard';
+import FilterSidebar from '@/src/components/product/FilterSidebar';
+import Pagination from '@/src/components/product/Pagination';
+import ReviewCard from '@/src/components/product/ReviewCard';
 
 export default function CategoriesPage() {
   const reviews = [
