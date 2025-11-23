@@ -1,7 +1,6 @@
 import FilterSidebar from '@/src/components/FilterSidebar';
 import Pagination from '@/src/components/Pagination';
 import ReviewCard from '@/src/components/ReviewCard';
-import Navbar from '@/src/components/shared/Navbar';
 
 export default function CategoriesPage() {
   const reviews = [
@@ -87,7 +86,6 @@ export default function CategoriesPage() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col">
-      <Navbar />
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="flex flex-col lg:flex-row gap-8">
           <FilterSidebar />

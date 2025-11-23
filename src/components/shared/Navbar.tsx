@@ -27,7 +27,7 @@ const Navbar = () => {
               </Link>
               <Link
                 className="text-sm font-medium leading-normal hover:text-primary transition-colors"
-                href="#"
+                href="create-review"
               >
                 Write a Review
               </Link>
