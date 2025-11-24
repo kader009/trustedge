@@ -20,6 +20,12 @@ const Navbar = () => {
               </Link>
               <Link
                 className="text-sm font-medium leading-normal hover:text-primary transition-colors"
+                href="/about-us"
+              >
+                About Us
+              </Link>
+              <Link
+                className="text-sm font-medium leading-normal hover:text-primary transition-colors"
                 href="/categories"
               >
                 Categories

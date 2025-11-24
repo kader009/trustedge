@@ -19,9 +19,11 @@ const BannerSection = () => {
               Find, share, and discuss the best products on the market.
             </h2>
           </div>
-          <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-            <Link href="/create-review">Write a Review</Link>
-          </button>
+          <Link href="/create-review">
+            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
+              Write a Review
+            </button>
+          </Link>
         </div>
       </div>
     </section>
