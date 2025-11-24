@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const Navbar = () => {
   return (
@@ -7,9 +7,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between whitespace-nowrap border-solid border-border-light dark:border-border-dark py-3">
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-3 text-text-light dark:text-white">
-              
               <h1 className="text-lg font-bold leading-tight tracking-[-0.015em]">
-                ReviewPortal
+                <Link href="/">ReviewPortal</Link>
               </h1>
             </div>
             <nav className="hidden md:flex items-center gap-9">
@@ -61,10 +60,14 @@ const Navbar = () => {
             </label>
             <div className="flex gap-2">
               <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-                <span className="truncate"><Link href='/register'>Sign Up</Link></span>
+                <span className="truncate">
+                  <Link href="/register">Sign Up</Link>
+                </span>
               </button>
               <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-border-dark text-text-light dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-300 dark:hover:bg-opacity-80 transition-colors">
-                <span className="truncate"><Link href='/login'>Log In</Link></span>
+                <span className="truncate">
+                  <Link href="/login">Log In</Link>
+                </span>
               </button>
             </div>
           </div>

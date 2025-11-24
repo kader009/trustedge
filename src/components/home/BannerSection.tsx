@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const BannerSection = () => {
   return (
     <section className="mb-16">
@@ -18,7 +20,7 @@ const BannerSection = () => {
             </h2>
           </div>
           <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-            <span className="truncate">Write a Review</span>
+            <Link href="/create-review">Write a Review</Link>
           </button>
         </div>
       </div>
