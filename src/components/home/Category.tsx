@@ -1,3 +1,13 @@
+import Link from 'next/link';
+import {
+  FaMobileAlt,
+  FaBook,
+  FaChair,
+  FaTshirt,
+  FaMagic,
+  FaFutbol,
+} from 'react-icons/fa';
+
 const Category = () => {
   return (
     <section className="mb-16">
@@ -5,66 +15,60 @@ const Category = () => {
         Explore by Category
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <a
+        <Link
           className="group relative flex flex-col items-center justify-center p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-          href="#"
+          href="/categories"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">
-              phone_iphone
-            </span>
+            <FaMobileAlt className="text-3xl" />
           </div>
           <span className="font-semibold">Electronics</span>
-        </a>
-        <a
+        </Link>
+        <Link
           className="group relative flex flex-col items-center justify-center p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-          href="#"
+          href="/categories"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">
-              menu_book
-            </span>
+            <FaBook className="text-3xl" />
           </div>
           <span className="font-semibold">Books</span>
-        </a>
-        <a
+        </Link>
+        <Link
           className="group relative flex flex-col items-center justify-center p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-          href="#"
+          href="/categories"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">chair</span>
+            <FaChair className="text-3xl" />
           </div>
           <span className="font-semibold">Home Goods</span>
-        </a>
-        <a
+        </Link>
+        <Link
           className="group relative flex flex-col items-center justify-center p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-          href="#"
+          href="/categories"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">styler</span>
+            <FaTshirt className="text-3xl" />
           </div>
           <span className="font-semibold">Apparel</span>
-        </a>
-        <a
+        </Link>
+        <Link
           className="group relative flex flex-col items-center justify-center p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-          href="#"
+          href="/categories"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">auto_fix</span>
+            <FaMagic className="text-3xl" />
           </div>
           <span className="font-semibold">Beauty</span>
-        </a>
-        <a
+        </Link>
+        <Link
           className="group relative flex flex-col items-center justify-center p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-          href="#"
+          href="/categories"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <span className="material-symbols-outlined text-3xl">
-              sports_soccer
-            </span>
+            <FaFutbol className="text-3xl" />
           </div>
           <span className="font-semibold">Sports</span>
-        </a>
+        </Link>
       </div>
     </section>
   );
