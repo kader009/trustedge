@@ -240,7 +240,7 @@ export default function ReviewDetailPage({
 
               {/* Comment Form */}
               <div className="flex gap-4 mb-8">
-                <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex-shrink-0" />
+                <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 shrink-0" />
                 <div className="flex-1">
                   <textarea
                     placeholder="Add a comment..."
@@ -261,7 +261,7 @@ export default function ReviewDetailPage({
                     <img
                       src={comment.avatar}
                       alt={comment.author}
-                      className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                      className="w-10 h-10 rounded-full object-cover shrink-0"
                     />
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">

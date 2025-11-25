@@ -1,8 +1,13 @@
+'use client';
+
+import { useState } from 'react';
 import FilterSidebar from '@/src/components/product/FilterSidebar';
 import Pagination from '@/src/components/product/Pagination';
 import ReviewCard from '@/src/components/product/ReviewCard';
 
 export default function CategoriesPage() {
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
   const reviews = [
     {
       id: 1,
@@ -136,7 +141,14 @@ export default function CategoriesPage() {
                 </select>
               </div>
               <div className="flex gap-2">
-                <button className="p-2 rounded-lg text-neutral-800 dark:text-neutral-100 bg-primary/20 dark:bg-primary/30">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    viewMode === 'grid'
+                      ? 'text-neutral-800 dark:text-neutral-100 bg-primary/20 dark:bg-primary/30'
+                      : 'text-neutral-300 dark:text-neutral-500 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50'
+                  }`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -150,7 +162,14 @@ export default function CategoriesPage() {
                     />
                   </svg>
                 </button>
-                <button className="p-2 rounded-lg text-neutral-300 dark:text-neutral-500 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    viewMode === 'list'
+                      ? 'text-neutral-800 dark:text-neutral-100 bg-primary/20 dark:bg-primary/30'
+                      : 'text-neutral-300 dark:text-neutral-500 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50'
+                  }`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -168,7 +187,13 @@ export default function CategoriesPage() {
             </div>
 
             {/* Reviews Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div
+              className={`grid gap-6 ${
+                viewMode === 'grid'
+                  ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3'
+                  : 'grid-cols-1'
+              }`}
+            >
               {reviews.map((review) => (
                 <ReviewCard key={review.id} {...review} />
               ))}
