@@ -38,8 +38,9 @@ const Navbar = () => {
               </Link>
             </nav>
           </div>
-          <div className="flex flex-1 items-center justify-end gap-4">
-            <label className="hidden sm:flex flex-col min-w-40 h-10! max-w-64">
+          
+          <div className="flex-1 flex justify-center px-4">
+            <label className="hidden sm:flex flex-col w-full max-w-md h-10">
               <div className="flex w-full flex-1 items-stretch rounded-lg h-full">
                 <div className="text-text-light/70 dark:text-text-dark/70 flex border border-border-light dark:border-border-dark bg-white dark:bg-card-dark items-center justify-center pl-3 rounded-l-lg border-r-0">
                   <svg
@@ -64,18 +65,19 @@ const Navbar = () => {
                 />
               </div>
             </label>
-            <div className="flex gap-2">
-              <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-                <span className="truncate">
-                  <Link href="/register">Sign Up</Link>
-                </span>
-              </button>
-              <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-border-dark text-text-light dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-300 dark:hover:bg-opacity-80 transition-colors">
-                <span className="truncate">
-                  <Link href="/login">Log In</Link>
-                </span>
-              </button>
-            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-2">
+            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
+              <span className="truncate">
+                <Link href="/register">Sign Up</Link>
+              </span>
+            </button>
+            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-border-dark text-text-light dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-300 dark:hover:bg-opacity-80 transition-colors">
+              <span className="truncate">
+                <Link href="/login">Log In</Link>
+              </span>
+            </button>
           </div>
         </div>
       </div>

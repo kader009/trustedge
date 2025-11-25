@@ -153,7 +153,7 @@ export default function AboutUsPage() {
             </div>
           </section>
           {/* Call to Action Section */}
-          <section className="bg-white dark:bg-background-dark/50 border border-gray-200 dark:border-white/10 rounded-xl p-8 md:p-12 text-center">
+          <section className="bg-white dark:bg-background-dark/50 border border-gray-200 dark:border-white/10 rounded-xl p-8 md:p-12 text-center max-w-4xl mx-auto w-full">
             <div className="flex flex-col items-center gap-4">
               <h2 className="text-gray-900 dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
                 Ready to Join Us?
