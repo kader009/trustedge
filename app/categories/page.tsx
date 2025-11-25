@@ -86,7 +86,7 @@ export default function CategoriesPage() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col">
-      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+      <main className="container mx-auto px-4 py-8 lg:py-12">
         <div className="flex flex-col lg:flex-row gap-8">
           <FilterSidebar />
 
