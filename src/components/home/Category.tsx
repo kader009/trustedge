@@ -4,7 +4,7 @@ import {
   FaBook,
   FaChair,
   FaTshirt,
-  FaMagic,
+  FaSpa,
   FaFutbol,
 } from 'react-icons/fa';
 
@@ -56,7 +56,7 @@ const Category = () => {
           href="/categories"
         >
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <FaMagic className="text-3xl" />
+            <FaSpa className="text-3xl" />
           </div>
           <span className="font-semibold">Beauty</span>
         </Link>
