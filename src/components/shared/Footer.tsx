@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -63,24 +63,39 @@ const Footer = () => {
               <Link className="hover:text-primary transition-colors" href="/">
                 Home
               </Link>
-              <Link className="hover:text-primary transition-colors" href="/categories">
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/categories"
+              >
                 Categories
               </Link>
-              <Link className="hover:text-primary transition-colors" href="/create-review">
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/create-review"
+              >
                 Write a Review
               </Link>
-              <Link className="hover:text-primary transition-colors" href="/login">
-                Login
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/login"
+              >
+                Signup/Login
               </Link>
             </div>
           </div>
           <div>
             <h4 className="font-semibold mb-4 text-white">Company</h4>
             <div className="flex flex-col gap-2 text-sm">
-              <Link className="hover:text-primary transition-colors" href="/about-us">
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/about-us"
+              >
                 About Us
               </Link>
-              <Link className="hover:text-primary transition-colors" href="#">
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/contact-us"
+              >
                 Contact Us
               </Link>
               <Link className="hover:text-primary transition-colors" href="#">
