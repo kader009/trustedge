@@ -68,9 +68,6 @@ const Footer = () => {
                 Write a Review
               </a>
               <a className="hover:text-primary transition-colors" href="#">
-                My Profile
-              </a>
-              <a className="hover:text-primary transition-colors" href="#">
                 Login/Sign Up
               </a>
             </div>
@@ -89,9 +86,6 @@ const Footer = () => {
               </a>
               <a className="hover:text-primary transition-colors" href="#">
                 Privacy Policy
-              </a>
-              <a className="hover:text-primary transition-colors" href="#">
-                Community Guidelines
               </a>
             </div>
           </div>

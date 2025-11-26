@@ -254,7 +254,7 @@ const FilterSidebar = () => {
           <button className="flex-1 min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-[0.015em]">
             Apply Filters
           </button>
-          <button className="flex-1 min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 text-sm font-medium">
+          <button className="flex-1 min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-neutral-200 dark:bg-neutral-800 text-text-light dark:text-white text-sm font-medium">
             Reset
           </button>
         </div>

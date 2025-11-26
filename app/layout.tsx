@@ -25,10 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
-        <Navbar/>
+        <Navbar />
         {children}
-        <Footer/>
-        </body>
+        <Footer />
+      </body>
     </html>
   );
 }

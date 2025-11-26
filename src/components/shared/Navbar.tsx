@@ -11,7 +11,7 @@ const Navbar = () => {
                 <Link href="/">ReviewPortal</Link>
               </h1>
             </div>
-            <nav className="hidden md:flex items-center gap-9">
+            <nav className="hidden md:flex items-center gap-5">
               <Link
                 className="text-sm font-medium leading-normal hover:text-primary transition-colors"
                 href="/"
@@ -32,9 +32,15 @@ const Navbar = () => {
               </Link>
               <Link
                 className="text-sm font-medium leading-normal hover:text-primary transition-colors"
-                href="create-review"
+                href="/create-review"
               >
                 Write a Review
+              </Link>
+              <Link
+                className="text-sm font-medium leading-normal hover:text-primary transition-colors"
+                href="/dashboard"
+              >
+                Dashboard
               </Link>
             </nav>
           </div>
