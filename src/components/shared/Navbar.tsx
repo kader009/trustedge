@@ -66,8 +66,7 @@ const Navbar = () => {
                 </div>
                 <input
                   className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-white focus:outline-none focus:ring-0 border border-border-light dark:border-border-dark bg-white dark:bg-card-dark h-full placeholder:text-text-light/70 dark:placeholder:text-text-dark/70 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
-                  placeholder="Search"
-                  defaultValue=""
+                  placeholder="Search reviews..."
                 />
               </div>
             </label>

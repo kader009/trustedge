@@ -98,7 +98,7 @@ export default function CategoriesPage() {
           <div className="flex-1">
             {/* Page Heading and Search */}
             <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-              <p className="text-neutral-800 dark:text-neutral-100 text-4xl font-black tracking-[-0.033em] min-w-72">
+              <p className="text-text-light dark:text-white text-4xl font-black tracking-[-0.033em] min-w-72">
                 All Product Reviews
               </p>
               <div className="w-full md:max-w-xs">

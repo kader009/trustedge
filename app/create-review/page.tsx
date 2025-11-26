@@ -6,10 +6,10 @@ export default function CreateReviewPage() {
       <div className="layout-content-container flex flex-col w-full max-w-3xl flex-1">
         <div className="flex flex-wrap justify-between gap-3 p-4">
           <div className="flex min-w-72 flex-col gap-3">
-            <p className="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+            <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
               Create a New Review
             </p>
-            <p className="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">
+            <p className="text-text-light dark:text-white text-base font-normal leading-normal">
               Share your experience with the community.
             </p>
           </div>
