@@ -30,10 +30,10 @@ const ContactPage = () => {
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-24 sm:-mt-32 relative z-10">
         <div className="bg-white dark:bg-background-dark/80 backdrop-blur-sm shadow-xl rounded-xl p-8 sm:p-12">
           <div className="flex flex-col gap-3 mb-8 text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h2 className="text-3xl font-bold tracking-tight text-text-light dark:text-white">
               Send us a Message
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-text-light dark:text-text-dark">
               Fill out the form below and we'll get back to you as soon as
               possible.
             </p>
