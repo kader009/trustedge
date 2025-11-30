@@ -1,4 +1,23 @@
-const FilterSidebar = () => {
+import { Category } from '@/src/types/CategoryType';
+
+const FilterSidebar = async () => {
+  let categories: Category[] = [];
+
+  try {
+    const response = await fetch(
+      'https://trustedge-backend.vercel.app/api/v1/category',
+      {
+        cache: 'no-store',
+      }
+    );
+    const data = await response.json();
+    if (data.success) {
+      categories = data.data;
+    }
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+  }
+
   return (
     <aside className="w-full lg:w-64 xl:w-72 shrink-0">
       <div className="sticky top-24 space-y-6">
@@ -12,42 +31,19 @@ const FilterSidebar = () => {
             Categories
           </h4>
           <div className="space-y-2 text-sm">
-            <label className="flex items-center gap-2">
-              <input
-                defaultChecked
-                className="form-checkbox rounded text-primary focus:ring-primary/50"
-                type="checkbox"
-              />
-              <span>Electronics</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                className="form-checkbox rounded text-primary focus:ring-primary/50"
-                type="checkbox"
-              />
-              <span>Skincare</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                className="form-checkbox rounded text-primary focus:ring-primary/50"
-                type="checkbox"
-              />
-              <span>Home Goods</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                className="form-checkbox rounded text-primary focus:ring-primary/50"
-                type="checkbox"
-              />
-              <span>Books</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                className="form-checkbox rounded text-primary focus:ring-primary/50"
-                type="checkbox"
-              />
-              <span>Apparel</span>
-            </label>
+            {categories.length > 0 ? (
+              categories.map((category, index) => (
+                <label key={category._id} className="flex items-center gap-2">
+                  <input
+                    className="form-checkbox rounded text-primary focus:ring-primary/50"
+                    type="checkbox"
+                  />
+                  <span>{category.name}</span>
+                </label>
+              ))
+            ) : (
+              <p className="text-sm text-neutral-500">No categories available</p>
+            )}
           </div>
         </div>
 
@@ -181,7 +177,7 @@ const FilterSidebar = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="text-sm ml-1">4 stars &amp; up</span>
+              <span className="text-sm ml-1">4 stars & up</span>
             </button>
             <button className="flex items-center gap-1 w-full text-left p-1 rounded hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
               <svg
@@ -244,7 +240,7 @@ const FilterSidebar = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="text-sm ml-1">3 stars &amp; up</span>
+              <span className="text-sm ml-1">3 stars & up</span>
             </button>
           </div>
         </div>
