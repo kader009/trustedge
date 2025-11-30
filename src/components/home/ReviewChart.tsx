@@ -13,7 +13,7 @@ const ReviewChart = async () => {
       fetch('https://trustedge-backend.vercel.app/api/v1/review', {
         cache: 'no-store',
       }),
-      fetch('https://trustedge-backend.vercel.app/api/v1/product', {
+      fetch('https://trustedge-backend.vercel.app/api/v1/products', {
         cache: 'no-store',
       }),
     ]);
