@@ -12,6 +12,12 @@ interface ReviewCardProps {
   date: string;
   likes: number;
   comments: number;
+  product?: {
+    title: string;
+    price: number;
+    category: string;
+    image?: string;
+  };
 }
 
 const ReviewCard = ({
@@ -25,6 +31,7 @@ const ReviewCard = ({
   date,
   likes,
   comments,
+  product,
 }: ReviewCardProps) => {
   const renderStars = () => {
     const stars = [];
@@ -68,6 +75,38 @@ const ReviewCard = ({
           />
         </div>
         <div className="p-4 flex flex-col flex-1">
+          {product && (
+            <div className="mb-3 pb-3 border-b border-neutral-200/80 dark:border-neutral-800/80">
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-xs font-semibold">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="w-3.5 h-3.5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M6 5v1H4.667a1.75 1.75 0 0 0-1.743 1.598l-.826 9.5A1.75 1.75 0 0 0 3.84 19H16.16a1.75 1.75 0 0 0 1.743-1.902l-.826-9.5A1.75 1.75 0 0 0 15.333 6H14V5a4 4 0 0 0-8 0Zm4-2.5A2.5 2.5 0 0 0 7.5 5v1h5V5A2.5 2.5 0 0 0 10 2.5ZM7.5 10a2.5 2.5 0 0 0 5 0V8.75a.75.75 0 0 1 1.5 0V10a4 4 0 0 1-8 0V8.75a.75.75 0 0 1 1.5 0V10Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Product Review
+                </span>
+                <span className="text-lg font-bold text-primary">
+                  ${product.price.toFixed(2)}
+                </span>
+              </div>
+              <h4 className="text-base font-bold text-neutral-800 dark:text-neutral-100 mb-1">
+                {product.title}
+              </h4>
+              <span
+                className={`text-xs font-semibold uppercase ${categoryColor}`}
+              >
+                {product.category}
+              </span>
+            </div>
+          )}
           <span
             className={`text-xs font-semibold uppercase ${categoryColor} mb-2`}
           >
