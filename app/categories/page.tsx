@@ -1,42 +1,10 @@
 import CategoriesClient from './CategoriesClient';
-
-async function getProducts() {
-  try {
-    const response = await fetch(
-      'https://trustedge-backend.vercel.app/api/v1/products?limit=20',
-      { cache: 'no-store' }
-    );
-    const data = await response.json();
-    if (data.success) {
-      return data.data;
-    }
-    return [];
-  } catch (error) {
-    console.error('Failed to fetch products:', error);
-    return [];
-  }
-}
-
-async function getCategories() {
-  try {
-    const response = await fetch(
-      'https://trustedge-backend.vercel.app/api/v1/category',
-      { cache: 'no-store' }
-    );
-    const data = await response.json();
-    if (data.success) {
-      return data.data;
-    }
-    return [];
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-    return [];
-  }
-}
+import FilterSidebar from '@/src/components/product/FilterSidebar';
+import { getProducts, getCategories } from '@/src/lib/api';
 
 export default async function CategoriesPage() {
   const [products, categories] = await Promise.all([
-    getProducts(),
+    getProducts(20),
     getCategories(),
   ]);
 
@@ -96,5 +64,14 @@ export default async function CategoriesPage() {
     };
   });
 
-  return <CategoriesClient reviews={reviews} />;
+  return (
+    <div className="relative flex min-h-screen w-full flex-col">
+      <main className="container mx-auto px-4 py-8 lg:py-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <FilterSidebar />
+          <CategoriesClient reviews={reviews} />
+        </div>
+      </main>
+    </div>
+  );
 }

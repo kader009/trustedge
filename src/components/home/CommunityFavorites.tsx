@@ -1,23 +1,9 @@
 import ProductCard from '../product/ProductCard';
 import { Product } from '@/src/types/ProductType';
+import { getProducts } from '@/src/lib/api';
 
 const CommunityFavorites = async () => {
-  let products: Product[] = [];
-
-  try {
-    const response = await fetch(
-      'https://trustedge-backend.vercel.app/api/v1/products?limit=8',
-      {
-        cache: 'no-store',
-      }
-    );
-    const data = await response.json();
-    if (data.success) {
-      products = data.data;
-    }
-  } catch (error) {
-    console.error('Failed to fetch products:', error);
-  }
+  const products: Product[] = await getProducts(8);
 
   // Transform products to match ProductCard props
   const favoriteProducts = products.slice(0, 4).map((product, index) => {

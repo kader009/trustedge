@@ -1,39 +1,7 @@
-import { Category as CategoryType } from '@/src/types/CategoryType';
+import { getAllData } from '@/src/lib/api';
 
 const ReviewChart = async () => {
-  let categories: CategoryType[] = [];
-  let reviews: any[] = [];
-  let products: any[] = [];
-
-  try {
-    const [categoryRes, reviewRes, productRes] = await Promise.all([
-      fetch('https://trustedge-backend.vercel.app/api/v1/category', {
-        cache: 'no-store',
-      }),
-      fetch('https://trustedge-backend.vercel.app/api/v1/review', {
-        cache: 'no-store',
-      }),
-      fetch('https://trustedge-backend.vercel.app/api/v1/products', {
-        cache: 'no-store',
-      }),
-    ]);
-
-    const categoryData = await categoryRes.json();
-    const reviewData = await reviewRes.json();
-    const productData = await productRes.json();
-
-    if (categoryData.success) {
-      categories = categoryData.data;
-    }
-    if (reviewData.success) {
-      reviews = reviewData.data;
-    }
-    if (productData.success) {
-      products = productData.data;
-    }
-  } catch (error) {
-    console.error('Failed to fetch data:', error);
-  }
+  const { products, categories, reviews } = await getAllData();
 
   return (
     <section className="mb-16">

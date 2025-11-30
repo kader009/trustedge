@@ -1,23 +1,9 @@
 import { Category as CategoryType } from '@/src/types/CategoryType';
 import Link from 'next/link';
+import { getCategories } from '@/src/lib/api';
 
 const Category = async () => {
-  let categories: CategoryType[] = [];
-
-  try {
-    const response = await fetch(
-      'https://trustedge-backend.vercel.app/api/v1/category',
-      {
-        cache: 'no-store',
-      }
-    );
-    const data = await response.json();
-    if (data.success) {
-      categories = data.data;
-    }
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-  }
+  const categories: CategoryType[] = await getCategories();
 
   return (
     <section className="mb-16">

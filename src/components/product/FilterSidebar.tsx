@@ -1,22 +1,8 @@
 import { Category } from '@/src/types/CategoryType';
+import { getCategories } from '@/src/lib/api';
 
 const FilterSidebar = async () => {
-  let categories: Category[] = [];
-
-  try {
-    const response = await fetch(
-      'https://trustedge-backend.vercel.app/api/v1/category',
-      {
-        cache: 'no-store',
-      }
-    );
-    const data = await response.json();
-    if (data.success) {
-      categories = data.data;
-    }
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-  }
+  const categories: Category[] = await getCategories();
 
   return (
     <aside className="w-full lg:w-64 xl:w-72 shrink-0">
@@ -42,7 +28,9 @@ const FilterSidebar = async () => {
                 </label>
               ))
             ) : (
-              <p className="text-sm text-neutral-500">No categories available</p>
+              <p className="text-sm text-neutral-500">
+                No categories available
+              </p>
             )}
           </div>
         </div>
