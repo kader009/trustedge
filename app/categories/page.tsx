@@ -37,8 +37,7 @@ export default async function CategoriesPage() {
       'text-teal-600',
       'text-blue-500',
     ];
-    const randomColor =
-      colors[Math.floor(Math.random() * colors.length)];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
     return {
       id: product._id,

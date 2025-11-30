@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Pagination from '@/src/components/product/Pagination';
 import ReviewCard from '@/src/components/product/ReviewCard';
 
@@ -10,6 +11,53 @@ interface CategoriesClientProps {
 
 export default function CategoriesClient({ reviews }: CategoriesClientProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const searchParams = useSearchParams();
+
+  const itemsPerPage = 9;
+
+  const filteredReviews = reviews.filter((review) => {
+    const query = searchQuery.toLowerCase();
+
+    // Search Filter
+    const searchMatch =
+      review.title?.toLowerCase().includes(query) ||
+      review.category?.toLowerCase().includes(query) ||
+      review.product?.title?.toLowerCase().includes(query);
+
+    // Category Filter
+    const categoryParam = searchParams.get('category');
+    const selectedCategories = categoryParam ? categoryParam.split(',') : [];
+    const categoryMatch =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(review.category);
+
+    // Rating Filter
+    const ratingParam = searchParams.get('rating');
+    const minRating = ratingParam ? Number(ratingParam) : 0;
+    const ratingMatch = (review.rating || 0) >= minRating;
+
+    return searchMatch && categoryMatch && ratingMatch;
+  });
+
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredReviews.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedReviews = filteredReviews.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, searchParams]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="flex-1">
@@ -38,7 +86,8 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
               <input
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-neutral-800 dark:text-neutral-100 focus:outline-0  border-y border-r border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100 dark:bg-neutral-900 h-full placeholder:text-neutral-300 dark:placeholder:text-neutral-500 pl-2 text-base font-normal leading-normal"
                 placeholder="Search reviews..."
-                defaultValue=""
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </label>
@@ -111,12 +160,24 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
             : 'grid-cols-1'
         }`}
       >
-        {reviews.map((review) => (
-          <ReviewCard key={review.id} {...review} />
-        ))}
+        {paginatedReviews.length > 0 ? (
+          paginatedReviews.map((review) => (
+            <ReviewCard key={review.id} {...review} />
+          ))
+        ) : (
+          <div className="col-span-full text-center py-12">
+            <p className="text-lg text-neutral-500 dark:text-neutral-400">
+              No reviews found matching "{searchQuery}"
+            </p>
+          </div>
+        )}
       </div>
 
-      <Pagination />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }
