@@ -32,9 +32,15 @@ const Category = async () => {
               className="group relative flex flex-col items-center justify-center p-6 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               href={`/categories?category=${encodeURIComponent(category.name)}`}
             >
-              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white overflow-hidden">
+              <div className="mb-3 flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white overflow-hidden">
                 <img
-                  src={category.image}
+                  src={
+                    category.image.includes('ibb.co.com')
+                      ? `https://i.ibb.co/${category.image
+                          .split('/')
+                          .pop()}/image.png`
+                      : category.image
+                  }
                   alt={category.name}
                   className="h-full w-full object-cover"
                 />
