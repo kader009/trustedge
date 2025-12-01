@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
 import { useLoginMutation } from '@/src/redux/store/api/endApi';
 import { RootState } from '@/src/redux/store/store';
 import { setEmail, setPassword } from '@/src/redux/userAuth/loginSlice';
+import { loginSchema } from '@/src/validation/authSchema';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -12,6 +13,9 @@ import { toast } from 'sonner';
 
 const Loginview = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state: RootState) => state.login);
   const [login] = useLoginMutation();
@@ -19,6 +23,27 @@ const Loginview = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    // Validate form data using Zod
+    const validationResult = loginSchema.safeParse({
+      email,
+      password,
+    });
+
+    if (!validationResult.success) {
+      // Collect and set validation errors
+      const newErrors: { email?: string; password?: string } = {};
+      validationResult.error.issues.forEach((error) => {
+        const field = error.path[0] as 'email' | 'password';
+        if (!newErrors[field]) {
+          newErrors[field] = error.message;
+        }
+      });
+      setErrors(newErrors);
+      return;
+    }
+
     try {
       const user = await login({ email, password });
       console.log(user);
@@ -55,6 +80,9 @@ const Loginview = () => {
                 onChange={(e) => dispatch(setEmail(e.target.value))}
               />
             </div>
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
           </label>
           <label className="flex flex-col w-full">
             <div className="flex justify-between items-baseline pb-2">
@@ -82,6 +110,9 @@ const Loginview = () => {
                 )}
               </button>
             </div>
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+            )}
           </label>
           <button
             className="flex min-w-[84px] w-full mt-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors"

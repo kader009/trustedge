@@ -10,6 +10,7 @@ import {
   setProfileImage,
   setRole,
 } from '@/src/redux/userAuth/registerSlice';
+import { registerSchema } from '@/src/validation/authSchema';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -17,6 +18,13 @@ import { toast } from 'sonner';
 
 const Registerview = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    password?: string;
+    profileImage?: string;
+    role?: string;
+  }>({});
   const dispatch = useAppDispatch();
   const { name, email, profileImage, password, role } = useAppSelector(
     (state: RootState) => state.register
@@ -26,6 +34,41 @@ const Registerview = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    // Validate form data using Zod
+    const validationResult = registerSchema.safeParse({
+      name,
+      email,
+      password,
+      profileImage,
+      role,
+    });
+
+    if (!validationResult.success) {
+      // Collect and set validation errors
+      const newErrors: {
+        name?: string;
+        email?: string;
+        password?: string;
+        profileImage?: string;
+        role?: string;
+      } = {};
+      validationResult.error.issues.forEach((error) => {
+        const field = error.path[0] as
+          | 'name'
+          | 'email'
+          | 'password'
+          | 'profileImage'
+          | 'role';
+        if (!newErrors[field]) {
+          newErrors[field] = error.message;
+        }
+      });
+      setErrors(newErrors);
+      return;
+    }
+
     try {
       const user = await signUp({
         name,
@@ -71,6 +114,9 @@ const Registerview = () => {
                 onChange={(e) => dispatch(setName(e.target.value))}
               />
             </div>
+            {errors.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            )}
           </label>
           <label className="flex flex-col w-full">
             <p className="text-[#333333] dark:text-gray-200 text-sm font-medium leading-normal pb-2">
@@ -85,6 +131,9 @@ const Registerview = () => {
                 onChange={(e) => dispatch(setEmail(e.target.value))}
               />
             </div>
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
           </label>
           <label className="flex flex-col w-full">
             <p className="text-[#333333] dark:text-gray-200 text-sm font-medium leading-normal pb-2">
@@ -99,6 +148,9 @@ const Registerview = () => {
                 onChange={(e) => dispatch(setProfileImage(e.target.value))}
               />
             </div>
+            {errors.profileImage && (
+              <p className="text-red-500 text-xs mt-1">{errors.profileImage}</p>
+            )}
           </label>
 
           <label className="flex flex-col w-full">
@@ -127,6 +179,9 @@ const Registerview = () => {
                 )}
               </button>
             </div>
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+            )}
           </label>
           <label className="flex flex-col w-full">
             <p className="text-[#333333] dark:text-gray-200 text-sm font-medium leading-normal pb-2">
@@ -145,6 +200,9 @@ const Registerview = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
+            {errors.role && (
+              <p className="text-red-500 text-xs mt-1">{errors.role}</p>
+            )}
           </label>
           <button
             className="flex min-w-[84px] w-full mt-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors"
