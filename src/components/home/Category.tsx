@@ -1,5 +1,6 @@
 import { Category as CategoryType } from '@/src/types/CategoryType';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getCategories } from '@/src/lib/api';
 
 const Category = async () => {
@@ -19,7 +20,7 @@ const Category = async () => {
               href={`/categories?category=${encodeURIComponent(category.name)}`}
             >
               <div className="mb-3 flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white overflow-hidden">
-                <img
+                <Image
                   src={
                     category.image.includes('ibb.co.com')
                       ? `https://i.ibb.co/${category.image
@@ -28,6 +29,8 @@ const Category = async () => {
                       : category.image
                   }
                   alt={category.name}
+                  width={96}
+                  height={96}
                   className="h-full w-full object-cover"
                 />
               </div>
