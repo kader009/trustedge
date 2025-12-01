@@ -6,14 +6,14 @@ const CACHE_REVALIDATE = 300;
 
 export async function getProducts(limit?: number) {
   try {
-    const url = limit 
+    const url = limit
       ? `${API_BASE_URL}/products?limit=${limit}`
       : `${API_BASE_URL}/products`;
-    
+
     const response = await fetch(url, {
       next: { revalidate: CACHE_REVALIDATE }, // Cache for 5 minutes
     });
-    
+
     const data = await response.json();
     return data.success ? data.data : [];
   } catch (error) {
@@ -27,7 +27,7 @@ export async function getCategories() {
     const response = await fetch(`${API_BASE_URL}/category`, {
       next: { revalidate: CACHE_REVALIDATE }, // Cache for 5 minutes
     });
-    
+
     const data = await response.json();
     return data.success ? data.data : [];
   } catch (error) {
@@ -41,12 +41,30 @@ export async function getReviews() {
     const response = await fetch(`${API_BASE_URL}/review`, {
       next: { revalidate: CACHE_REVALIDATE }, // Cache for 5 minutes
     });
-    
+
     const data = await response.json();
     return data.success ? data.data : [];
   } catch (error) {
     console.error('Failed to fetch reviews:', error);
     return [];
+  }
+}
+
+export async function getReviewById(id: string) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/review/${id}`, {
+      next: { revalidate: CACHE_REVALIDATE },
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+    return data.success ? data.data : null;
+  } catch (error) {
+    console.error(`Failed to fetch review ${id}:`, error);
+    return null;
   }
 }
 
@@ -57,6 +75,6 @@ export async function getAllData() {
     getCategories(),
     getReviews(),
   ]);
-  
+
   return { products, categories, reviews };
 }

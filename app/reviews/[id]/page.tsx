@@ -6,84 +6,131 @@ import {
   FaFlag,
 } from 'react-icons/fa';
 import Link from 'next/link';
+import {
+  getReviewById,
+  getReviews,
+  getProducts,
+  getCategories,
+} from '@/src/lib/api';
+import { notFound } from 'next/navigation';
 
-export default function ReviewDetailPage({
+export default async function ReviewDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  // Mock data for the review - In a real app, fetch based on params.id
-  const review = {
-    id: params.id,
-    title: 'Incredible Sound, Unbeatable Comfort',
-    author: {
-      name: 'soundguy',
-      avatar: 'https://i.pravatar.cc/150?u=soundguy',
-      role: 'Verified Buyer',
-    },
-    date: 'Nov 02, 2023',
-    rating: 5,
-    category: 'Electronics',
-    source: 'Amazon',
-    sourceLink: '#',
-    content: `
-      <p class="mb-4">I've been using these headphones for about two weeks now, and I am absolutely blown away by the sound quality. The bass is deep and punchy without muddying the mids and highs. Whether I'm listening to classical music or heavy metal, everything sounds crystal clear.</p>
-      <p class="mb-4">The noise cancellation is top-notch. I wear these on my commute, and they completely block out the sound of the train. It's like being in my own little world.</p>
-      <p>Comfort is another huge plus. The ear cups are soft and don't press too hard on my ears, even after wearing them for hours. Battery life is also impressive; I've only had to charge them once since I got them.</p>
-    `,
-    images: [
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=1000&auto=format&fit=crop',
-    ],
-    likes: 215,
-    dislikes: 12,
-    comments: [
-      {
-        id: 1,
-        author: 'AudioFan99',
-        avatar: 'https://i.pravatar.cc/150?u=AudioFan99',
-        date: 'Nov 03, 2023',
-        text: "Totally agree about the bass! It's surprising for this price point.",
+  const { id } = await params;
+  let reviewData = await getReviewById(id);
+
+  // Fallback: If review not found, try to get product data
+  if (!reviewData) {
+    const products = await getProducts(100); // Fetch more products
+    const product = products.find((p: any) => p._id === id);
+
+    if (!product) {
+      notFound();
+    }
+
+    // Create a mock review from product data
+    reviewData = {
+      _id: product._id,
+      productId: product,
+      user: {
+        name: 'Verified Buyer',
+        avatar: null,
       },
-      {
-        id: 2,
-        author: 'CommuterJoe',
-        avatar: 'https://i.pravatar.cc/150?u=CommuterJoe',
-        date: 'Nov 04, 2023',
-        text: 'How is the microphone quality for calls?',
-      },
-    ],
+      rating: product.rating || 5,
+      review: product.description || 'Great product! Highly recommended.',
+      createdAt: new Date().toISOString(),
+      likes: Math.floor(Math.random() * 200) + 50,
+      comments: [],
+    };
+  }
+
+  // Fetch categories to map category IDs to names
+  const categories = await getCategories();
+  const categoryMap = new Map();
+  categories.forEach((cat: any) => {
+    categoryMap.set(cat._id, cat.name);
+  });
+
+  const product = reviewData.productId || {};
+  const categoryName =
+    categoryMap.get(product.category) || product.category || 'General';
+
+  // Get related products from same category
+  const allProducts = await getProducts(100);
+  const relatedProducts = allProducts
+    .filter(
+      (p: any) => p.category === product.category && p._id !== product._id
+    )
+    .slice(0, 2);
+
+  // Helper to get image
+  const getProductImage = (prod: any) => {
+    if (prod.images && prod.images.length > 0) {
+      const originalImage = prod.images[0];
+      if (originalImage.includes('ibb.co')) {
+        const imageId = originalImage.split('/').pop();
+        return `https://i.ibb.co/${imageId}/image.png`;
+      }
+      return originalImage;
+    }
+    return 'https://via.placeholder.com/400x300/6366f1/ffffff?text=No+Image';
   };
 
-  // Mock related reviews
-  const relatedReviews = [
-    {
-      id: 3,
-      category: 'Electronics',
-      categoryColor: 'text-primary',
-      title: 'The Smartwatch That Does It All',
-      rating: 4,
-      imageUrl:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuB3-S3_0rWgNKiMGsJ0Xjx4nfGIe6k5xHv95w-4tC2TBsuKYGbgb0u0bAWPZysdcnYbTsnHM7zdeufYK1nqhBQ16TpX2_SvO5awhoLhPzDyeRmq2mKOSzwiHAHAFpnIgy5x8OE9Sa361ZRs7r-isvjgalqlHS8g4HNxNEtO_k0omzl6pXZdZFhbXwMnT4tlv3ngjQUKAHqMT1fLb1BdsebqcquY_gLss-GIfixU2qMmxVto6YbXb8RoNbOuOhGqdrXe1UiGIah_Aw',
-      author: 'techsavvy',
-      date: 'Oct 25, 2023',
-      likes: 121,
-      comments: 18,
+  const review = {
+    id: reviewData._id,
+    title: product.title || 'Review',
+    author: {
+      name: reviewData.user?.name || 'Anonymous',
+      avatar:
+        reviewData.user?.avatar ||
+        `https://ui-avatars.com/api/?name=${reviewData.user?.name || 'User'}`,
+      role: 'Verified Buyer',
     },
-    {
-      id: 4,
-      category: 'Electronics',
+    date: new Date(reviewData.createdAt).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    }),
+    rating: reviewData.rating || 0,
+    category: categoryName,
+    source: 'TrustEdge',
+    sourceLink: '#',
+    content: `<p>${reviewData.review || ''}</p>`,
+    images: product.images
+      ? product.images.map((img: string) => {
+          if (img.includes('ibb.co')) {
+            const imageId = img.split('/').pop();
+            return `https://i.ibb.co/${imageId}/image.png`;
+          }
+          return img;
+        })
+      : [],
+    likes: reviewData.likes || 0,
+    dislikes: 0,
+    comments:
+      reviewData.comments?.map((c: any, index: number) => ({
+        id: index,
+        author: c.user?.name || 'User',
+        avatar: `https://ui-avatars.com/api/?name=${c.user?.name || 'User'}`,
+        date: new Date(c.createdAt || Date.now()).toLocaleDateString(),
+        text: c.comment,
+      })) || [],
+  };
+
+  const relatedReviews = relatedProducts.map((p: any) => {
+    return {
+      id: p._id,
+      category: categoryName,
       categoryColor: 'text-primary',
-      title: 'Best Wireless Earbuds 2023',
-      rating: 5,
-      imageUrl:
-        'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=1000&auto=format&fit=crop',
-      author: 'musiclover',
-      date: 'Oct 22, 2023',
-      likes: 98,
-      comments: 15,
-    },
-  ];
+      title: p.title || 'Product',
+      price: p.price || 0,
+      rating: p.rating || 0,
+      imageUrl: getProductImage(p),
+    };
+  });
 
   return (
     <div className="min-h-screen dark:bg-gray-900 pb-12">
@@ -142,7 +189,7 @@ export default function ReviewDetailPage({
                       ))}
                     </div>
                     <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {review.rating}.0/5.0
+                      {review.rating.toFixed(1)}/5.0
                     </span>
                   </div>
                 </div>
@@ -294,11 +341,15 @@ export default function ReviewDetailPage({
           <div className="space-y-6">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
-                Related Reviews
+                Related Products
               </h3>
               <div className="flex flex-col gap-4">
                 {relatedReviews.map((related) => (
-                  <div key={related.id} className="group cursor-pointer">
+                  <Link
+                    key={related.id}
+                    href={`/reviews/${related.id}`}
+                    className="group cursor-pointer block"
+                  >
                     <div className="aspect-video rounded-lg overflow-hidden mb-2">
                       <img
                         src={related.imageUrl}
@@ -306,16 +357,22 @@ export default function ReviewDetailPage({
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                    <span className="text-xs font-semibold uppercase text-primary mb-1 block">
+                      {related.category}
+                    </span>
+                    <h4 className="font-semibold text-gray-900 dark:text-white leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">
                       {related.title}
                     </h4>
-                    <div className="flex items-center gap-1 mt-1">
+                    <p className="text-lg font-bold text-primary mb-1">
+                      ${related.price.toFixed(2)}
+                    </p>
+                    <div className="flex items-center gap-1">
                       <FaStar className="text-yellow-400 text-xs" />
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {related.rating}.0
+                        {related.rating.toFixed(1)}
                       </span>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

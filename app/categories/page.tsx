@@ -4,7 +4,7 @@ import { getProducts, getCategories } from '@/src/lib/api';
 
 export default async function CategoriesPage() {
   const [products, categories] = await Promise.all([
-    getProducts(20),
+    getProducts(12),
     getCategories(),
   ]);
 
