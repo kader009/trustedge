@@ -13,11 +13,13 @@ import storage from 'redux-persist/lib/storage';
 import { baseApi } from './api/baseApi';
 import registerReducer from '../userAuth/registerSlice';
 import loginReducer from '../userAuth/loginSlice';
+import userReducer from '../userAuth/userSlice';
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   register: registerReducer,
   login: loginReducer,
+  user: userReducer,
 });
 
 const persistConfig = {

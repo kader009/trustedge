@@ -4,7 +4,7 @@ const EduNestApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     signUp: build.mutation({
       query: (userInfo) => ({
-        url: '/api/v1/user',
+        url: '/api/v1/auth/register',
         method: 'POST',
         body: userInfo,
       }),
@@ -13,7 +13,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // login route here
     login: build.mutation({
       query: (userInfo) => ({
-        url: '/api/v1/login',
+        url: '/api/v1/auth/login',
         method: 'POST',
         body: userInfo,
       }),

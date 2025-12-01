@@ -1,10 +1,53 @@
 'use client';
 import SocialLog from '@/src/components/social/SocialLog';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
+import { useSignUpMutation } from '@/src/redux/store/api/endApi';
+import { RootState } from '@/src/redux/store/store';
+import {
+  setName,
+  setEmail,
+  setPassword,
+  setProfileImage,
+  setRole,
+} from '@/src/redux/userAuth/registerSlice';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { toast } from 'sonner';
 
 const Registerview = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useAppDispatch();
+  const { name, email, profileImage, password, role } = useAppSelector(
+    (state: RootState) => state.register
+  );
+  const [signUp] = useSignUpMutation();
+  const router = useRouter();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const user = await signUp({
+        name,
+        email,
+        profileImage,
+        password,
+        role,
+      });
+      console.log(user);
+      toast.success('Registration successful!');
+      router.replace('/login');
+
+      dispatch(setName(''));
+      dispatch(setEmail(''));
+      dispatch(setProfileImage(''));
+      dispatch(setPassword(''));
+      dispatch(setRole(''));
+    } catch (error) {
+      console.log(error);
+      toast.error('Registration failed. Please try again.');
+    }
+  };
   return (
     <main className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8">
       <div className="flex flex-col w-full max-w-md mx-auto bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-8">
@@ -14,7 +57,7 @@ const Registerview = () => {
         <p className="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal pb-6 text-center">
           Register to share and discover product reviews.
         </p>
-        <div className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <label className="flex flex-col w-full">
             <p className="text-[#333333] dark:text-gray-200 text-sm font-medium leading-normal pb-2">
               Name
@@ -24,13 +67,9 @@ const Registerview = () => {
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
                 placeholder="Enter your name"
                 type="name"
+                value={name}
+                onChange={(e) => dispatch(setName(e.target.value))}
               />
-              <button
-                type="button"
-                className="absolute inset-y-0 right-0 flex items-center pr-3 opacity-0 cursor-default"
-                tabIndex={-1}
-                aria-hidden="true"
-              ></button>
             </div>
           </label>
           <label className="flex flex-col w-full">
@@ -42,13 +81,9 @@ const Registerview = () => {
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
                 placeholder="Enter your email"
                 type="email"
+                value={email}
+                onChange={(e) => dispatch(setEmail(e.target.value))}
               />
-              <button
-                type="button"
-                className="absolute inset-y-0 right-0 flex items-center pr-3 opacity-0 cursor-default"
-                tabIndex={-1}
-                aria-hidden="true"
-              ></button>
             </div>
           </label>
           <label className="flex flex-col w-full">
@@ -60,13 +95,9 @@ const Registerview = () => {
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
                 placeholder="Enter your profile image"
                 type="text"
+                value={profileImage}
+                onChange={(e) => dispatch(setProfileImage(e.target.value))}
               />
-              <button
-                type="button"
-                className="absolute inset-y-0 right-0 flex items-center pr-3 opacity-0 cursor-default"
-                tabIndex={-1}
-                aria-hidden="true"
-              ></button>
             </div>
           </label>
 
@@ -81,6 +112,8 @@ const Registerview = () => {
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
                 placeholder="Enter your password"
                 type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => dispatch(setPassword(e.target.value))}
               />
               <button
                 type="button"
@@ -100,7 +133,11 @@ const Registerview = () => {
               Role
             </p>
             <div className="relative">
-              <select className="form-select appearance-none flex w-full min-w-0 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal">
+              <select
+                className="form-select appearance-none flex w-full min-w-0 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
+                value={role}
+                onChange={(e) => dispatch(setRole(e.target.value))}
+              >
                 <option value="" disabled selected>
                   Select Role
                 </option>
@@ -109,10 +146,13 @@ const Registerview = () => {
               </select>
             </div>
           </label>
-        </div>
-        <button className="flex min-w-[84px] w-full mt-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-          <span className="truncate">Sign up</span>
-        </button>
+          <button
+            className="flex min-w-[84px] w-full mt-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors"
+            type="submit"
+          >
+            Sign up
+          </button>
+        </form>
         <div className="relative flex py-5 items-center">
           <div className="grow border-t border-gray-300 dark:border-gray-600"></div>
           <span className="shrink mx-4 text-gray-400 dark:text-gray-500 text-sm">
