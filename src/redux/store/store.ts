@@ -10,9 +10,14 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { baseApi } from './api/baseApi';
+import registerReducer from '../userAuth/registerSlice';
+import loginReducer from '../userAuth/loginSlice';
 
 const rootReducer = combineReducers({
-  
+  [baseApi.reducerPath]: baseApi.reducer,
+  register: registerReducer,
+  login: loginReducer,
 });
 
 const persistConfig = {
@@ -30,7 +35,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(baseApi.middleware),
 });
 
 export const persistor = persistStore(store);
