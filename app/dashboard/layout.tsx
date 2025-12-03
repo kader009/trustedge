@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from '@/src/redux/hook';
 import { logout } from '@/src/redux/userAuth/userSlice';
 import { RootState } from '@/src/redux/store/store';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
@@ -88,13 +89,37 @@ export default function DashboardLayout({
       <div className="flex">
         {/* Sidebar */}
         <aside className="w-64 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark h-screen sticky top-0 flex flex-col">
-          <div className="p-6">
-            <h2 className="text-xl font-bold text-text-light dark:text-text-dark mb-2">
+          {/* User Profile Section */}
+          <div className="p-6 border-b border-border-light dark:border-border-dark">
+            <div className="flex items-center gap-3">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                {user.image ? (
+                  <Image
+                    src={user.image}
+                    alt={user.name}
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                ) : (
+                  <FaUser className="w-6 h-6 text-gray-400" />
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-sm font-bold text-text-light dark:text-text-dark truncate">
+                  {user.name}
+                </h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
+                  {user.role}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-6 py-4">
+            <h3 className="text-lg font-bold text-text-light dark:text-text-dark">
               {isAdmin ? 'Admin Dashboard' : 'My Dashboard'}
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Welcome, {user.name}
-            </p>
+            </h3>
           </div>
 
           {/* Scrollable Navigation */}
