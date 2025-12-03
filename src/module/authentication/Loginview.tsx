@@ -132,6 +132,17 @@ const Loginview = () => {
             Log In
           </button>
         </form>
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Don&apos;t have an account?{' '}
+            <a
+              href="/register"
+              className="text-primary font-semibold hover:underline"
+            >
+              Sign up
+            </a>
+          </p>
+        </div>
         <div className="relative flex py-5 items-center">
           <div className="grow border-t border-gray-300 dark:border-gray-600"></div>
           <span className="shrink mx-4 text-gray-400 dark:text-gray-500 text-sm">
