@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FaUser, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,8 @@ const Navbar = () => {
     dispatch(logout());
     setShowDropdown(false);
     setShowMobileMenu(false);
-    router.push('/');
+    toast.success('Logged out successfully!');
+    router.push('/login');
   };
 
   return (

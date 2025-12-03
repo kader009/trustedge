@@ -1,10 +1,12 @@
 'use client';
 
-import { useAppSelector } from '@/src/redux/hook';
+import { useAppSelector, useAppDispatch } from '@/src/redux/hook';
+import { logout } from '@/src/redux/userAuth/userSlice';
 import { RootState } from '@/src/redux/store/store';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 import {
   FaHome,
   FaUser,
@@ -14,6 +16,7 @@ import {
   FaUsers,
   FaChartBar,
   FaClipboardList,
+  FaSignOutAlt,
 } from 'react-icons/fa';
 
 export default function DashboardLayout({
@@ -21,9 +24,22 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const dispatch = useAppDispatch();
   const { user, token } = useAppSelector((state: RootState) => state.user);
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (!token || !user) {
+      router.replace('/login');
+    }
+  }, [token, user, router]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success('Logged out successfully!');
+    router.push('/');
+  };
 
   useEffect(() => {
     if (!token || !user) {
@@ -71,7 +87,7 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark min-h-screen sticky top-0">
+        <aside className="w-64 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark h-screen sticky top-0 flex flex-col">
           <div className="p-6">
             <h2 className="text-xl font-bold text-text-light dark:text-text-dark mb-2">
               {isAdmin ? 'Admin Dashboard' : 'My Dashboard'}
@@ -80,7 +96,9 @@ export default function DashboardLayout({
               Welcome, {user.name}
             </p>
           </div>
-          <nav className="px-4">
+
+          {/* Scrollable Navigation */}
+          <nav className="px-4 flex-1 overflow-y-auto">
             {links.map((link) => {
               const isActive = pathname === link.href;
               const Icon = link.icon;
@@ -100,7 +118,9 @@ export default function DashboardLayout({
               );
             })}
           </nav>
-          <div className="p-4 mt-auto absolute bottom-4 left-4 right-4">
+
+          {/* Bottom Buttons */}
+          <div className="p-4 border-t border-border-light dark:border-border-dark space-y-2">
             <Link
               href="/"
               className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -108,6 +128,13 @@ export default function DashboardLayout({
               <FaHome className="w-5 h-5" />
               <span className="font-medium">Back to Home</span>
             </Link>
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-primary hover:bg-primary/10 transition-colors"
+            >
+              <FaSignOutAlt className="w-5 h-5" />
+              <span className="font-medium">Logout</span>
+            </button>
           </div>
         </aside>
 

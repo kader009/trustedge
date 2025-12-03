@@ -1,6 +1,24 @@
+'use client';
 import { FaStar } from 'react-icons/fa';
+import { useAppSelector } from '@/src/redux/hook';
+import { RootState } from '@/src/redux/store/store';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function CreateReviewPage() {
+  const { token } = useAppSelector((state: RootState) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    }
+  }, [token, router]);
+
+  if (!token) {
+    return null;
+  }
+
   return (
     <main className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8">
       <div className="layout-content-container flex flex-col w-full max-w-3xl flex-1">

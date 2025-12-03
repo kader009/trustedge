@@ -1,5 +1,3 @@
-'use client';
-
 import { FaShieldAlt, FaServer, FaEnvelope, FaDatabase } from 'react-icons/fa';
 
 export default function AdminSettingsPage() {

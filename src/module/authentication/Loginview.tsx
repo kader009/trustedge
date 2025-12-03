@@ -19,7 +19,7 @@ const Loginview = () => {
   );
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state: RootState) => state.login);
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const route = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -126,10 +126,18 @@ const Loginview = () => {
             )}
           </label>
           <button
-            className="flex min-w-[84px] w-full mt-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors"
+            className="flex min-w-[84px] w-full mt-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             type="submit"
+            disabled={isLoading}
           >
-            Log In
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Logging in...</span>
+              </div>
+            ) : (
+              'Log In'
+            )}
           </button>
         </form>
         <div className="text-center mt-4">
