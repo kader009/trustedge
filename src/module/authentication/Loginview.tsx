@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
 import { useLoginMutation } from '@/src/redux/store/api/endApi';
 import { RootState } from '@/src/redux/store/store';
 import { setEmail, setPassword } from '@/src/redux/userAuth/loginSlice';
+import { setUser } from '@/src/redux/userAuth/userSlice';
 import { loginSchema } from '@/src/validation/authSchema';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -45,8 +46,18 @@ const Loginview = () => {
     }
 
     try {
-      const user = await login({ email, password });
-      console.log(user);
+      const response = await login({ email, password }).unwrap();
+      console.log(response);
+
+      // Extract user and token from nested response structure
+      const userData = {
+        user: response.data.user,
+        token: response.data.accessToken,
+      };
+
+      // Dispatch to Redux store
+      dispatch(setUser(userData));
+
       toast.success('Login successful!');
       route.replace('/');
       dispatch(setEmail(''));

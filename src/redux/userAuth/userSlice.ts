@@ -6,8 +6,13 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  photoUrl: string;
+  photoUrl?: string;
+  profileImage?: string;
   role: string;
+  status?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  isDeleted?: boolean;
 }
 
 interface LoginResponse {

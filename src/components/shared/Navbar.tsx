@@ -1,6 +1,11 @@
+'use client';
+import { useAppSelector } from '@/src/redux/hook';
+import { RootState } from '@/src/redux/store/store';
 import Link from 'next/link';
 
 const Navbar = () => {
+  const { user } = useAppSelector((state: RootState) => state.user);
+  console.log('Navbar user:', user);
   return (
     <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
       <div className="container mx-auto px-4">
@@ -44,7 +49,7 @@ const Navbar = () => {
               </Link>
             </nav>
           </div>
-          
+
           <div className="flex-1 flex justify-center px-4">
             <label className="hidden sm:flex flex-col w-full max-w-md h-10">
               <div className="flex w-full flex-1 items-stretch rounded-lg h-full">
