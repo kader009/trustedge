@@ -99,7 +99,7 @@ export default function DashboardLayout({
                     alt={user.name}
                     width={48}
                     height={48}
-                    className="object-cover"
+                    className="object-cover rounded-full w-full h-full"
                   />
                 ) : (
                   <FaUser className="w-6 h-6 text-gray-400" />
