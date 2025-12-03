@@ -7,7 +7,7 @@ import {
   setName,
   setEmail,
   setPassword,
-  setProfileImage,
+  setImage,
   setRole,
 } from '@/src/redux/userAuth/registerSlice';
 import { registerSchema } from '@/src/validation/authSchema';
@@ -22,11 +22,11 @@ const Registerview = () => {
     name?: string;
     email?: string;
     password?: string;
-    profileImage?: string;
+    image?: string;
     role?: string;
   }>({});
   const dispatch = useAppDispatch();
-  const { name, email, profileImage, password, role } = useAppSelector(
+  const { name, email, image, password, role } = useAppSelector(
     (state: RootState) => state.register
   );
   const [signUp] = useSignUpMutation();
@@ -41,7 +41,7 @@ const Registerview = () => {
       name,
       email,
       password,
-      profileImage,
+      image,
       role,
     });
 
@@ -51,7 +51,7 @@ const Registerview = () => {
         name?: string;
         email?: string;
         password?: string;
-        profileImage?: string;
+        image?: string;
         role?: string;
       } = {};
       validationResult.error.issues.forEach((error) => {
@@ -59,7 +59,7 @@ const Registerview = () => {
           | 'name'
           | 'email'
           | 'password'
-          | 'profileImage'
+          | 'image'
           | 'role';
         if (!newErrors[field]) {
           newErrors[field] = error.message;
@@ -73,7 +73,7 @@ const Registerview = () => {
       const user = await signUp({
         name,
         email,
-        profileImage,
+        image,
         password,
         role,
       });
@@ -83,7 +83,7 @@ const Registerview = () => {
 
       dispatch(setName(''));
       dispatch(setEmail(''));
-      dispatch(setProfileImage(''));
+      dispatch(setImage(''));
       dispatch(setPassword(''));
       dispatch(setRole(''));
     } catch (error) {
@@ -144,12 +144,12 @@ const Registerview = () => {
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
                 placeholder="Enter your profile image"
                 type="text"
-                value={profileImage}
-                onChange={(e) => dispatch(setProfileImage(e.target.value))}
+                value={image}
+                onChange={(e) => dispatch(setImage(e.target.value))}
               />
             </div>
-            {errors.profileImage && (
-              <p className="text-red-500 text-xs mt-1">{errors.profileImage}</p>
+            {errors.image && (
+              <p className="text-red-500 text-xs mt-1">{errors.image}</p>
             )}
           </label>
 

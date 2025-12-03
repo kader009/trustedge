@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface registerState{
+interface registerState {
   name: string;
   email: string;
   password: string;
-  profileImage: string;
+  image: string;
   role: string;
 }
 
@@ -12,31 +12,32 @@ const initialState: registerState = {
   name: '',
   email: '',
   password: '',
-  profileImage: '',
+  image: '',
   role: '',
 };
 
 const registerSlice = createSlice({
   name: 'register',
   initialState,
-  reducers: { 
-    setName(state, action:PayloadAction<string>) {
+  reducers: {
+    setName(state, action: PayloadAction<string>) {
       state.name = action.payload;
     },
-    setEmail(state, action:PayloadAction<string>) {
+    setEmail(state, action: PayloadAction<string>) {
       state.email = action.payload;
     },
-    setPassword(state, action:PayloadAction<string>) {
+    setPassword(state, action: PayloadAction<string>) {
       state.password = action.payload;
     },
-    setProfileImage(state, action:PayloadAction<string>) {
-      state.profileImage = action.payload;
+    setImage(state, action: PayloadAction<string>) {
+      state.image = action.payload;
     },
-    setRole(state, action:PayloadAction<string>) {
+    setRole(state, action: PayloadAction<string>) {
       state.role = action.payload;
     },
   },
-})
+});
 
-export const { setName, setEmail, setPassword, setProfileImage, setRole } = registerSlice.actions;
+export const { setName, setEmail, setPassword, setImage, setRole } =
+  registerSlice.actions;
 export default registerSlice.reducer;

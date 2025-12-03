@@ -1,11 +1,24 @@
 'use client';
-import { useAppSelector } from '@/src/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
+import { logout } from '@/src/redux/userAuth/userSlice';
 import { RootState } from '@/src/redux/store/store';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { useState } from 'react';
 
 const Navbar = () => {
-  const { user } = useAppSelector((state: RootState) => state.user);
-  console.log('Navbar user:', user);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { user, token } = useAppSelector((state: RootState) => state.user);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
       <div className="container mx-auto px-4">
@@ -78,16 +91,63 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center justify-end gap-2">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-              <span className="truncate">
-                <Link href="/register">Sign Up</Link>
-              </span>
-            </button>
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-border-dark text-text-light dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-300 dark:hover:bg-opacity-80 transition-colors">
-              <span className="truncate">
-                <Link href="/login">Log In</Link>
-              </span>
-            </button>
+            {user && token ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowDropdown(!showDropdown)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  {user.image ? (
+                    <Image
+                      src={user.image}
+                      alt={user.name}
+                      width={32}
+                      height={32}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <span className="hidden md:block text-sm font-medium text-text-light dark:text-text-dark">
+                    {user.name}
+                  </span>
+                </button>
+                {showDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-border-light dark:border-border-dark py-2 z-50">
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-text-light dark:text-text-dark"
+                      onClick={() => setShowDropdown(false)}
+                    >
+                      <FaUser className="w-4 h-4" />
+                      <span>Dashboard</span>
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-red-500"
+                    >
+                      <FaSignOutAlt className="w-4 h-4" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
+                  <span className="truncate">
+                    <Link href="/register">Sign Up</Link>
+                  </span>
+                </button>
+                <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-border-dark text-text-light dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-300 dark:hover:bg-opacity-80 transition-colors">
+                  <span className="truncate">
+                    <Link href="/login">Log In</Link>
+                  </span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

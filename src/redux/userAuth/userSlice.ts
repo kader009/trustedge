@@ -6,8 +6,7 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  photoUrl?: string;
-  profileImage?: string;
+  image?: string;
   role: string;
   status?: string;
   createdAt?: string;
