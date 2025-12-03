@@ -3,6 +3,7 @@
 import { useAppSelector } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
 import { FaStar, FaHeart, FaEye, FaComment, FaCalendar } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function UserDashboard() {
   const { user } = useAppSelector((state: RootState) => state.user);
@@ -13,24 +14,28 @@ export default function UserDashboard() {
       value: '0',
       icon: FaStar,
       color: 'bg-blue-500',
+      href: '/dashboard/user/reviews',
     },
     {
       label: 'Favorites',
       value: '0',
       icon: FaHeart,
       color: 'bg-red-500',
+      href: '/dashboard/user/favorites',
     },
     {
       label: 'Profile Views',
       value: '0',
       icon: FaEye,
       color: 'bg-green-500',
+      href: '/dashboard/user/profile-views',
     },
     {
       label: 'Comments',
       value: '0',
       icon: FaComment,
       color: 'bg-purple-500',
+      href: '/dashboard/user/comments',
     },
   ];
 
@@ -50,9 +55,10 @@ export default function UserDashboard() {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div
+            <Link
               key={index}
-              className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-shadow"
+              href={stat.href}
+              className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105 cursor-pointer"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className={`${stat.color} p-3 rounded-lg text-white`}>
@@ -65,7 +71,7 @@ export default function UserDashboard() {
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {stat.label}
               </p>
-            </div>
+            </Link>
           );
         })}
       </div>

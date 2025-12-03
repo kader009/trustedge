@@ -7,6 +7,7 @@ import {
   FaCheckCircle,
   FaClock,
 } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function AdminDashboard() {
   const stats = [
@@ -16,6 +17,7 @@ export default function AdminDashboard() {
       change: '+12%',
       icon: FaUsers,
       color: 'bg-blue-500',
+      href: '/dashboard/admin/users',
     },
     {
       label: 'Total Reviews',
@@ -23,6 +25,7 @@ export default function AdminDashboard() {
       change: '+8%',
       icon: FaStar,
       color: 'bg-yellow-500',
+      href: '/dashboard/admin/reviews',
     },
     {
       label: 'Active Today',
@@ -30,6 +33,7 @@ export default function AdminDashboard() {
       change: '+23%',
       icon: FaChartLine,
       color: 'bg-green-500',
+      href: '/dashboard/admin/analytics',
     },
     {
       label: 'Pending Reviews',
@@ -37,6 +41,7 @@ export default function AdminDashboard() {
       change: '-5%',
       icon: FaClock,
       color: 'bg-orange-500',
+      href: '/dashboard/admin/pending-reviews',
     },
   ];
 
@@ -64,9 +69,10 @@ export default function AdminDashboard() {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div
+            <Link
               key={index}
-              className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-shadow"
+              href={stat.href}
+              className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105 cursor-pointer"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className={`${stat.color} p-3 rounded-lg text-white`}>
@@ -88,7 +94,7 @@ export default function AdminDashboard() {
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {stat.label}
               </p>
-            </div>
+            </Link>
           );
         })}
       </div>
