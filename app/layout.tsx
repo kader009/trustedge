@@ -1,33 +1,30 @@
-'use client';
-
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/src/components/shared/Navbar';
-import Footer from '@/src/components/shared/Footer';
 import Providers from '@/src/Provider/Provider';
-import { usePathname } from 'next/navigation';
+import ConditionalLayout from '../src/components/ConditionalLayout';
 
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
 });
 
+export const metadata: Metadata = {
+  title: 'ReviewPortal',
+  description:
+    'A platform to share and discover authentic product reviews from real users.',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isDashboard = pathname?.startsWith('/dashboard');
-
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <Providers>
-          {!isDashboard && <Navbar />}
-          {children}
-          {!isDashboard && <Footer />}
+          <ConditionalLayout>{children}</ConditionalLayout>
         </Providers>
       </body>
     </html>
