@@ -28,13 +28,25 @@ const EduNestApi = baseApi.injectEndpoints({
 
     postProduct: build.mutation({
       query: (productData) => ({
-        url: '/api/v1/products', 
+        url: '/api/v1/products',
         method: 'POST',
         body: productData,
+      }),
+    }),
+
+    getAllUsers: build.query({
+      query: () => ({
+        url: '/api/v1/users/admin/all-users',
+        method: 'GET',
       }),
     }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation, useAllCategoryQuery } =
-  EduNestApi;
+export const {
+  useSignUpMutation,
+  useLoginMutation,
+  useAllCategoryQuery,
+  usePostProductMutation,
+  useGetAllUsersQuery,
+} = EduNestApi;

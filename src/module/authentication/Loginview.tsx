@@ -49,14 +49,13 @@ const Loginview = () => {
       const response = await login({ email, password }).unwrap();
       console.log(response);
 
-      // Extract user and token from nested response structure
-      const userData = {
-        user: response.data.user,
-        token: response.data.accessToken,
-      };
-
-      // Dispatch to Redux store
-      dispatch(setUser(userData));
+      // Dispatch to Redux store - setUser already expects { user, token }
+      dispatch(
+        setUser({
+          user: response.data.user,
+          token: response.data.accessToken,
+        })
+      );
 
       toast.success('Login successful!');
       route.replace('/');

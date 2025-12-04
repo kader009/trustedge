@@ -1,15 +1,31 @@
 'use client';
 import { FaStar } from 'react-icons/fa';
-import { useAppSelector } from '@/src/redux/hook';
+import { useAppSelector, useAppDispatch } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useAllCategoryQuery } from '@/src/redux/store/api/endApi';
+import { FormEvent, useEffect } from 'react';
+import {
+  useAllCategoryQuery,
+  usePostProductMutation,
+} from '@/src/redux/store/api/endApi';
+import {
+  setTitle,
+  setPrice,
+  setCategory,
+  setDescription,
+  setImages,
+  setRatings,
+} from '@/src/redux/store/features/productSlice';
+import { toast } from 'sonner';
 
 export default function CreateReviewPage() {
   const { token } = useAppSelector((state: RootState) => state.user);
   const router = useRouter();
-  const { data: category } = useAllCategoryQuery([]);
+  const { data: categoryData } = useAllCategoryQuery([]);
+  const { category, description, price, images, ratings, title } =
+    useAppSelector((state: RootState) => state.product);
+  const dispatch = useAppDispatch();
+  const [postProduct, { isLoading }] = usePostProductMutation();
 
   useEffect(() => {
     if (!token) {
@@ -20,6 +36,32 @@ export default function CreateReviewPage() {
   if (!token) {
     return null;
   }
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const productData = {
+      title,
+      price,
+      category,
+      description,
+      images,
+      ratings,
+    };
+    try {
+      await postProduct(productData).unwrap();
+      toast.success('Review submitted successfully!');
+
+      dispatch(setTitle(''));
+      dispatch(setPrice(0));
+      dispatch(setCategory(''));
+      dispatch(setDescription(''));
+      dispatch(setImages([]));
+      dispatch(setRatings(0));
+    } catch (error) {
+      console.error(error);
+      toast.error('something went wrong');
+    }
+  };
 
   return (
     <main className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8">
@@ -34,7 +76,10 @@ export default function CreateReviewPage() {
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-8 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 mt-4">
+        <form
+          className="flex flex-col gap-8 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 mt-4"
+          onSubmit={handleSubmit}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Product Name */}
             <label className="flex flex-col w-full">
@@ -44,6 +89,8 @@ export default function CreateReviewPage() {
               <input
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
                 placeholder="e.g., The best coffee maker ever!"
+                value={title}
+                onChange={(e) => dispatch(setTitle(e.target.value))}
               />
             </label>
             {/* Price Field */}
@@ -56,6 +103,8 @@ export default function CreateReviewPage() {
                 min="0"
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
                 placeholder="Enter price"
+                value={price}
+                onChange={(e) => dispatch(setPrice(Number(e.target.value)))}
               />
             </label>
             {/* Category Field */}
@@ -65,6 +114,8 @@ export default function CreateReviewPage() {
               </p>
               <select
                 className="form-select appearance-none flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                value={category}
+                onChange={(e) => dispatch(setCategory(e.target.value))}
                 style={{
                   backgroundImage:
                     "url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%236b7280%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%271.5%27 d=%27M6 8l4 4 4-4%27/%3e%3c/svg%3e')",
@@ -74,11 +125,13 @@ export default function CreateReviewPage() {
                 }}
               >
                 <option value="">Select a Category</option>
-                {category?.data?.map((cat: { _id: string; name: string }) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
+                {categoryData?.data?.map(
+                  (cat: { _id: string; name: string }) => (
+                    <option key={cat._id} value={cat._id}>
+                      {cat.name}
+                    </option>
+                  )
+                )}
               </select>
             </label>
           </div>
@@ -91,11 +144,12 @@ export default function CreateReviewPage() {
                 <FaStar
                   key={i}
                   className={
-                    `cursor-pointer text-4xl ` +
-                    (i <= 3
+                    `cursor-pointer text-4xl transition-colors ` +
+                    (i <= ratings
                       ? 'text-yellow-400'
                       : 'text-gray-300 dark:text-gray-600')
                   }
+                  onClick={() => dispatch(setRatings(i))}
                 />
               ))}
             </div>
@@ -107,6 +161,8 @@ export default function CreateReviewPage() {
             <textarea
               className="form-textarea flex w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 min-h-40 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
               placeholder="Share your experience, what you liked, what you disliked..."
+              value={description}
+              onChange={(e) => dispatch(setDescription(e.target.value))}
             ></textarea>
           </label>
           <div>
@@ -132,6 +188,13 @@ export default function CreateReviewPage() {
                   id="dropzone-file"
                   multiple
                   type="file"
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    const imageUrls = files.map((file) =>
+                      URL.createObjectURL(file)
+                    );
+                    dispatch(setImages(imageUrls));
+                  }}
                 />
               </label>
             </div>
@@ -139,13 +202,17 @@ export default function CreateReviewPage() {
 
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-bold leading-normal tracking-[0.015em]">
-              <span className="truncate">Cancel</span>
+              Cancel
             </button>
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
-              <span className="truncate">Submit Review</span>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? 'Submitting...' : 'Submit Review'}
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </main>
   );

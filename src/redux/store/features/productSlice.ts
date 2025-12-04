@@ -10,10 +10,10 @@ interface IProduct {
 }
 
 const initialState: IProduct = {
-  title: 'string',
-  description: 'string',
+  title: '',
+  description: '',
   price: 0,
-  category: 'string',
+  category: '',
   images: [],
   ratings: 0,
 };

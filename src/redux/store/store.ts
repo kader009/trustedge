@@ -14,12 +14,14 @@ import { baseApi } from './api/baseApi';
 import registerReducer from '../userAuth/registerSlice';
 import loginReducer from '../userAuth/loginSlice';
 import userReducer from '../userAuth/userSlice';
+import productReducer from './features/productSlice';
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   register: registerReducer,
   login: loginReducer,
   user: userReducer,
+  product: productReducer,
 });
 
 const persistConfig = {

@@ -1,10 +1,92 @@
 'use client';
 
-import { FaUsers, FaUserPlus, FaUserCheck, FaSearch } from 'react-icons/fa';
-import { useState } from 'react';
+import {
+  FaUsers,
+  FaUserPlus,
+  FaUserCheck,
+  FaSearch,
+  FaEdit,
+  FaTrash,
+  FaUser,
+} from 'react-icons/fa';
+import { useState, useMemo } from 'react';
+import { useGetAllUsersQuery } from '@/src/redux/store/api/endApi';
+import Image from 'next/image';
+
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  image?: string;
+  role: string;
+  isActive: boolean;
+  createdAt: string;
+}
 
 export default function AdminUsersPage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [roleFilter, setRoleFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+
+  const { data: usersData, isLoading, error } = useGetAllUsersQuery({});
+
+  // Temporary mock data for testing
+  const mockUsers: User[] = [
+    {
+      _id: '1',
+      name: 'Abdul Kader',
+      email: 'kadermolla@gmail.com',
+      role: 'admin',
+      isActive: true,
+      createdAt: '2025-12-03T09:25:42.661Z',
+    },
+    {
+      _id: '2',
+      name: 'John Doe',
+      email: 'john@example.com',
+      role: 'user',
+      isActive: true,
+      createdAt: '2025-12-02T10:00:00.000Z',
+    },
+  ];
+
+  const users = useMemo(() => {
+    // Use mock data if API fails
+    if (error) return mockUsers;
+    return (usersData?.data as User[]) || [];
+  }, [usersData, error]);
+
+  console.log('Users API Response:', usersData);
+  console.log('Users Array:', users);
+  console.log('API Error:', error);
+  console.log('Is Loading:', isLoading);
+
+  // Filter and search logic
+  const filteredUsers = useMemo(() => {
+    return users.filter((user: User) => {
+      const matchesSearch =
+        user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.email?.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesRole =
+        roleFilter === 'all' || user.role === roleFilter.toLowerCase();
+      const matchesStatus =
+        statusFilter === 'all' ||
+        (statusFilter === 'active' && user.isActive) ||
+        (statusFilter === 'inactive' && !user.isActive);
+
+      return matchesSearch && matchesRole && matchesStatus;
+    });
+  }, [users, searchQuery, roleFilter, statusFilter]);
+
+  const totalUsers = users.length;
+  const activeUsers = users.filter((u: User) => u.isActive).length;
+  const newThisWeek = users.filter((u: User) => {
+    const createdDate = new Date(u.createdAt);
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return createdDate >= weekAgo;
+  }).length;
 
   return (
     <div>
@@ -26,7 +108,7 @@ export default function AdminUsersPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {isLoading ? '...' : totalUsers}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Total Users
@@ -41,7 +123,7 @@ export default function AdminUsersPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {isLoading ? '...' : activeUsers}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Active Users
@@ -56,7 +138,7 @@ export default function AdminUsersPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {isLoading ? '...' : newThisWeek}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 New This Week
@@ -81,30 +163,143 @@ export default function AdminUsersPage() {
               />
             </div>
           </div>
-          <select className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary">
-            <option>All Roles</option>
-            <option>Admin</option>
-            <option>User</option>
+          <select
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
+            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="all">All Roles</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
           </select>
-          <select className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary">
-            <option>All Status</option>
-            <option>Active</option>
-            <option>Inactive</option>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
       </div>
 
       {/* Users List */}
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
-        <div className="text-center py-12">
-          <FaUsers className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
-            No users found
-          </p>
-          <p className="text-sm text-gray-400 dark:text-gray-500">
-            Users will appear here once they register
-          </p>
-        </div>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="text-gray-500 dark:text-gray-400 mt-4">
+              Loading users...
+            </p>
+          </div>
+        ) : filteredUsers.length === 0 ? (
+          <div className="text-center py-12">
+            <FaUsers className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 mb-4">
+              No users found
+            </p>
+            <p className="text-sm text-gray-400 dark:text-gray-500">
+              {searchQuery || roleFilter !== 'all' || statusFilter !== 'all'
+                ? 'Try adjusting your filters'
+                : 'Users will appear here once they register'}
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border-light dark:border-border-dark">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Name
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Email
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Role
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Status
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Joined
+                  </th>
+                  <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredUsers.map((user: User) => (
+                  <tr
+                    key={user._id}
+                    className="border-b border-border-light dark:border-border-dark hover:bg-gray-50 dark:hover:bg-gray-800"
+                  >
+                    <td className="py-3 px-4">
+                      <div className="flex items-center gap-3">
+                        {user.image ? (
+                          <Image
+                            src={user.image}
+                            alt={user.name}
+                            width={40}
+                            height={40}
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <FaUser className="text-primary" />
+                          </div>
+                        )}
+                        <span className="font-medium text-text-light dark:text-text-dark">
+                          {user.name}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
+                      {user.email}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          user.role === 'admin'
+                            ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'
+                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+                        }`}
+                      >
+                        {user.role}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          user.isActive
+                            ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+                            : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                        }`}
+                      >
+                        {user.isActive ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
+                      {new Date(user.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="p-2 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors">
+                          <FaEdit />
+                        </button>
+                        <button className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
