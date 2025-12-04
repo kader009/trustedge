@@ -25,6 +25,14 @@ const EduNestApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    postProduct: build.mutation({
+      query: (productData) => ({
+        url: '/api/v1/products', 
+        method: 'POST',
+        body: productData,
+      }),
+    }),
   }),
 });
 

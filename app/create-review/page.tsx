@@ -36,6 +36,7 @@ export default function CreateReviewPage() {
         </div>
         <div className="flex flex-col gap-8 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Product Name */}
             <label className="flex flex-col w-full">
               <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">
                 Product Name / Title
@@ -45,6 +46,19 @@ export default function CreateReviewPage() {
                 placeholder="e.g., The best coffee maker ever!"
               />
             </label>
+            {/* Price Field */}
+            <label className="flex flex-col w-full">
+              <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">
+                Price
+              </p>
+              <input
+                type="number"
+                min="0"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                placeholder="Enter price"
+              />
+            </label>
+            {/* Category Field */}
             <label className="flex flex-col w-full">
               <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">
                 Category
