@@ -5,15 +5,12 @@ import { getProducts } from '@/src/lib/api';
 const CommunityFavorites = async () => {
   const products: Product[] = await getProducts(8);
 
-  // Transform products to match ProductCard props
   const favoriteProducts = products.slice(0, 4).map((product, index) => {
-    // Fix image URL from ibb.co.com to i.ibb.co
     let image =
       'https://via.placeholder.com/400x192/6366f1/ffffff?text=No+Image';
 
     if (product.images && product.images.length > 0) {
       const originalImage = product.images[0];
-      // Convert ibb.co.com/xyz to https://i.ibb.co/xyz/image.png
       if (originalImage.includes('ibb.co')) {
         const imageId = originalImage.split('/').pop();
         image = `https://i.ibb.co/${imageId}/image.png`;

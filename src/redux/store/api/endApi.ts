@@ -1,4 +1,4 @@
-import { baseApi } from "./baseApi";
+import { baseApi } from './baseApi';
 
 const EduNestApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -18,7 +18,15 @@ const EduNestApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+
+    allCategory: build.query({
+      query: () => ({
+        url: '/api/v1/category',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation } = EduNestApi;
+export const { useSignUpMutation, useLoginMutation, useAllCategoryQuery } =
+  EduNestApi;

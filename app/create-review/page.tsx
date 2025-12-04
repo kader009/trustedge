@@ -4,10 +4,12 @@ import { useAppSelector } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { useAllCategoryQuery } from '@/src/redux/store/api/endApi';
 
 export default function CreateReviewPage() {
   const { token } = useAppSelector((state: RootState) => state.user);
   const router = useRouter();
+  const { data: category } = useAllCategoryQuery([]);
 
   useEffect(() => {
     if (!token) {
@@ -57,11 +59,12 @@ export default function CreateReviewPage() {
                   backgroundSize: '1.5em 1.5em',
                 }}
               >
-                <option>Select a Category</option>
-                <option>Electronics</option>
-                <option>Home &amp; Kitchen</option>
-                <option>Books</option>
-                <option>Clothing &amp; Accessories</option>
+                <option value="">Select a Category</option>
+                {category?.data?.map((cat: { _id: string; name: string }) => (
+                  <option key={cat._id} value={cat._id}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
             </label>
           </div>
@@ -119,18 +122,7 @@ export default function CreateReviewPage() {
               </label>
             </div>
           </div>
-          <label className="flex flex-col w-full">
-            <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">
-              Where did you buy it? (Optional)
-            </p>
-            <input
-              className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
-              placeholder="e.g., Amazon, Best Buy, or example.com"
-            />
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-              Optional: Add a link or store name where you bought the product.
-            </p>
-          </label>
+
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-bold leading-normal tracking-[0.015em]">
               <span className="truncate">Cancel</span>
