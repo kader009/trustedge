@@ -11,9 +11,13 @@ export interface Product {
 }
 
 export interface ProductCardProps {
+  id: string;
   title: string;
   rating: number;
   review: string;
   image: string;
+  price: number;
+  numReviews: number;
+  tags: string[];
   isFavorite?: boolean;
 }

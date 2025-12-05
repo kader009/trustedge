@@ -28,6 +28,9 @@ const PopularThisWeek = async () => {
         ? product.description.substring(0, 100) + '...'
         : 'No description available',
       image: image,
+      price: product.price || 0,
+      numReviews: product.numReviews || 0,
+      tags: product.tags || [],
       isFavorite: false,
     };
   });

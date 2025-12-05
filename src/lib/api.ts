@@ -11,7 +11,7 @@ export async function getProducts(limit?: number) {
       : `${API_BASE_URL}/products`;
 
     const response = await fetch(url, {
-      next: { revalidate: CACHE_REVALIDATE }, // Cache for 5 minutes
+      next: { revalidate: CACHE_REVALIDATE },
     });
 
     const data = await response.json();
@@ -71,7 +71,7 @@ export async function getReviewById(id: string) {
 // Fetch all data at once (for pages that need multiple data sources)
 export async function getAllData() {
   const [products, categories, reviews] = await Promise.all([
-    getProducts(),
+    getProducts(1000),
     getCategories(),
     getReviews(),
   ]);

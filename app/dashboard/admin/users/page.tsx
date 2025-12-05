@@ -30,34 +30,13 @@ export default function AdminUsersPage() {
 
   const { data: usersData, isLoading, error } = useGetAllUsersQuery({});
 
-  // Temporary mock data for testing
-  const mockUsers: User[] = [
-    {
-      _id: '1',
-      name: 'Abdul Kader',
-      email: 'kadermolla@gmail.com',
-      role: 'admin',
-      isActive: true,
-      createdAt: '2025-12-03T09:25:42.661Z',
-    },
-    {
-      _id: '2',
-      name: 'John Doe',
-      email: 'john@example.com',
-      role: 'user',
-      isActive: true,
-      createdAt: '2025-12-02T10:00:00.000Z',
-    },
-  ];
-
   const users = useMemo(() => {
-    // Use mock data if API fails
-    if (error) return mockUsers;
     return (usersData?.data as User[]) || [];
-  }, [usersData, error]);
+  }, [usersData]);
 
   console.log('Users API Response:', usersData);
   console.log('Users Array:', users);
+  console.log('API Error:', error);
   console.log('API Error:', error);
   console.log('Is Loading:', isLoading);
 
