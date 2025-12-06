@@ -6,6 +6,7 @@ import {
   FaFlag,
 } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   getReviewById,
   getReviews,
@@ -98,7 +99,18 @@ export default async function ReviewDetailPage({
     category: categoryName,
     source: 'TrustEdge',
     sourceLink: '#',
-    content: `<p>${reviewData.review || ''}</p>`,
+    content: `
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Product Description</h3>
+        <div class="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+          ${
+            product.description ||
+            reviewData.review ||
+            'No description available.'
+          }
+        </div>
+      </div>
+    `,
     images: product.images
       ? product.images.map((img: string) => {
           if (img.includes('ibb.co')) {
@@ -209,9 +221,11 @@ export default async function ReviewDetailPage({
               </div>
 
               <div className="flex items-center gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
-                <img
+                <Image
                   src={review.author.avatar}
                   alt={review.author.name}
+                  width={40}
+                  height={40}
                   className="w-10 h-10 rounded-full object-cover"
                 />
                 <div>
@@ -235,15 +249,16 @@ export default async function ReviewDetailPage({
               {/* Images Gallery */}
               {review.images.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-                  {review.images.map((img, index) => (
+                  {review.images.map((imageUrl: string, index: number) => (
                     <div
                       key={index}
                       className="relative aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-900"
                     >
-                      <img
-                        src={img}
+                      <Image
+                        src={imageUrl}
                         alt={`Review image ${index + 1}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   ))}
@@ -303,36 +318,46 @@ export default async function ReviewDetailPage({
 
               {/* Comments List */}
               <div className="space-y-6">
-                {review.comments.map((comment) => (
-                  <div key={comment.id} className="flex gap-4">
-                    <img
-                      src={comment.avatar}
-                      alt={comment.author}
-                      className="w-10 h-10 rounded-full object-cover shrink-0"
-                    />
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-1">
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
-                          {comment.author}
-                        </h4>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          {comment.date}
-                        </span>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm">
-                        {comment.text}
-                      </p>
-                      <div className="flex items-center gap-4 mt-2">
-                        <button className="text-xs font-medium text-gray-500 hover:text-primary">
-                          Reply
-                        </button>
-                        <button className="text-xs font-medium text-gray-500 hover:text-primary">
-                          Like
-                        </button>
+                {review.comments.map(
+                  (comment: {
+                    id: number;
+                    author: string;
+                    avatar: string;
+                    date: string;
+                    text: string;
+                  }) => (
+                    <div key={comment.id} className="flex gap-4">
+                      <Image
+                        src={comment.avatar}
+                        alt={comment.author}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover shrink-0"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <h4 className="font-semibold text-gray-900 dark:text-white">
+                            {comment.author}
+                          </h4>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            {comment.date}
+                          </span>
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-300 text-sm">
+                          {comment.text}
+                        </p>
+                        <div className="flex items-center gap-4 mt-2">
+                          <button className="text-xs font-medium text-gray-500 hover:text-primary">
+                            Reply
+                          </button>
+                          <button className="text-xs font-medium text-gray-500 hover:text-primary">
+                            Like
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </div>
           </div>
@@ -344,36 +369,47 @@ export default async function ReviewDetailPage({
                 Related Products
               </h3>
               <div className="flex flex-col gap-4">
-                {relatedReviews.map((related) => (
-                  <Link
-                    key={related.id}
-                    href={`/reviews/${related.id}`}
-                    className="group cursor-pointer block"
-                  >
-                    <div className="aspect-video rounded-lg overflow-hidden mb-2">
-                      <img
-                        src={related.imageUrl}
-                        alt={related.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <span className="text-xs font-semibold uppercase text-primary mb-1 block">
-                      {related.category}
-                    </span>
-                    <h4 className="font-semibold text-gray-900 dark:text-white leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">
-                      {related.title}
-                    </h4>
-                    <p className="text-lg font-bold text-primary mb-1">
-                      ${related.price.toFixed(2)}
-                    </p>
-                    <div className="flex items-center gap-1">
-                      <FaStar className="text-yellow-400 text-xs" />
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {related.rating.toFixed(1)}
+                {relatedReviews.map(
+                  (related: {
+                    id: string;
+                    category: string;
+                    categoryColor: string;
+                    title: string;
+                    price: number;
+                    rating: number;
+                    imageUrl: string;
+                  }) => (
+                    <Link
+                      key={related.id}
+                      href={`/reviews/${related.id}`}
+                      className="group cursor-pointer block"
+                    >
+                      <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
+                        <Image
+                          src={related.imageUrl}
+                          alt={related.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <span className="text-xs font-semibold uppercase text-primary mb-1 block">
+                        {related.category}
                       </span>
-                    </div>
-                  </Link>
-                ))}
+                      <h4 className="font-semibold text-gray-900 dark:text-white leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                        {related.title}
+                      </h4>
+                      <p className="text-lg font-bold text-primary mb-1">
+                        ${related.price.toFixed(2)}
+                      </p>
+                      <div className="flex items-center gap-1">
+                        <FaStar className="text-yellow-400 text-xs" />
+                        <span className="text-xs text-gray-600 dark:text-gray-400">
+                          {related.rating.toFixed(1)}
+                        </span>
+                      </div>
+                    </Link>
+                  )
+                )}
               </div>
             </div>
 
