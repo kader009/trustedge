@@ -21,8 +21,6 @@ export default function UserProfilePage() {
   }
 
   const handleSaveProfile = (updatedData: any) => {
-    // In a real app, you would make an API call here
-    // For now, we'll just update the Redux state
     const updatedUser = { ...user, ...updatedData };
     dispatch(setUser({ user: updatedUser, token: token || '' }));
   };
