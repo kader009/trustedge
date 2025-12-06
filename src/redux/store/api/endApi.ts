@@ -40,6 +40,15 @@ const EduNestApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    // user update for (user)
+    updateUserProfile: build.mutation({
+      query: (detail) => ({
+        url: '/api/v1/users/update-profile',
+        method: 'PUT',
+        body: detail,
+      }),
+    }),
   }),
 });
 
@@ -49,4 +58,5 @@ export const {
   useAllCategoryQuery,
   usePostProductMutation,
   useGetAllUsersQuery,
+  useUpdateUserProfileMutation,
 } = EduNestApi;

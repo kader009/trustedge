@@ -1,12 +1,16 @@
 'use client';
-
-import { useAppSelector } from '@/src/redux/hook';
+import { useState } from 'react';
+import { useAppSelector, useAppDispatch } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
+import { setUser } from '@/src/redux/userAuth/userSlice';
 import { FaUser, FaEnvelope, FaCalendar, FaShieldAlt } from 'react-icons/fa';
 import Image from 'next/image';
+import EditProfileModal from '@/src/components/profile/EditProfileModal';
 
 export default function UserProfilePage() {
-  const { user } = useAppSelector((state: RootState) => state.user);
+  const { user, token } = useAppSelector((state: RootState) => state.user);
+  const dispatch = useAppDispatch();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   if (!user) {
     return (
@@ -15,6 +19,13 @@ export default function UserProfilePage() {
       </div>
     );
   }
+
+  const handleSaveProfile = (updatedData: any) => {
+    // In a real app, you would make an API call here
+    // For now, we'll just update the Redux state
+    const updatedUser = { ...user, ...updatedData };
+    dispatch(setUser({ user: updatedUser, token: token || '' }));
+  };
 
   return (
     <div>
@@ -45,7 +56,10 @@ export default function UserProfilePage() {
                 {user.name.charAt(0).toUpperCase()}
               </div>
             )}
-            <button className="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full hover:bg-primary/90 transition-colors">
+            <button
+              onClick={() => setIsEditModalOpen(true)}
+              className="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full hover:bg-primary/90 transition-colors"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -87,7 +101,10 @@ export default function UserProfilePage() {
           </div>
 
           {/* Edit Button */}
-          <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-colors">
+          <button
+            onClick={() => setIsEditModalOpen(true)}
+            className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-colors cursor-pointer"
+          >
             Edit Profile
           </button>
         </div>
@@ -191,6 +208,13 @@ export default function UserProfilePage() {
           </div>
         </div>
       </div>
+
+      <EditProfileModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        user={user}
+        onSave={handleSaveProfile}
+      />
     </div>
   );
 }

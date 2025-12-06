@@ -38,6 +38,17 @@ const initialState: AuthState = {
   error: null,
 };
 
+// API Response interface
+interface ApiResponse {
+  success: boolean;
+  message?: string;
+  data: {
+    user: User;
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
 // Async thunk for login
 export const loginUser = createAsyncThunk<
   LoginResponse,
@@ -45,7 +56,7 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >('user/login', async (credentials, { rejectWithValue }) => {
   try {
-    const response = await axios.post<LoginResponse>(
+    const response = await axios.post<ApiResponse>(
       'https://trustedge-backend.vercel.app/api/v1/auth/login',
       credentials,
       {
@@ -53,8 +64,8 @@ export const loginUser = createAsyncThunk<
       }
     );
 
-    const { user, token } = response.data;
-    return { user, token };
+    const { user, accessToken } = response.data.data;
+    return { user, token: accessToken };
   } catch (err) {
     let message = 'Something went wrong';
     if (axios.isAxiosError(err)) {
