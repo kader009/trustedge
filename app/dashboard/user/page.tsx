@@ -88,12 +88,12 @@ export default function UserDashboard() {
           <p className="text-gray-500 dark:text-gray-400 mb-4">
             No recent activity yet
           </p>
-          <a
+          <Link
             href="/create-review"
             className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
           >
             Write Your First Review
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -104,18 +104,18 @@ export default function UserDashboard() {
             Quick Actions
           </h3>
           <div className="space-y-3">
-            <a
+            <Link
               href="/create-review"
               className="block w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transition-colors text-center"
             >
               Write a Review
-            </a>
-            <a
+            </Link>
+            <Link
               href="/categories"
               className="block w-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-medium py-3 px-4 rounded-lg transition-colors text-center"
             >
               Browse Products
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -140,12 +140,12 @@ export default function UserDashboard() {
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
             Complete your profile to unlock all features
           </p>
-          <a
+          <Link
             href="/dashboard/user/profile"
             className="text-primary hover:underline text-sm font-medium"
           >
             Complete Profile →
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -106,12 +106,12 @@ export default function AdminDashboard() {
             <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
               Recent Users
             </h2>
-            <a
+            <Link
               href="/dashboard/admin/users"
               className="text-primary hover:underline text-sm font-medium"
             >
               View All →
-            </a>
+            </Link>
           </div>
           {recentUsers.length === 0 ? (
             <div className="text-center py-8">
@@ -133,12 +133,12 @@ export default function AdminDashboard() {
             <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
               Pending Reviews
             </h2>
-            <a
+            <Link
               href="/dashboard/admin/reviews"
               className="text-primary hover:underline text-sm font-medium"
             >
               View All →
-            </a>
+            </Link>
           </div>
           {pendingReviews.length === 0 ? (
             <div className="text-center py-8">
@@ -194,24 +194,24 @@ export default function AdminDashboard() {
 
       {/* Quick Actions */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a
+        <Link
           href="/dashboard/admin/users"
           className="bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-6 rounded-lg transition-colors text-center"
         >
           Manage Users
-        </a>
-        <a
+        </Link>
+        <Link
           href="/dashboard/admin/reviews"
           className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-semibold py-4 px-6 rounded-lg transition-colors text-center"
         >
           Review Management
-        </a>
-        <a
+        </Link>
+        <Link
           href="/dashboard/admin/analytics"
           className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-semibold py-4 px-6 rounded-lg transition-colors text-center"
         >
           View Analytics
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -155,7 +155,7 @@ export default function DashboardLayout({
             </Link>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-primary hover:bg-primary/10 transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-primary hover:bg-primary/10 transition-colors cursor-pointer"
             >
               <FaSignOutAlt className="w-5 h-5" />
               <span className="font-medium">Logout</span>
