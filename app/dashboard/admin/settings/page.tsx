@@ -1,4 +1,4 @@
-import { FaShieldAlt, FaServer, FaEnvelope, FaDatabase } from 'react-icons/fa';
+import { FaServer, FaEnvelope, FaDatabase } from 'react-icons/fa';
 
 export default function AdminSettingsPage() {
   return (
@@ -58,50 +58,6 @@ export default function AdminSettingsPage() {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        {/* Review Settings */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <FaShieldAlt className="w-5 h-5 text-primary" />
-            <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
-              Review Moderation
-            </h2>
-          </div>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div>
-                <p className="font-medium text-text-light dark:text-text-dark">
-                  Auto-Approve Reviews
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Automatically approve all new reviews
-                </p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div>
-                <p className="font-medium text-text-light dark:text-text-dark">
-                  Require Email Verification
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Users must verify email before posting
-                </p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="sr-only peer"
-                  defaultChecked
-                />
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
               </label>
             </div>
@@ -171,7 +127,7 @@ export default function AdminSettingsPage() {
               <span className="text-sm text-gray-600 dark:text-gray-400">
                 Database Status
               </span>
-              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/20 text-primary dark:text-primary rounded-full text-sm font-medium">
                 Connected
               </span>
             </div>
@@ -179,7 +135,7 @@ export default function AdminSettingsPage() {
               <span className="text-sm text-gray-600 dark:text-gray-400">
                 API Status
               </span>
-              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/20 text-primary dark:text-primary rounded-full text-sm font-medium">
                 Operational
               </span>
             </div>

@@ -1,12 +1,6 @@
-'use client';
-
-import { useAppSelector } from '@/src/redux/hook';
-import { RootState } from '@/src/redux/store/store';
 import { FaBell, FaLock, FaShieldAlt, FaPalette } from 'react-icons/fa';
 
 export default function UserSettingsPage() {
-  useAppSelector((state: RootState) => state.user);
-
   return (
     <div>
       <div className="mb-8">

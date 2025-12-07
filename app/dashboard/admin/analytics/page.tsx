@@ -1,5 +1,3 @@
-'use client';
-
 import { FaChartLine, FaUsers, FaStar, FaEye } from 'react-icons/fa';
 
 export default function AdminAnalyticsPage() {
@@ -18,7 +16,7 @@ export default function AdminAnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-blue-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaUsers className="w-6 h-6" />
             </div>
             <div>
@@ -34,7 +32,7 @@ export default function AdminAnalyticsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-yellow-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaStar className="w-6 h-6" />
             </div>
             <div>
@@ -50,7 +48,7 @@ export default function AdminAnalyticsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-green-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaChartLine className="w-6 h-6" />
             </div>
             <div>
@@ -66,7 +64,7 @@ export default function AdminAnalyticsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-purple-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaEye className="w-6 h-6" />
             </div>
             <div>

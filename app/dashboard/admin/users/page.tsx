@@ -82,7 +82,7 @@ export default function AdminUsersPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-blue-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaUsers className="w-6 h-6" />
             </div>
             <div>
@@ -97,7 +97,7 @@ export default function AdminUsersPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-green-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaUserCheck className="w-6 h-6" />
             </div>
             <div>
@@ -112,7 +112,7 @@ export default function AdminUsersPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-purple-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaUserPlus className="w-6 h-6" />
             </div>
             <div>
@@ -242,7 +242,7 @@ export default function AdminUsersPage() {
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-semibold ${
                           user.role === 'admin'
-                            ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'
+                            ? 'bg-purple-100 text-primary dark:bg-purple-900 dark:text-purple-300'
                             : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
                         }`}
                       >
@@ -253,8 +253,8 @@ export default function AdminUsersPage() {
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-semibold ${
                           user.isActive
-                            ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
-                            : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                            ? 'bg-green-100 text-primary dark:bg-primary dark:text-green-300'
+                            : 'bg-gray-100 text-primary dark:bg-primary dark:text-gray-300'
                         }`}
                       >
                         {user.isActive ? 'Active' : 'Inactive'}
@@ -265,10 +265,10 @@ export default function AdminUsersPage() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors">
+                        <button className="p-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors cursor-pointer">
                           <FaEdit />
                         </button>
-                        <button className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+                        <button className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer">
                           <FaTrash />
                         </button>
                       </div>

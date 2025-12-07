@@ -16,7 +16,7 @@ export default function AdminDashboard() {
       value: '0',
       change: '+12%',
       icon: FaUsers,
-      color: 'bg-blue-500',
+      color: 'bg-primary',
       href: '/dashboard/admin/users',
     },
     {
@@ -24,7 +24,7 @@ export default function AdminDashboard() {
       value: '0',
       change: '+8%',
       icon: FaStar,
-      color: 'bg-yellow-500',
+      color: 'bg-primary',
       href: '/dashboard/admin/reviews',
     },
     {
@@ -32,7 +32,7 @@ export default function AdminDashboard() {
       value: '0',
       change: '+23%',
       icon: FaChartLine,
-      color: 'bg-green-500',
+      color: 'bg-primary',
       href: '/dashboard/admin/analytics',
     },
     {
@@ -40,7 +40,7 @@ export default function AdminDashboard() {
       value: '0',
       change: '-5%',
       icon: FaClock,
-      color: 'bg-orange-500',
+      color: 'bg-primary',
       href: '/dashboard/admin/pending-reviews',
     },
   ];
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
         <div className="space-y-4">
           <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <div className="flex items-center gap-3">
-              <FaCheckCircle className="text-green-500 w-5 h-5" />
+              <FaCheckCircle className="text-primary w-5 h-5" />
               <div>
                 <p className="font-semibold text-text-light dark:text-text-dark">
                   API Status
@@ -173,11 +173,11 @@ export default function AdminDashboard() {
                 </p>
               </div>
             </div>
-            <span className="text-green-500 font-semibold">Active</span>
+            <span className="text-primary font-semibold">Active</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-blue-900/20 rounded-lg">
             <div className="flex items-center gap-3">
-              <FaCheckCircle className="text-blue-500 w-5 h-5" />
+              <FaCheckCircle className="text-primary w-5 h-5" />
               <div>
                 <p className="font-semibold text-text-light dark:text-text-dark">
                   Database
@@ -187,7 +187,7 @@ export default function AdminDashboard() {
                 </p>
               </div>
             </div>
-            <span className="text-blue-500 font-semibold">Healthy</span>
+            <span className="text-primary font-semibold">Healthy</span>
           </div>
         </div>
       </div>
