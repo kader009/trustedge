@@ -40,6 +40,38 @@ const EduNestApi = baseApi.injectEndpoints({
         url: '/api/v1/users/admin/all-users',
         method: 'GET',
       }),
+      providesTags: ['User'],
+    }),
+
+    // Get single user by ID (admin)
+    getUserById: build.query({
+      query: (id) => ({
+        url: `/api/v1/users/admin/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (result, error, id) => [{ type: 'User', id }],
+    }),
+
+    // Update user (admin)
+    updateUser: build.mutation({
+      query: ({ id, data }) => ({
+        url: `/api/v1/users/admin/update-user/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'User', id },
+        'User',
+      ],
+    }),
+
+    // Delete user (admin)
+    deleteUser: build.mutation({
+      query: (id) => ({
+        url: `/api/v1/users/delete-user/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['User'],
     }),
 
     // user update for (user)
@@ -200,6 +232,9 @@ export const {
   useAllCategoryQuery,
   usePostProductMutation,
   useGetAllUsersQuery,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
   useUpdateUserProfileMutation,
   // Voting
   useVoteReviewMutation,

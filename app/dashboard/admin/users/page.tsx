@@ -11,7 +11,12 @@ import {
 } from 'react-icons/fa';
 import { useState, useMemo } from 'react';
 import { useGetAllUsersQuery } from '@/src/redux/store/api/endApi';
+import { useAppSelector } from '@/src/redux/hook';
+import { RootState } from '@/src/redux/store/store';
+import { toast } from 'sonner';
 import Image from 'next/image';
+import EditUserModal from '@/src/components/admin/EditUserModal';
+import DeleteUserModal from '@/src/components/admin/DeleteUserModal';
 
 interface User {
   _id: string;
@@ -27,7 +32,13 @@ export default function AdminUsersPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const { user: currentUser } = useAppSelector(
+    (state: RootState) => state.user
+  );
   const { data: usersData, isLoading, error } = useGetAllUsersQuery({});
 
   const users = useMemo(() => {
@@ -66,6 +77,54 @@ export default function AdminUsersPage() {
     weekAgo.setDate(weekAgo.getDate() - 7);
     return createdDate >= weekAgo;
   }).length;
+
+  const handleEditClick = (user: User) => {
+    setSelectedUser(user);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDeleteClick = (user: User) => {
+    // Prevent deleting self
+    if (currentUser && user._id === currentUser._id) {
+      toast.error('You cannot delete your own account');
+      return;
+    }
+
+    // Prevent deleting other admins
+    if (user.role === 'admin') {
+      toast.error('Admin users cannot be deleted');
+      return;
+    }
+
+    // Show confirmation toast
+    toast(
+      <div className="flex flex-col gap-2">
+        <p className="font-semibold">Delete User?</p>
+        <p className="text-sm text-gray-600">
+          Are you sure you want to delete {user.name}?
+        </p>
+      </div>,
+      {
+        action: {
+          label: 'Yes, Delete',
+          onClick: () => {
+            setSelectedUser(user);
+            setIsDeleteModalOpen(true);
+          },
+        },
+        cancel: {
+          label: 'Cancel',
+          onClick: () => {},
+        },
+      }
+    );
+  };
+
+  const handleCloseModals = () => {
+    setIsEditModalOpen(false);
+    setIsDeleteModalOpen(false);
+    setSelectedUser(null);
+  };
 
   return (
     <div>
@@ -265,10 +324,18 @@ export default function AdminUsersPage() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors cursor-pointer">
+                        <button
+                          onClick={() => handleEditClick(user)}
+                          className="p-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors cursor-pointer"
+                          title="Edit user"
+                        >
                           <FaEdit />
                         </button>
-                        <button className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer">
+                        <button
+                          onClick={() => handleDeleteClick(user)}
+                          className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer"
+                          title="Delete user"
+                        >
                           <FaTrash />
                         </button>
                       </div>
@@ -280,6 +347,22 @@ export default function AdminUsersPage() {
           </div>
         )}
       </div>
+
+      {/* Modals */}
+      {selectedUser && (
+        <>
+          <EditUserModal
+            user={selectedUser}
+            isOpen={isEditModalOpen}
+            onClose={handleCloseModals}
+          />
+          <DeleteUserModal
+            user={selectedUser}
+            isOpen={isDeleteModalOpen}
+            onClose={handleCloseModals}
+          />
+        </>
+      )}
     </div>
   );
 }
