@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FaTimes, FaCamera } from 'react-icons/fa';
 import Image from 'next/image';
 import { useUpdateUserProfileMutation } from '@/src/redux/store/api/endApi';
@@ -29,20 +29,11 @@ export default function EditProfileModal({
   onSave,
 }: EditProfileModalProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    image: '',
+    name: user.name || '',
+    image: user.image || '',
   });
 
   const [updateProfile, { isLoading }] = useUpdateUserProfileMutation();
-
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        name: user.name || '',
-        image: user.image || '',
-      });
-    }
-  }, [user]);
 
   if (!isOpen) return null;
 
@@ -54,9 +45,13 @@ export default function EditProfileModal({
       onSave(result.data || formData); // Update local state with returned data or form data
       toast.success('Profile updated successfully');
       onClose();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to update profile:', error);
-      toast.error(error?.data?.message || 'Failed to update profile');
+      const errorMessage =
+        error && typeof error === 'object' && 'data' in error
+          ? (error.data as { message?: string })?.message
+          : 'Failed to update profile';
+      toast.error(errorMessage);
     }
   };
 
@@ -150,7 +145,7 @@ export default function EditProfileModal({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 px-4 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
             >
               {isLoading ? (
                 <>

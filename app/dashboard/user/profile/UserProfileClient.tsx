@@ -18,7 +18,7 @@ export default function UserProfileClient() {
     return <ProfileSkeleton />;
   }
 
-  const handleSaveProfile = (updatedData: any) => {
+  const handleSaveProfile = (updatedData: Partial<typeof user>) => {
     const updatedUser = { ...user, ...updatedData };
     dispatch(setUser({ user: updatedUser, token: token || '' }));
   };
@@ -90,7 +90,7 @@ export default function UserProfileClient() {
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium capitalize">
                 {user.role}
               </span>
-              <span className="px-3 py-1 bg-success/10 text-success rounded-full text-sm font-medium capitalize">
+              <span className="px-3 py-1 bg-success/10 text-primary rounded-full text-sm font-medium capitalize">
                 {user.status || 'Active'}
               </span>
             </div>
@@ -198,7 +198,7 @@ export default function UserProfileClient() {
             <button className="w-full text-left p-4 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
               <p className="font-medium text-danger mb-1">Delete Account</p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Permanently delete your account and all data
+                Permanently delete your account and all data (Only admins can perform this action)
               </p>
             </button>
           </div>
