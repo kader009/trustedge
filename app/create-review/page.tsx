@@ -46,10 +46,13 @@ export default function CreateReviewPage() {
       description,
       images,
       ratings,
+      status: 'pending', // Submit for admin approval
     };
     try {
       await postProduct(productData).unwrap();
-      toast.success('Review submitted successfully!');
+      toast.success(
+        'Review submitted for approval! You will be notified once it is reviewed.'
+      );
 
       dispatch(setTitle(''));
       dispatch(setPrice(0));
@@ -57,6 +60,11 @@ export default function CreateReviewPage() {
       dispatch(setDescription(''));
       dispatch(setImages([]));
       dispatch(setRatings(0));
+
+      // Redirect to user reviews dashboard
+      setTimeout(() => {
+        router.push('/dashboard/user/reviews');
+      }, 1500);
     } catch (error) {
       console.error(error);
       toast.error('something went wrong');

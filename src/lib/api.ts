@@ -36,17 +36,38 @@ export async function getCategories() {
   }
 }
 
-export async function getReviews() {
+export async function getReviews(params?: {
+  page?: number;
+  limit?: number;
+  category?: string;
+  rating?: number;
+  search?: string;
+  sort?: string;
+}) {
   try {
-    const response = await fetch(`${API_BASE_URL}/review`, {
-      next: { revalidate: CACHE_REVALIDATE }, // Cache for 5 minutes
+    const queryParams = new URLSearchParams();
+    if (params?.page) queryParams.append('page', params.page.toString());
+    if (params?.limit) queryParams.append('limit', params.limit.toString());
+    if (params?.category) queryParams.append('category', params.category);
+    if (params?.rating) queryParams.append('rating', params.rating.toString());
+    if (params?.search) queryParams.append('search', params.search);
+    if (params?.sort) queryParams.append('sort', params.sort);
+
+    const url = queryParams.toString()
+      ? `${API_BASE_URL}/reviews?${queryParams.toString()}`
+      : `${API_BASE_URL}/reviews`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 60 }, // Cache for 1 minute
     });
 
     const data = await response.json();
-    return data.success ? data.data : [];
+    return data.success
+      ? { reviews: data.data, pagination: data.pagination || {} }
+      : { reviews: [], pagination: {} };
   } catch (error) {
     console.error('Failed to fetch reviews:', error);
-    return [];
+    return { reviews: [], pagination: {} };
   }
 }
 

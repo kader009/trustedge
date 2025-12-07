@@ -5,9 +5,22 @@ import {
   FaCheckCircle,
   FaTimesCircle,
   FaHourglassHalf,
+  FaSpinner,
 } from 'react-icons/fa';
+import { useGetPendingReviewsQuery } from '@/src/redux/store/api/endApi';
+import ReviewApprovalCard from '@/src/components/admin/ReviewApprovalCard';
 
 export default function PendingReviewsPage() {
+  const { data, isLoading, error } = useGetPendingReviewsQuery();
+
+  const pendingReviews = data?.reviews || [];
+  const stats = data?.stats || {
+    pending: 0,
+    approvedToday: 0,
+    rejectedToday: 0,
+    avgReviewTime: 0,
+  };
+
   return (
     <div>
       <div className="mb-8">
@@ -28,7 +41,7 @@ export default function PendingReviewsPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {isLoading ? '...' : stats.pending || pendingReviews.length}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Pending
@@ -43,7 +56,7 @@ export default function PendingReviewsPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {isLoading ? '...' : stats.approvedToday || 0}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Approved Today
@@ -58,7 +71,7 @@ export default function PendingReviewsPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {isLoading ? '...' : stats.rejectedToday || 0}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Rejected Today
@@ -73,7 +86,7 @@ export default function PendingReviewsPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {isLoading ? '...' : stats.avgReviewTime || 0}h
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Avg. Review Time
@@ -89,22 +102,39 @@ export default function PendingReviewsPage() {
           <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
             Reviews Awaiting Approval
           </h2>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 bg-success text-white rounded-lg hover:bg-success/90 transition-colors text-sm">
-              Approve All
-            </button>
-          </div>
         </div>
 
-        <div className="text-center py-12">
-          <FaClock className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
-            No pending reviews
-          </p>
-          <p className="text-sm text-gray-400 dark:text-gray-500">
-            All reviews have been processed
-          </p>
-        </div>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <FaSpinner className="w-12 h-12 text-primary mx-auto mb-4 animate-spin" />
+            <p className="text-gray-500 dark:text-gray-400">
+              Loading reviews...
+            </p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-red-500 mb-2">Failed to load pending reviews</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500">
+              Please try again later
+            </p>
+          </div>
+        ) : pendingReviews.length === 0 ? (
+          <div className="text-center py-12">
+            <FaClock className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 mb-4">
+              No pending reviews
+            </p>
+            <p className="text-sm text-gray-400 dark:text-gray-500">
+              All reviews have been processed
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {pendingReviews.map((review: any) => (
+              <ReviewApprovalCard key={review._id} review={review} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

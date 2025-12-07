@@ -6,5 +6,6 @@ export const baseApi = createApi({
     baseUrl: process.env.NEXT_PUBLIC_BACKENDAPI,
     credentials: 'include',
   }),
+  tagTypes: ['Review', 'Comment', 'Vote', 'PendingReview', 'UserReview'],
   endpoints: () => ({}),
 });

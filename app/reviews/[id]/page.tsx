@@ -1,10 +1,4 @@
-import {
-  FaStar,
-  FaThumbsUp,
-  FaThumbsDown,
-  FaShare,
-  FaFlag,
-} from 'react-icons/fa';
+import { FaStar, FaShare, FaFlag } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -14,6 +8,8 @@ import {
   getCategories,
 } from '@/src/lib/api';
 import { notFound } from 'next/navigation';
+import VotingButtons from '@/src/components/reviews/VotingButtons';
+import CommentSection from '@/src/components/reviews/CommentSection';
 
 export default async function ReviewDetailPage({
   params,
@@ -265,18 +261,12 @@ export default async function ReviewDetailPage({
                 </div>
               )}
 
-              {/* Action Buttons */}
+              {/* Voting Buttons */}
               <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
-                <div className="flex items-center gap-4">
-                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
-                    <FaThumbsUp />
-                    <span className="font-medium">{review.likes}</span>
-                  </button>
-                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
-                    <FaThumbsDown />
-                    <span className="font-medium">{review.dislikes}</span>
-                  </button>
-                </div>
+                <VotingButtons
+                  reviewId={review.id}
+                  initialVoteCount={review.likes}
+                />
                 <div className="flex items-center gap-2">
                   <button
                     className="p-2 text-gray-500 hover:text-primary transition-colors"
@@ -295,71 +285,7 @@ export default async function ReviewDetailPage({
             </div>
 
             {/* Comments Section */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                Comments ({review.comments.length})
-              </h3>
-
-              {/* Comment Form */}
-              <div className="flex gap-4 mb-8">
-                <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 shrink-0" />
-                <div className="flex-1">
-                  <textarea
-                    placeholder="Add a comment..."
-                    className="w-full p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none h-24"
-                  />
-                  <div className="flex justify-end mt-2">
-                    <button className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:opacity-90 transition-opacity">
-                      Post Comment
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Comments List */}
-              <div className="space-y-6">
-                {review.comments.map(
-                  (comment: {
-                    id: number;
-                    author: string;
-                    avatar: string;
-                    date: string;
-                    text: string;
-                  }) => (
-                    <div key={comment.id} className="flex gap-4">
-                      <Image
-                        src={comment.avatar}
-                        alt={comment.author}
-                        width={40}
-                        height={40}
-                        className="w-10 h-10 rounded-full object-cover shrink-0"
-                      />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            {comment.author}
-                          </h4>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
-                            {comment.date}
-                          </span>
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm">
-                          {comment.text}
-                        </p>
-                        <div className="flex items-center gap-4 mt-2">
-                          <button className="text-xs font-medium text-gray-500 hover:text-primary">
-                            Reply
-                          </button>
-                          <button className="text-xs font-medium text-gray-500 hover:text-primary">
-                            Like
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
+            <CommentSection reviewId={review.id} />
           </div>
 
           {/* Sidebar */}
