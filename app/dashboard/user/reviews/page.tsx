@@ -12,20 +12,13 @@ import {
   FaTimesCircle,
 } from 'react-icons/fa';
 import { useGetUserReviewsQuery } from '@/src/redux/store/api/endApi';
-import { useAppSelector } from '@/src/redux/hook';
 import EditReviewModal from '@/src/components/user/EditReviewModal';
 import DeleteConfirmModal from '@/src/components/user/DeleteConfirmModal';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function UserReviewsPage() {
-  const user = useAppSelector((state) => state.user.user);
-  const { data, isLoading, error, refetch } = useGetUserReviewsQuery(
-    user?._id || '',
-    {
-      skip: !user?._id,
-    }
-  );
+  const { data, isLoading, error, refetch } = useGetUserReviewsQuery(undefined);
   type ReviewType = {
     _id: string;
     rating: number;

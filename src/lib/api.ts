@@ -89,13 +89,28 @@ export async function getReviewById(id: string) {
   }
 }
 
+export async function getUsers() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/admin/all-users`, {
+      next: { revalidate: CACHE_REVALIDATE },
+    });
+
+    const data = await response.json();
+    return data.success ? data.data : [];
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    return [];
+  }
+}
+
 // Fetch all data at once (for pages that need multiple data sources)
 export async function getAllData() {
-  const [products, categories, reviews] = await Promise.all([
+  const [products, categories, reviews, users] = await Promise.all([
     getProducts(1000),
     getCategories(),
     getReviews(),
+    getUsers(),
   ]);
 
-  return { products, categories, reviews };
+  return { products, categories, reviews, users };
 }
