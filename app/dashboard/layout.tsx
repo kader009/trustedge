@@ -6,7 +6,7 @@ import { RootState } from '@/src/redux/store/store';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import {
   FaHome,
@@ -18,6 +18,8 @@ import {
   FaChartBar,
   FaClipboardList,
   FaSignOutAlt,
+  FaBars,
+  FaTimes,
 } from 'react-icons/fa';
 
 export default function DashboardLayout({
@@ -29,6 +31,7 @@ export default function DashboardLayout({
   const { user, token } = useAppSelector((state: RootState) => state.user);
   const router = useRouter();
   const pathname = usePathname();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!token || !user) {
@@ -40,6 +43,14 @@ export default function DashboardLayout({
     dispatch(logout());
     toast.success('Logged out successfully!');
     router.push('/');
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
   };
 
   useEffect(() => {
@@ -86,9 +97,42 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark">
+      {/* Mobile Hamburger Button */}
+      <button
+        onClick={toggleSidebar}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-primary text-white p-3 rounded-lg shadow-lg"
+        aria-label="Toggle sidebar"
+      >
+        {isSidebarOpen ? (
+          <FaTimes className="w-5 h-5" />
+        ) : (
+          <FaBars className="w-5 h-5" />
+        )}
+      </button>
+
+      {/* Overlay for mobile */}
+      {isSidebarOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-30"
+          onClick={closeSidebar}
+        />
+      )}
+
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark h-screen sticky top-0 flex flex-col">
+        <aside
+          className={`
+          w-64 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark 
+          h-screen flex flex-col
+          fixed lg:sticky top-0 z-40
+          transform transition-transform duration-300 ease-in-out
+          ${
+            isSidebarOpen
+              ? 'translate-x-0'
+              : '-translate-x-full lg:translate-x-0'
+          }
+        `}
+        >
           {/* User Profile Section */}
           <div className="p-6 border-b border-border-light dark:border-border-dark">
             <div className="flex items-center gap-3">
@@ -131,6 +175,7 @@ export default function DashboardLayout({
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={closeSidebar}
                   className={`flex items-center gap-3 px-4 py-3 mb-2 rounded-lg transition-colors ${
                     isActive
                       ? 'bg-primary text-white'
@@ -148,6 +193,7 @@ export default function DashboardLayout({
           <div className="p-4 border-t border-border-light dark:border-border-dark space-y-2">
             <Link
               href="/"
+              onClick={closeSidebar}
               className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               <FaHome className="w-5 h-5" />
@@ -164,7 +210,7 @@ export default function DashboardLayout({
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-8">{children}</main>
+        <main className="flex-1 p-4 lg:p-8 lg:ml-0">{children}</main>
       </div>
     </div>
   );

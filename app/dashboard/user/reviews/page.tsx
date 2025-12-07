@@ -1,12 +1,6 @@
-'use client';
-
-import { useAppSelector } from '@/src/redux/hook';
-import { RootState } from '@/src/redux/store/store';
-import { FaStar, FaCalendar, FaEye } from 'react-icons/fa';
+import { FaStar, FaEye } from 'react-icons/fa';
 
 export default function UserReviewsPage() {
-  const { user } = useAppSelector((state: RootState) => state.user);
-
   return (
     <div>
       <div className="mb-8">
@@ -22,7 +16,7 @@ export default function UserReviewsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-blue-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaStar className="w-6 h-6" />
             </div>
             <div>
@@ -37,7 +31,7 @@ export default function UserReviewsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-green-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaEye className="w-6 h-6" />
             </div>
             <div>
@@ -52,7 +46,7 @@ export default function UserReviewsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-yellow-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaStar className="w-6 h-6" />
             </div>
             <div>

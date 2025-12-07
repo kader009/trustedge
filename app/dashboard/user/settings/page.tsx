@@ -181,17 +181,6 @@ export default function UserSettingsPage() {
             </div>
           </div>
         </div>
-
-        {/* Danger Zone */}
-        <div className="bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-900/50 p-6">
-          <h2 className="text-xl font-bold text-danger mb-4">Danger Zone</h2>
-          <button className="w-full p-4 bg-white dark:bg-gray-900 border-2 border-danger rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
-            <p className="font-medium text-danger mb-1">Delete Account</p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Permanently delete your account and all data
-            </p>
-          </button>
-        </div>
       </div>
     </div>
   );

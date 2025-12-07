@@ -14,7 +14,7 @@ const Providers = ({ children }: Children) => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Toaster position="top-center" />
+        <Toaster position="top-right" />
         {children}
       </PersistGate>
     </Provider>

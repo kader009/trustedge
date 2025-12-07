@@ -1,8 +1,7 @@
-
+import Link from 'next/link';
 import { FaHeart, FaStar } from 'react-icons/fa';
 
 export default function UserFavoritesPage() {
-
   return (
     <div>
       <div className="mb-8">
@@ -18,7 +17,7 @@ export default function UserFavoritesPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-red-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaHeart className="w-6 h-6" />
             </div>
             <div>
@@ -33,7 +32,7 @@ export default function UserFavoritesPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-pink-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaStar className="w-6 h-6" />
             </div>
             <div>
@@ -61,12 +60,12 @@ export default function UserFavoritesPage() {
           <p className="text-gray-500 dark:text-gray-400 mb-4">
             You haven&apos;t added any favorites yet
           </p>
-          <a
+          <Link
             href="/categories"
             className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
           >
             Browse Products
-          </a>
+          </Link>
         </div>
       </div>
     </div>
