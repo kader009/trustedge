@@ -21,7 +21,7 @@ const EduNestApi = baseApi.injectEndpoints({
 
     allCategory: build.query({
       query: () => ({
-        url: '/api/v1/categories',
+        url: '/api/v1/category',
         method: 'GET',
       }),
     }),
@@ -80,6 +80,24 @@ const EduNestApi = baseApi.injectEndpoints({
         url: '/api/v1/users/update-profile',
         method: 'PUT',
         body: detail,
+      }),
+    }),
+
+    // Get current user profile
+    getUserProfile: build.query({
+      query: () => ({
+        url: '/api/v1/users/me',
+        method: 'GET',
+      }),
+      providesTags: ['User'],
+    }),
+
+    // Change password
+    changePassword: build.mutation({
+      query: (data) => ({
+        url: '/api/v1/users/update-password',
+        method: 'PATCH',
+        body: data,
       }),
     }),
 
@@ -223,6 +241,84 @@ const EduNestApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['UserReview', 'Review'],
     }),
+
+    // ============ CATEGORIES (ADMIN) ============
+    // Get all categories (admin)
+    getAllCategoriesAdmin: build.query({
+      query: () => ({
+        url: '/api/v1/category',
+        method: 'GET',
+      }),
+      providesTags: ['Category'],
+    }),
+
+    // Get single category
+    getCategoryById: build.query({
+      query: (id) => ({
+        url: `/api/v1/categories/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (result, error, id) => [{ type: 'Category', id }],
+    }),
+
+    // Create category (admin)
+    createCategory: build.mutation({
+      query: (data) => ({
+        url: '/api/v1/categories/create-category',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Category'],
+    }),
+
+    // Update category (admin)
+    updateCategory: build.mutation({
+      query: ({ id, data }) => ({
+        url: `/api/v1/categories/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'Category', id },
+        'Category',
+      ],
+    }),
+
+    // Delete category (admin)
+    deleteCategory: build.mutation({
+      query: (id) => ({
+        url: `/api/v1/categories/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Category'],
+    }),
+
+    // ============ USER COMMENTS ============
+    // Get user's own comments
+    getUserComments: build.query({
+      query: () => ({
+        url: '/api/v1/comments/user/my-comments',
+        method: 'GET',
+      }),
+      providesTags: ['Comment'],
+    }),
+
+    // Get comment count for a review
+    getCommentCount: build.query({
+      query: (reviewId) => ({
+        url: `/api/v1/comments/count/${reviewId}`,
+        method: 'GET',
+      }),
+    }),
+
+    // Hard delete comment (admin)
+    hardDeleteComment: build.mutation({
+      query: (commentId) => ({
+        url: `/api/v1/comments/hard-delete/${commentId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Comment'],
+    }),
   }),
 });
 
@@ -236,6 +332,8 @@ export const {
   useUpdateUserMutation,
   useDeleteUserMutation,
   useUpdateUserProfileMutation,
+  useGetUserProfileQuery,
+  useChangePasswordMutation,
   // Voting
   useVoteReviewMutation,
   useUnvoteReviewMutation,
@@ -245,6 +343,9 @@ export const {
   usePostCommentMutation,
   useUpdateCommentMutation,
   useDeleteCommentMutation,
+  useGetUserCommentsQuery,
+  useGetCommentCountQuery,
+  useHardDeleteCommentMutation,
   // Admin Approval
   useGetPendingReviewsQuery,
   useApproveReviewMutation,
@@ -253,4 +354,10 @@ export const {
   useGetUserReviewsQuery,
   useUpdateReviewMutation,
   useDeleteReviewMutation,
+  // Categories (Admin)
+  useGetAllCategoriesAdminQuery,
+  useGetCategoryByIdQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
 } = EduNestApi;

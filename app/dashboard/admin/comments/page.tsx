@@ -1,0 +1,220 @@
+'use client';
+import { useState } from 'react';
+import {
+  useGetCommentsQuery,
+  useHardDeleteCommentMutation,
+} from '@/src/redux/store/api/endApi';
+import { toast } from 'sonner';
+import { FaTrash, FaComment, FaUser, FaClock, FaSearch } from 'react-icons/fa';
+
+interface Comment {
+  _id: string;
+  content: string;
+  reviewId: string;
+  userId: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export default function CommentModerationPage() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const { data: commentsData, isLoading } = useGetCommentsQuery({
+    reviewId: 'all',
+    page: 1,
+    limit: 50,
+  });
+
+  const [hardDeleteComment, { isLoading: isDeleting }] =
+    useHardDeleteCommentMutation();
+
+  const comments: Comment[] = commentsData?.data || [];
+
+  const filteredComments = comments.filter(
+    (comment) =>
+      comment.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      comment.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleDelete = async (commentId: string, content: string) => {
+    if (
+      !confirm(
+        `Are you sure you want to permanently delete this comment?\n\n"${content.substring(
+          0,
+          100
+        )}..."\n\nThis action cannot be undone.`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await hardDeleteComment(commentId).unwrap();
+      toast.success('Comment deleted successfully!');
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Failed to delete comment');
+    }
+  };
+
+  return (
+    <div className="flex flex-1 flex-col px-4 sm:px-6 md:px-8 py-5">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+        <div className="flex min-w-72 flex-col gap-3">
+          <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+            Comment Moderation
+          </p>
+          <p className="text-text-light dark:text-white text-base font-normal leading-normal">
+            Review and moderate user comments across all reviews.
+          </p>
+        </div>
+      </div>
+
+      {/* Search Bar */}
+      <div className="p-4">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+            <FaSearch className="text-gray-400" />
+          </div>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-12 pr-4 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+            placeholder="Search comments by content or author..."
+          />
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+        <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+              <FaComment className="text-blue-500 text-xl" />
+            </div>
+            <div>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Total Comments
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                {comments.length}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center">
+              <FaUser className="text-green-500 text-xl" />
+            </div>
+            <div>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Unique Users
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                {new Set(comments.map((c) => c.userId?._id)).size}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+              <FaClock className="text-yellow-500 text-xl" />
+            </div>
+            <div>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Recent (24h)
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                {(() => {
+                  const oneDayAgo = new Date().getTime() - 24 * 60 * 60 * 1000;
+                  return comments.filter(
+                    (c) => new Date(c.createdAt).getTime() > oneDayAgo
+                  ).length;
+                })()}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Comments List */}
+      <div className="p-4">
+        {isLoading ? (
+          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+            Loading comments...
+          </div>
+        ) : filteredComments.length === 0 ? (
+          <div className="text-center py-12">
+            <FaComment className="mx-auto text-6xl text-gray-300 dark:text-gray-600 mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              {searchTerm
+                ? 'No comments found matching your search'
+                : 'No comments to moderate'}
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredComments.map((comment) => (
+              <div
+                key={comment._id}
+                className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6 hover:shadow-lg transition-shadow"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <FaUser className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-gray-900 dark:text-white font-bold">
+                          {comment.userId?.name || 'Unknown User'}
+                        </p>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm">
+                          {comment.userId?.email || 'No email'}
+                        </p>
+                      </div>
+                      <span className="ml-auto text-gray-500 dark:text-gray-400 text-sm">
+                        {new Date(comment.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+
+                    <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-3">
+                      <p className="text-gray-900 dark:text-white">
+                        {comment.content}
+                      </p>
+                    </div>
+
+                    {comment.updatedAt &&
+                      comment.updatedAt !== comment.createdAt && (
+                        <p className="text-gray-500 dark:text-gray-400 text-xs italic">
+                          Edited: {new Date(comment.updatedAt).toLocaleString()}
+                        </p>
+                      )}
+                  </div>
+
+                  <button
+                    onClick={() => handleDelete(comment._id, comment.content)}
+                    disabled={isDeleting}
+                    className="flex items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50"
+                  >
+                    <FaTrash /> Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

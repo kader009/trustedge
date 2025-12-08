@@ -4,11 +4,8 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
-import { setToken } from '@/src/redux/userAuth/userSlice';
-import { Mutex } from 'async-mutex';
-
-// Create a mutex to prevent multiple refresh attempts
-const mutex = new Mutex();
+import { logout } from '@/src/redux/userAuth/userSlice';
+import { toast } from 'sonner';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_BACKENDAPI,
@@ -27,51 +24,23 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  // Wait until the mutex is available without locking it
-  await mutex.waitForUnlock();
+  const result = await baseQuery(args, api, extraOptions);
 
-  let result = await baseQuery(args, api, extraOptions);
-
+  // Check for 401 Unauthorized response
   if (result.error && result.error.status === 401) {
-    // Check if we're already refreshing
-    if (!mutex.isLocked()) {
-      const release = await mutex.acquire();
-      try {
-        const refreshToken = (
-          api.getState() as { user: { refreshToken: string | null } }
-        ).user.refreshToken;
+    // Dispatch logout action
+    api.dispatch(logout());
 
-        if (refreshToken) {
-          // Try to get a new token
-          const refreshResult = await baseQuery(
-            {
-              url: '/api/v1/auth/refresh-token',
-              method: 'POST',
-              body: { refreshToken },
-            },
-            api,
-            extraOptions
-          );
+    // Show toast notification
+    toast.error('Session expired. Please login again.', {
+      duration: 4000,
+    });
 
-          if (refreshResult.data) {
-            // Store the new token
-            const newToken = (
-              refreshResult.data as { data: { accessToken: string } }
-            ).data.accessToken;
-            api.dispatch(setToken(newToken));
-
-            // Retry the initial query
-            result = await baseQuery(args, api, extraOptions);
-          }
-        }
-      } finally {
-        // Release must be called once the mutex should be released again.
-        release();
-      }
-    } else {
-      // Wait until the mutex is available without locking it
-      await mutex.waitForUnlock();
-      result = await baseQuery(args, api, extraOptions);
+    // Redirect to login page
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 1000);
     }
   }
 
@@ -88,6 +57,7 @@ export const baseApi = createApi({
     'PendingReview',
     'UserReview',
     'User',
+    'Category',
   ],
   endpoints: () => ({}),
 });

@@ -173,40 +173,24 @@ export default function CreateReviewPage() {
               onChange={(e) => dispatch(setDescription(e.target.value))}
             ></textarea>
           </label>
-          <div>
+          <label className="flex flex-col w-full">
             <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">
-              Add Photos
+              Add Photo URLs (comma separated)
             </p>
-            <div className="flex items-center justify-center w-full">
-              <label
-                className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800"
-                htmlFor="dropzone-file"
-              >
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                  </p>
-                </div>
-                <input
-                  className="hidden"
-                  id="dropzone-file"
-                  multiple
-                  type="file"
-                  onChange={(e) => {
-                    const files = Array.from(e.target.files || []);
-                    const imageUrls = files.map((file) =>
-                      URL.createObjectURL(file)
-                    );
-                    dispatch(setImages(imageUrls));
-                  }}
-                />
-              </label>
-            </div>
-          </div>
+            <input
+              type="text"
+              className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+              placeholder="e.g., https://example.com/image1.jpg, https://example.com/image2.jpg"
+              value={images.join(', ')}
+              onChange={(e) => {
+                const urls = e.target.value
+                  .split(',')
+                  .map((url) => url.trim())
+                  .filter((url) => url.length > 0);
+                dispatch(setImages(urls));
+              }}
+            />
+          </label>
 
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-bold leading-normal tracking-[0.015em]">

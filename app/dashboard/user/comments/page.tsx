@@ -1,7 +1,47 @@
+'use client';
+import {
+  useGetUserCommentsQuery,
+  useDeleteCommentMutation,
+} from '@/src/redux/store/api/endApi';
+import {
+  FaComment,
+  FaReply,
+  FaThumbsUp,
+  FaTrash,
+  FaEdit,
+} from 'react-icons/fa';
+import { toast } from 'sonner';
+import Link from 'next/link';
 
-import { FaComment, FaReply, FaThumbsUp } from 'react-icons/fa';
+interface Comment {
+  _id: string;
+  content: string;
+  reviewId: {
+    _id: string;
+    title: string;
+  };
+  createdAt: string;
+  updatedAt?: string;
+}
 
 export default function UserCommentsPage() {
+  const { data: commentsData, isLoading } = useGetUserCommentsQuery(undefined);
+  const [deleteComment, { isLoading: isDeleting }] = useDeleteCommentMutation();
+
+  const comments: Comment[] = commentsData?.data || [];
+
+  const handleDelete = async (commentId: string) => {
+    if (!confirm('Are you sure you want to delete this comment?')) {
+      return;
+    }
+
+    try {
+      await deleteComment(commentId).unwrap();
+      toast.success('Comment deleted successfully!');
+    } catch (error: any) {
+      toast.error(error?.data?.message || 'Failed to delete comment');
+    }
+  };
 
   return (
     <div>
@@ -23,7 +63,7 @@ export default function UserCommentsPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {comments.length}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Total Comments
@@ -38,10 +78,14 @@ export default function UserCommentsPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {
+                  comments.filter(
+                    (c) => c.updatedAt && c.updatedAt !== c.createdAt
+                  ).length
+                }
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Replies Received
+                Edited Comments
               </p>
             </div>
           </div>
@@ -53,9 +97,17 @@ export default function UserCommentsPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                0
+                {
+                  comments.filter(
+                    (c) =>
+                      new Date(c.createdAt).getTime() >
+                      Date.now() - 7 * 24 * 60 * 60 * 1000
+                  ).length
+                }
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Likes</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                This Week
+              </p>
             </div>
           </div>
         </div>
@@ -69,18 +121,74 @@ export default function UserCommentsPage() {
           </h2>
         </div>
 
-        <div className="text-center py-12">
-          <FaComment className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
-            You haven&apos;t made any comments yet
-          </p>
-          <a
-            href="/categories"
-            className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
-          >
-            Browse Reviews
-          </a>
-        </div>
+        {isLoading ? (
+          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+            Loading comments...
+          </div>
+        ) : comments.length === 0 ? (
+          <div className="text-center py-12">
+            <FaComment className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 mb-4">
+              You haven&apos;t made any comments yet
+            </p>
+            <Link
+              href="/reviews"
+              className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+            >
+              Browse Reviews
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {comments.map((comment) => (
+              <div
+                key={comment._id}
+                className="border border-gray-200 dark:border-gray-800 rounded-lg p-4 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Link
+                        href={`/reviews/${comment.reviewId._id}`}
+                        className="text-primary hover:text-primary/80 font-medium"
+                      >
+                        {comment.reviewId.title}
+                      </Link>
+                      <span className="text-gray-400 dark:text-gray-500 text-sm">
+                        •
+                      </span>
+                      <span className="text-gray-500 dark:text-gray-400 text-sm">
+                        {new Date(comment.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                    <p className="text-gray-700 dark:text-gray-300 mb-2">
+                      {comment.content}
+                    </p>
+
+                    {comment.updatedAt &&
+                      comment.updatedAt !== comment.createdAt && (
+                        <p className="text-gray-500 dark:text-gray-400 text-xs italic">
+                          Edited: {new Date(comment.updatedAt).toLocaleString()}
+                        </p>
+                      )}
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleDelete(comment._id)}
+                      disabled={isDeleting}
+                      className="px-3 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50"
+                      title="Delete comment"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
