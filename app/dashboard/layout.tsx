@@ -15,7 +15,6 @@ import {
   FaStar,
   FaCog,
   FaUsers,
-  FaChartBar,
   FaClipboardList,
   FaSignOutAlt,
   FaBars,
@@ -84,11 +83,6 @@ export default function DashboardLayout({
       href: '/dashboard/admin/reviews',
       label: 'All Reviews',
       icon: FaClipboardList,
-    },
-    {
-      href: '/dashboard/admin/analytics',
-      label: 'Analytics',
-      icon: FaChartBar,
     },
     { href: '/dashboard/admin/settings', label: 'Settings', icon: FaCog },
   ];

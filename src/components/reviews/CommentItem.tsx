@@ -98,7 +98,7 @@ export default function CommentItem({
   return (
     <div className="flex gap-4">
       {/* Avatar */}
-      <div className="flex-shrink-0">
+      <div className="shrink-0">
         {comment.user.image ? (
           <Image
             src={comment.user.image}
@@ -162,7 +162,7 @@ export default function CommentItem({
           </div>
         ) : (
           <>
-            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words">
+            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap wrap-break-word">
               {commentText}
             </p>
 
