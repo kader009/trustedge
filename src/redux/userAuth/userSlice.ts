@@ -17,6 +17,7 @@ interface User {
 interface LoginResponse {
   user: User;
   token: string;
+  refreshToken?: string;
   name?: string | null | undefined;
   email?: string | null;
   image?: string | null;
@@ -26,6 +27,7 @@ interface LoginResponse {
 interface AuthState {
   user: User | null;
   token: string | null;
+  refreshToken: string | null;
   loading: boolean;
   error: string | null;
 }
@@ -34,6 +36,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: null,
   token: null,
+  refreshToken: null,
   loading: false,
   error: null,
 };
@@ -64,8 +67,8 @@ export const loginUser = createAsyncThunk<
       }
     );
 
-    const { user, accessToken } = response.data.data;
-    return { user, token: accessToken };
+    const { user, accessToken, refreshToken } = response.data.data;
+    return { user, token: accessToken, refreshToken };
   } catch (err) {
     let message = 'Something went wrong';
     if (axios.isAxiosError(err)) {
@@ -84,10 +87,15 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<LoginResponse>) => {
       state.user = action.payload?.user;
       state.token = action.payload?.token;
+      state.refreshToken = action.payload?.refreshToken || null;
+    },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
+      state.refreshToken = null;
     },
   },
   extraReducers: (builder) => {
@@ -100,15 +108,17 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken || null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         state.token = null;
+        state.refreshToken = null;
         state.error = action.payload ?? action.error.message ?? null;
       });
   },
 });
 
-export const { setUser, logout } = userSlice.actions;
+export const { setUser, setToken, logout } = userSlice.actions;
 export default userSlice.reducer;
