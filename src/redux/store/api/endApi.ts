@@ -188,7 +188,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Get pending reviews (admin only)
     getPendingReviews: build.query({
       query: () => ({
-        url: '/api/v1/reviews/admin/pending',
+        url: '/api/v1/review/admin/pending',
         method: 'GET',
       }),
       providesTags: ['PendingReview'],

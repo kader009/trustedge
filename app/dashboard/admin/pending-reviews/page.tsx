@@ -10,10 +10,28 @@ import {
 import { useGetPendingReviewsQuery } from '@/src/redux/store/api/endApi';
 import ReviewApprovalCard from '@/src/components/admin/ReviewApprovalCard';
 
-export default function PendingReviewsPage() {
-  const { data, isLoading, error } = useGetPendingReviewsQuery();
+interface Review {
+  _id: string;
+  productId: {
+    title: string;
+    images?: string[];
+    category?: string;
+  };
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar?: string;
+  };
+  rating: number;
+  review: string;
+  createdAt: string;
+}
 
-  const pendingReviews = data?.reviews || [];
+export default function PendingReviewsPage() {
+  const { data, isLoading, error } = useGetPendingReviewsQuery(undefined);
+
+  const pendingReviews = (data?.reviews as Review[]) || [];
   const stats = data?.stats || {
     pending: 0,
     approvedToday: 0,
@@ -36,7 +54,7 @@ export default function PendingReviewsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-orange-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaClock className="w-6 h-6" />
             </div>
             <div>
@@ -51,7 +69,7 @@ export default function PendingReviewsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-green-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaCheckCircle className="w-6 h-6" />
             </div>
             <div>
@@ -66,7 +84,7 @@ export default function PendingReviewsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-red-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaTimesCircle className="w-6 h-6" />
             </div>
             <div>
@@ -81,7 +99,7 @@ export default function PendingReviewsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-yellow-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaHourglassHalf className="w-6 h-6" />
             </div>
             <div>
@@ -130,7 +148,7 @@ export default function PendingReviewsPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {pendingReviews.map((review: any) => (
+            {pendingReviews.map((review: Review) => (
               <ReviewApprovalCard key={review._id} review={review} />
             ))}
           </div>

@@ -115,9 +115,9 @@ export default function CategoryManagementPage() {
   };
 
   return (
-    <div className="flex flex-1 flex-col px-4 sm:px-6 md:px-8 py-5">
+    <div className="flex flex-1 flex-col px-0 sm:px-1 md:px-2 py-2">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-1">
         <div className="flex min-w-72 flex-col gap-3">
           <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
             Category Management

@@ -207,10 +207,10 @@ export default function AdminDashboard() {
           Review Management
         </Link>
         <Link
-          href="/dashboard/admin/analytics"
+          href="/dashboard/admin/categories"
           className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-semibold py-4 px-6 rounded-lg transition-colors text-center"
         >
-          View Analytics
+          View Category
         </Link>
       </div>
     </div>
