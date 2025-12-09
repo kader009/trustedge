@@ -255,7 +255,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Get single category
     getCategoryById: build.query({
       query: (id) => ({
-        url: `/api/v1/categories/${id}`,
+        url: `/api/v1/category/${id}`,
         method: 'GET',
       }),
       providesTags: (result, error, id) => [{ type: 'Category', id }],
@@ -264,7 +264,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Create category (admin)
     createCategory: build.mutation({
       query: (data) => ({
-        url: '/api/v1/categories/create-category',
+        url: '/api/v1/category/create-category',
         method: 'POST',
         body: data,
       }),
@@ -274,7 +274,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Update category (admin)
     updateCategory: build.mutation({
       query: ({ id, data }) => ({
-        url: `/api/v1/categories/${id}`,
+        url: `/api/v1/category/${id}`,
         method: 'PUT',
         body: data,
       }),
@@ -287,7 +287,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Delete category (admin)
     deleteCategory: build.mutation({
       query: (id) => ({
-        url: `/api/v1/categories/${id}`,
+        url: `/api/v1/category/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Category'],

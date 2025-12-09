@@ -39,17 +39,12 @@ export default function AdminUsersPage() {
   const { user: currentUser } = useAppSelector(
     (state: RootState) => state.user
   );
-  const { data: usersData, isLoading, error } = useGetAllUsersQuery({});
+
+  const { data: usersData, isLoading } = useGetAllUsersQuery(undefined);
 
   const users = useMemo(() => {
     return (usersData?.data as User[]) || [];
   }, [usersData]);
-
-  console.log('Users API Response:', usersData);
-  console.log('Users Array:', users);
-  console.log('API Error:', error);
-  console.log('API Error:', error);
-  console.log('Is Loading:', isLoading);
 
   // Filter and search logic
   const filteredUsers = useMemo(() => {

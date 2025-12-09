@@ -21,11 +21,11 @@ export default function CategoryManagementPage() {
   const { data: categoriesData, isLoading: isLoadingCategories } =
     useGetAllCategoriesAdminQuery(undefined);
   const [createCategory, { isLoading: isCreating }] =
-    useCreateCategoryMutation();
+    useCreateCategoryMutation(undefined);
   const [updateCategory, { isLoading: isUpdating }] =
-    useUpdateCategoryMutation();
+    useUpdateCategoryMutation(undefined);
   const [deleteCategory, { isLoading: isDeleting }] =
-    useDeleteCategoryMutation();
+    useDeleteCategoryMutation(undefined);
 
   const [showModal, setShowModal] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -69,6 +69,7 @@ export default function CategoryManagementPage() {
     try {
       if (editingCategory) {
         await updateCategory({
+          id: editingCategory._id,
           data: formData,
         }).unwrap();
         toast.success('Category updated successfully!');
@@ -83,22 +84,34 @@ export default function CategoryManagementPage() {
     }
   };
 
-  const handleDelete = async (id: string, name: string) => {
-    if (
-      !confirm(
-        `Are you sure you want to delete "${name}"? This action cannot be undone.`
-      )
-    ) {
-      return;
-    }
-
-    try {
-      await deleteCategory(id).unwrap();
-      toast.success('Category deleted successfully!');
-    } catch (error: unknown) {
-      const err = error as { data?: { message?: string } };
-      toast.error(err?.data?.message || 'Failed to delete category');
-    }
+  const handleDelete = (id: string, name: string) => {
+    toast(
+      <div className="flex flex-col gap-2">
+        <p className="font-semibold">Delete Category</p>
+        <p className="text-sm">
+          Are you sure you want to delete &quot;{name}&quot;? This action cannot
+          be undone.
+        </p>
+      </div>,
+      {
+        action: {
+          label: 'Delete',
+          onClick: async () => {
+            try {
+              await deleteCategory(id).unwrap();
+              toast.success('Category deleted successfully!');
+            } catch (error: unknown) {
+              const err = error as { data?: { message?: string } };
+              toast.error(err?.data?.message || 'Failed to delete category');
+            }
+          },
+        },
+        cancel: {
+          label: 'Cancel',
+          onClick: () => {},
+        },
+      }
+    );
   };
 
   return (
