@@ -95,8 +95,8 @@ export default function CommentModerationPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
         <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
-              <FaComment className="text-blue-500 text-xl" />
+            <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
+              <FaComment className="text-white text-xl" />
             </div>
             <div>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
@@ -111,8 +111,8 @@ export default function CommentModerationPage() {
 
         <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center">
-              <FaUser className="text-green-500 text-xl" />
+            <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
+              <FaUser className="text-white text-xl" />
             </div>
             <div>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
@@ -127,8 +127,8 @@ export default function CommentModerationPage() {
 
         <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center">
-              <FaClock className="text-yellow-500 text-xl" />
+            <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
+              <FaClock className="text-white text-xl" />
             </div>
             <div>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
