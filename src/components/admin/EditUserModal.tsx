@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FaTimes, FaCamera } from 'react-icons/fa';
 import Image from 'next/image';
 import { useUpdateUserMutation } from '@/src/redux/store/api/endApi';
@@ -36,19 +36,6 @@ export default function EditUserModal({
 
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
-  useEffect(() => {
-    if (isOpen) {
-      setFormData({
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        isActive: user.isActive,
-        image: user.image || '',
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -70,7 +57,10 @@ export default function EditUserModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-md shadow-xl border border-gray-100 dark:border-gray-700">
+      <div
+        key={user._id}
+        className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-md shadow-xl border border-gray-100 dark:border-gray-700"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">

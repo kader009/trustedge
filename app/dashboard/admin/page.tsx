@@ -28,14 +28,6 @@ export default function AdminDashboard() {
       href: '/dashboard/admin/reviews',
     },
     {
-      label: 'Active Today',
-      value: '0',
-      change: '+23%',
-      icon: FaChartLine,
-      color: 'bg-primary',
-      href: '/dashboard/admin/analytics',
-    },
-    {
       label: 'Pending Reviews',
       value: '0',
       change: '-5%',
@@ -65,7 +57,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (

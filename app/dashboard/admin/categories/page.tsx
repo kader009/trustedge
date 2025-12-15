@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import {
   useGetAllCategoriesAdminQuery,
@@ -8,6 +9,7 @@ import {
 } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaTag } from 'react-icons/fa';
+import CategorySkeleton from '@/src/components/skeletons/CategorySkeleton';
 
 interface Category {
   _id: string;
@@ -137,9 +139,7 @@ export default function CategoryManagementPage() {
       {/* Categories List */}
       <div className="p-4">
         {isLoadingCategories ? (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-            Loading categories...
-          </div>
+          <CategorySkeleton />
         ) : categories.length === 0 ? (
           <div className="text-center py-12">
             <FaTag className="mx-auto text-6xl text-gray-300 dark:text-gray-600 mb-4" />
