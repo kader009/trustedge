@@ -4,11 +4,19 @@ import { FaCheckCircle, FaUsers } from 'react-icons/fa';
 import Link from 'next/link';
 import StatsCard from '@/src/components/dashboard/StatsCard';
 import { adminStats } from '@/src/data/adminStats';
-import { useGetAllUsersQuery } from '@/src/redux/store/api/endApi';
+import {
+  useGetallReviewQuery,
+  useGetAllUsersQuery,
+  useGetPendingReviewsQuery,
+} from '@/src/redux/store/api/endApi';
 
 export default function AdminDashboard() {
   const { data: usersData } = useGetAllUsersQuery(undefined);
   const users = usersData?.data || [];
+  const { data: reviewData } = useGetallReviewQuery(undefined);
+  const { data: pendingReview } = useGetPendingReviewsQuery(undefined);
+  const reviews = reviewData?.data || [];
+  const pendingReviewsData = pendingReview?.data || [];
 
   const recentUsers = [
     // Placeholder - will be fetched from API
@@ -31,17 +39,28 @@ export default function AdminDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {adminStats.map((stat, index) => (
-          <StatsCard
-            key={index}
-            label={stat.label}
-            value={stat.label === 'Total Users' ? users.length : stat.value}
-            change={stat.change}
-            icon={stat.icon}
-            color={stat.color}
-            href={stat.href}
-          />
-        ))}
+        {adminStats.map((stat, index) => {
+          let value = stat.value;
+          if (stat.label === 'Total Users') {
+            value = users.length;
+          } else if (stat.label === 'Total Reviews') {
+            value = reviews.length;
+          } else if (stat.label === 'Pending Reviews') {
+            value = pendingReviewsData.length;
+          }
+
+          return (
+            <StatsCard
+              key={index}
+              label={stat.label}
+              value={value}
+              change={stat.change}
+              icon={stat.icon}
+              color={stat.color}
+              href={stat.href}
+            />
+          );
+        })}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

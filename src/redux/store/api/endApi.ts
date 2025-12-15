@@ -213,6 +213,15 @@ const EduNestApi = baseApi.injectEndpoints({
       invalidatesTags: ['PendingReview', 'Review'],
     }),
 
+    // get all review route
+    getallReview: build.query({
+      query: () => ({
+        url: '/api/v1/review', 
+        method: 'GET',
+      }),
+      providesTags: ['Review'],
+    }),
+
     // ============ USER REVIEWS ============
     // Get user's own reviews (using /products endpoint as reviews are products)
     getUserReviews: build.query({
@@ -354,6 +363,7 @@ export const {
   useGetUserReviewsQuery,
   useUpdateReviewMutation,
   useDeleteReviewMutation,
+  useGetallReviewQuery,
   // Categories (Admin)
   useGetAllCategoriesAdminQuery,
   useGetCategoryByIdQuery,
