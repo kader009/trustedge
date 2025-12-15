@@ -2,6 +2,7 @@
 
 import { FaCheckCircle, FaUsers } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 import StatsCard from '@/src/components/dashboard/StatsCard';
 import { adminStats } from '@/src/data/adminStats';
 import {
@@ -10,21 +11,39 @@ import {
   useGetPendingReviewsQuery,
 } from '@/src/redux/store/api/endApi';
 
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  image?: string;
+}
+
+interface Review {
+  _id: string;
+  productId: {
+    title: string;
+  };
+  user: {
+    name: string;
+  };
+  rating: number;
+  review: string;
+}
+
 export default function AdminDashboard() {
   const { data: usersData } = useGetAllUsersQuery(undefined);
   const users = usersData?.data || [];
   const { data: reviewData } = useGetallReviewQuery(undefined);
   const { data: pendingReview } = useGetPendingReviewsQuery(undefined);
   const reviews = reviewData?.data || [];
-  const pendingReviewsData = pendingReview?.data || [];
+  const pendingReviewsData = pendingReview?.reviews || [];
 
-  const recentUsers = [
-    // Placeholder - will be fetched from API
-  ];
+  // Get recent 3 users
+  const recentUsers = users.slice(0, 3);
 
-  const pendingReviews = [
-    // Placeholder - will be fetched from API
-  ];
+  // Get recent 3 pending reviews
+  const recentPendingReviews = pendingReviewsData.slice(0, 3);
 
   return (
     <div>
@@ -86,7 +105,37 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <div className="space-y-3">
-              {/* User list will be rendered here */}
+              {recentUsers.map((user: User) => (
+                <div
+                  key={user._id}
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center">
+                    {user.image ? (
+                      <Image
+                        src={user.image}
+                        alt={user.name}
+                        width={40}
+                        height={40}
+                        className="object-cover w-full h-full"
+                      />
+                    ) : (
+                      <FaUsers className="text-primary" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                      {user.name}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      {user.email}
+                    </p>
+                  </div>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
+                    {user.role}
+                  </span>
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -104,7 +153,7 @@ export default function AdminDashboard() {
               View All →
             </Link>
           </div>
-          {pendingReviews.length === 0 ? (
+          {recentPendingReviews.length === 0 ? (
             <div className="text-center py-8">
               <FaCheckCircle className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
               <p className="text-gray-500 dark:text-gray-400">
@@ -113,7 +162,27 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <div className="space-y-3">
-              {/* Review list will be rendered here */}
+              {recentPendingReviews.map((review: Review) => (
+                <div
+                  key={review._id}
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center">
+                    <FaCheckCircle className="text-orange-500" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                      {review.productId?.title || 'Product'}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      By {review.user?.name || 'Unknown'}
+                    </p>
+                  </div>
+                  <span className="text-xs text-orange-500 font-medium">
+                    Pending
+                  </span>
+                </div>
+              ))}
             </div>
           )}
         </div>
