@@ -1,41 +1,14 @@
 'use client';
 
-import {
-  FaUsers,
-  FaStar,
-  FaChartLine,
-  FaCheckCircle,
-  FaClock,
-} from 'react-icons/fa';
+import { FaCheckCircle, FaUsers } from 'react-icons/fa';
 import Link from 'next/link';
+import StatsCard from '@/src/components/dashboard/StatsCard';
+import { adminStats } from '@/src/data/adminStats';
+import { useGetAllUsersQuery } from '@/src/redux/store/api/endApi';
 
 export default function AdminDashboard() {
-  const stats = [
-    {
-      label: 'Total Users',
-      value: '0',
-      change: '+12%',
-      icon: FaUsers,
-      color: 'bg-primary',
-      href: '/dashboard/admin/users',
-    },
-    {
-      label: 'Total Reviews',
-      value: '0',
-      change: '+8%',
-      icon: FaStar,
-      color: 'bg-primary',
-      href: '/dashboard/admin/reviews',
-    },
-    {
-      label: 'Pending Reviews',
-      value: '0',
-      change: '-5%',
-      icon: FaClock,
-      color: 'bg-primary',
-      href: '/dashboard/admin/pending-reviews',
-    },
-  ];
+  const { data: usersData } = useGetAllUsersQuery(undefined);
+  const users = usersData?.data || [];
 
   const recentUsers = [
     // Placeholder - will be fetched from API
@@ -58,37 +31,17 @@ export default function AdminDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {stats.map((stat, index) => {
-          const Icon = stat.icon;
-          return (
-            <Link
-              key={index}
-              href={stat.href}
-              className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105 cursor-pointer"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className={`${stat.color} p-3 rounded-lg text-white`}>
-                  <Icon className="w-6 h-6" />
-                </div>
-                <span
-                  className={`text-sm font-semibold ${
-                    stat.change.startsWith('+')
-                      ? 'text-green-500'
-                      : 'text-red-500'
-                  }`}
-                >
-                  {stat.change}
-                </span>
-              </div>
-              <p className="text-2xl font-bold text-text-light dark:text-text-dark mb-1">
-                {stat.value}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {stat.label}
-              </p>
-            </Link>
-          );
-        })}
+        {adminStats.map((stat, index) => (
+          <StatsCard
+            key={index}
+            label={stat.label}
+            value={stat.label === 'Total Users' ? users.length : stat.value}
+            change={stat.change}
+            icon={stat.icon}
+            color={stat.color}
+            href={stat.href}
+          />
+        ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
