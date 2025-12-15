@@ -4,7 +4,6 @@ import {
   FaClock,
   FaCheckCircle,
   FaTimesCircle,
-  FaHourglassHalf,
   FaSpinner,
 } from 'react-icons/fa';
 import { useGetPendingReviewsQuery } from '@/src/redux/store/api/endApi';
@@ -36,7 +35,6 @@ export default function PendingReviewsPage() {
     pending: 0,
     approvedToday: 0,
     rejectedToday: 0,
-    avgReviewTime: 0,
   };
 
   return (
@@ -51,7 +49,7 @@ export default function PendingReviewsPage() {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
@@ -97,21 +95,7 @@ export default function PendingReviewsPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-primary p-3 rounded-lg text-white">
-              <FaHourglassHalf className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                {isLoading ? '...' : stats.avgReviewTime || 0}h
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                Avg. Review Time
-              </p>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
       {/* Pending Reviews List */}

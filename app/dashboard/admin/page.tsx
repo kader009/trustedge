@@ -73,7 +73,6 @@ export default function AdminDashboard() {
               key={index}
               label={stat.label}
               value={value}
-              change={stat.change}
               icon={stat.icon}
               color={stat.color}
               href={stat.href}
