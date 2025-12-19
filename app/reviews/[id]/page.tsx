@@ -1,15 +1,31 @@
 import { FaStar, FaShare, FaFlag } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  getReviewById,
-  getReviews,
-  getProducts,
-  getCategories,
-} from '@/src/lib/api';
+import { getReviewById, getProducts, getCategories } from '@/src/lib/api';
 import { notFound } from 'next/navigation';
 import VotingButtons from '@/src/components/reviews/VotingButtons';
 import CommentSection from '@/src/components/reviews/CommentSection';
+
+interface Category {
+  _id: string;
+  name: string;
+}
+
+interface Product {
+  _id: string;
+  title?: string;
+  description?: string;
+  images?: string[];
+  category?: string;
+  rating?: number;
+  price?: number;
+}
+
+interface Comment {
+  user?: { name?: string };
+  createdAt?: string;
+  comment?: string;
+}
 
 export default async function ReviewDetailPage({
   params,
@@ -22,7 +38,7 @@ export default async function ReviewDetailPage({
   // Fallback: If review not found, try to get product data
   if (!reviewData) {
     const products = await getProducts(100); // Fetch more products
-    const product = products.find((p: any) => p._id === id);
+    const product = products.find((p: Product) => p._id === id);
 
     if (!product) {
       notFound();
@@ -39,15 +55,15 @@ export default async function ReviewDetailPage({
       rating: product.rating || 5,
       review: product.description || 'Great product! Highly recommended.',
       createdAt: new Date().toISOString(),
-      likes: Math.floor(Math.random() * 200) + 50,
+      likes: 100,
       comments: [],
     };
   }
 
   // Fetch categories to map category IDs to names
   const categories = await getCategories();
-  const categoryMap = new Map();
-  categories.forEach((cat: any) => {
+  const categoryMap = new Map<string, string>();
+  categories.forEach((cat: Category) => {
     categoryMap.set(cat._id, cat.name);
   });
 
@@ -59,12 +75,12 @@ export default async function ReviewDetailPage({
   const allProducts = await getProducts(100);
   const relatedProducts = allProducts
     .filter(
-      (p: any) => p.category === product.category && p._id !== product._id
+      (p: Product) => p.category === product.category && p._id !== product._id
     )
     .slice(0, 2);
 
   // Helper to get image
-  const getProductImage = (prod: any) => {
+  const getProductImage = (prod: Product) => {
     if (prod.images && prod.images.length > 0) {
       const originalImage = prod.images[0];
       if (originalImage.includes('ibb.co')) {
@@ -119,16 +135,18 @@ export default async function ReviewDetailPage({
     likes: reviewData.likes || 0,
     dislikes: 0,
     comments:
-      reviewData.comments?.map((c: any, index: number) => ({
+      reviewData.comments?.map((c: Comment, index: number) => ({
         id: index,
         author: c.user?.name || 'User',
         avatar: `https://ui-avatars.com/api/?name=${c.user?.name || 'User'}`,
-        date: new Date(c.createdAt || Date.now()).toLocaleDateString(),
+        date: new Date(
+          c.createdAt || new Date().toISOString()
+        ).toLocaleDateString(),
         text: c.comment,
       })) || [],
   };
 
-  const relatedReviews = relatedProducts.map((p: any) => {
+  const relatedReviews = relatedProducts.map((p: Product) => {
     return {
       id: p._id,
       category: categoryName,

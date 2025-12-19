@@ -2,6 +2,21 @@ import CategoriesClient from './CategoriesClient';
 import FilterSidebar from '@/src/components/product/FilterSidebar';
 import { getProducts, getCategories } from '@/src/lib/api';
 
+interface Category {
+  _id: string;
+  name: string;
+}
+
+interface Product {
+  _id: string;
+  title: string;
+  images?: string[];
+  category: string;
+  rating?: number;
+  price?: number;
+  numReviews?: number;
+}
+
 export default async function CategoriesPage() {
   const [products, categories] = await Promise.all([
     getProducts(50),
@@ -9,12 +24,12 @@ export default async function CategoriesPage() {
   ]);
 
   // Create a map of category ID to category name
-  const categoryMap = new Map();
-  categories.forEach((cat: any) => {
+  const categoryMap = new Map<string, string>();
+  categories.forEach((cat: Category) => {
     categoryMap.set(cat._id, cat.name);
   });
 
-  const reviews = products.map((product: any) => {
+  const reviews = products.map((product: Product, index: number) => {
     let image =
       'https://via.placeholder.com/400x300/6366f1/ffffff?text=No+Image';
 
@@ -28,7 +43,7 @@ export default async function CategoriesPage() {
       }
     }
 
-    // Assign random category color
+    // Assign category color based on index for consistent rendering
     const colors = [
       'text-primary',
       'text-pink-500',
@@ -37,12 +52,12 @@ export default async function CategoriesPage() {
       'text-teal-600',
       'text-blue-500',
     ];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const categoryColor = colors[index % colors.length];
 
     return {
       id: product._id,
       category: categoryMap.get(product.category) || 'Unknown Category',
-      categoryColor: randomColor,
+      categoryColor: categoryColor,
       title: product.title,
       rating: product.rating || 5,
       imageUrl: image,
@@ -52,7 +67,7 @@ export default async function CategoriesPage() {
         day: 'numeric',
         year: 'numeric',
       }),
-      likes: Math.floor(Math.random() * 200) + 50,
+      likes: (index + 1) * 23 + 50,
       comments: product.numReviews || 0,
       product: {
         title: product.title,
