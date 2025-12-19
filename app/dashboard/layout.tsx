@@ -11,7 +11,6 @@ import { toast } from 'sonner';
 import {
   FaHome,
   FaUser,
-  FaHeart,
   FaStar,
   FaUsers,
   FaClipboardList,
@@ -77,7 +76,6 @@ export default function DashboardLayout({
     { href: '/dashboard/user/profile', label: 'Profile', icon: FaUser },
     { href: '/dashboard/user/reviews', label: 'My Reviews', icon: FaStar },
     { href: '/dashboard/user/comments', label: 'My Comments', icon: FaComment },
-    { href: '/dashboard/user/favorites', label: 'Favorites', icon: FaHeart },
     {
       href: '/dashboard/user/payments',
       label: 'Payment History',

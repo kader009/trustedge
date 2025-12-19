@@ -104,7 +104,7 @@ const Navbar = () => {
                         {user.name.charAt(0).toUpperCase()}
                       </div>
                     )}
-                    <span className="hidden lg:block text-sm font-medium text-text-light dark:text-text-dark">
+                    <span className="hidden lg:block text-sm font-medium text-text-light dark:text-text-dark cursor-pointer">
                       {user.name}
                     </span>
                   </button>
@@ -133,7 +133,7 @@ const Navbar = () => {
                         </Link>
                         <button
                           onClick={handleLogout}
-                          className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-primary"
+                          className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-primary cursor-pointer"
                         >
                           <FaSignOutAlt className="w-4 h-4" />
                           <span>Logout</span>

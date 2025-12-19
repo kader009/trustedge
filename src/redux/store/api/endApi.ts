@@ -142,6 +142,15 @@ const EduNestApi = baseApi.injectEndpoints({
     }),
 
     // ============ COMMENT SYSTEM ============
+    // Get all comments (admin only)
+    getAllComments: build.query({
+      query: ({ page = 1, limit = 50 }) => ({
+        url: '/api/v1/comments/admin/all-comments',
+        params: { page, limit },
+      }),
+      providesTags: ['Comment'],
+    }),
+
     // Get comments for a review
     getComments: build.query({
       query: ({ reviewId, page = 1, limit = 10 }) => ({
@@ -216,7 +225,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // get all review route
     getallReview: build.query({
       query: () => ({
-        url: '/api/v1/review', 
+        url: '/api/v1/review',
         method: 'GET',
       }),
       providesTags: ['Review'],
@@ -348,6 +357,7 @@ export const {
   useUnvoteReviewMutation,
   useGetUserVoteQuery,
   // Comments
+  useGetAllCommentsQuery,
   useGetCommentsQuery,
   usePostCommentMutation,
   useUpdateCommentMutation,

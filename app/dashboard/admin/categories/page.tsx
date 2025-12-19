@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   useGetAllCategoriesAdminQuery,
   useCreateCategoryMutation,
@@ -119,7 +120,7 @@ export default function CategoryManagementPage() {
   return (
     <div className="flex flex-1 flex-col px-0 sm:px-1 md:px-2 py-2">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-1">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-4">
         <div className="flex min-w-72 flex-col gap-3">
           <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
             Category Management
@@ -137,7 +138,7 @@ export default function CategoryManagementPage() {
       </div>
 
       {/* Categories List */}
-      <div className="p-4">
+      <div className="px-1 py-4">
         {isLoadingCategories ? (
           <CategorySkeleton />
         ) : categories.length === 0 ? (
@@ -159,8 +160,18 @@ export default function CategoryManagementPage() {
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <FaTag className="text-primary text-xl" />
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-primary/10 flex items-center justify-center">
+                      {category.image ? (
+                        <Image
+                          src={category.image}
+                          alt={category.name}
+                          width={48}
+                          height={48}
+                          className="object-cover w-full h-full"
+                        />
+                      ) : (
+                        <FaTag className="text-primary text-xl" />
+                      )}
                     </div>
                     <div>
                       <h3 className="text-gray-900 dark:text-white text-lg font-bold">

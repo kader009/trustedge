@@ -95,7 +95,6 @@ export default function PendingReviewsPage() {
             </div>
           </div>
         </div>
-        
       </div>
 
       {/* Pending Reviews List */}

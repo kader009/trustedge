@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import {
-  useGetCommentsQuery,
+  useGetAllCommentsQuery,
   useHardDeleteCommentMutation,
 } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
@@ -23,8 +23,7 @@ interface Comment {
 export default function CommentModerationPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data: commentsData, isLoading } = useGetCommentsQuery({
-    reviewId: 'all',
+  const { data: commentsData, isLoading } = useGetAllCommentsQuery({
     page: 1,
     limit: 50,
   });
@@ -40,31 +39,36 @@ export default function CommentModerationPage() {
       comment.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleDelete = async (commentId: string, content: string) => {
-    if (
-      !confirm(
-        `Are you sure you want to permanently delete this comment?\n\n"${content.substring(
-          0,
-          100
-        )}..."\n\nThis action cannot be undone.`
-      )
-    ) {
-      return;
-    }
-
-    try {
-      await hardDeleteComment(commentId).unwrap();
-      toast.success('Comment deleted successfully!');
-    } catch (error: unknown) {
-      const err = error as { data?: { message?: string } };
-      toast.error(err?.data?.message || 'Failed to delete comment');
-    }
+  const handleDelete = (commentId: string, content: string) => {
+    toast(
+      `Delete comment: "${content.substring(0, 100)}${
+        content.length > 100 ? '...' : ''
+      }"?`,
+      {
+        action: {
+          label: 'Delete',
+          onClick: async () => {
+            try {
+              await hardDeleteComment(commentId).unwrap();
+              toast.success('Comment deleted successfully!');
+            } catch (error: unknown) {
+              const err = error as { data?: { message?: string } };
+              toast.error(err?.data?.message || 'Failed to delete comment');
+            }
+          },
+        },
+        cancel: {
+          label: 'Cancel',
+          onClick: () => {},
+        },
+      }
+    );
   };
 
   return (
-    <div className="flex flex-1 flex-col px-4 sm:px-6 md:px-8 py-5">
+    <div className="flex flex-1 flex-col px-1 py-2">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-2">
         <div className="flex min-w-72 flex-col gap-3">
           <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
             Comment Moderation
@@ -76,7 +80,7 @@ export default function CommentModerationPage() {
       </div>
 
       {/* Search Bar */}
-      <div className="p-4">
+      <div className="px-1 py-2">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
             <FaSearch className="text-gray-400" />
@@ -92,7 +96,7 @@ export default function CommentModerationPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-1 py-2">
         <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
@@ -148,7 +152,7 @@ export default function CommentModerationPage() {
       </div>
 
       {/* Comments List */}
-      <div className="p-4">
+      <div className="px-1 py-2">
         {isLoading ? (
           <div className="text-center py-12 text-gray-500 dark:text-gray-400">
             Loading comments...

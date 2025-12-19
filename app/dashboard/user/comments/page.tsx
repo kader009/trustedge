@@ -1,15 +1,10 @@
 'use client';
+import { useMemo } from 'react';
 import {
   useGetUserCommentsQuery,
   useDeleteCommentMutation,
 } from '@/src/redux/store/api/endApi';
-import {
-  FaComment,
-  FaReply,
-  FaThumbsUp,
-  FaTrash,
-  FaEdit,
-} from 'react-icons/fa';
+import { FaComment, FaReply, FaThumbsUp, FaTrash } from 'react-icons/fa';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
@@ -28,7 +23,10 @@ export default function UserCommentsPage() {
   const { data: commentsData, isLoading } = useGetUserCommentsQuery(undefined);
   const [deleteComment, { isLoading: isDeleting }] = useDeleteCommentMutation();
 
-  const comments: Comment[] = commentsData?.data || [];
+  const comments: Comment[] = useMemo(
+    () => commentsData?.data || [],
+    [commentsData?.data]
+  );
 
   const handleDelete = async (commentId: string) => {
     if (!confirm('Are you sure you want to delete this comment?')) {
@@ -38,8 +36,9 @@ export default function UserCommentsPage() {
     try {
       await deleteComment(commentId).unwrap();
       toast.success('Comment deleted successfully!');
-    } catch (error: any) {
-      toast.error(error?.data?.message || 'Failed to delete comment');
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Failed to delete comment');
     }
   };
 
@@ -58,7 +57,7 @@ export default function UserCommentsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-purple-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaComment className="w-6 h-6" />
             </div>
             <div>
@@ -73,7 +72,7 @@ export default function UserCommentsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-blue-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaReply className="w-6 h-6" />
             </div>
             <div>
@@ -92,21 +91,15 @@ export default function UserCommentsPage() {
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
-            <div className="bg-green-500 p-3 rounded-lg text-white">
+            <div className="bg-primary p-3 rounded-lg text-white">
               <FaThumbsUp className="w-6 h-6" />
             </div>
             <div>
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                {
-                  comments.filter(
-                    (c) =>
-                      new Date(c.createdAt).getTime() >
-                      Date.now() - 7 * 24 * 60 * 60 * 1000
-                  ).length
-                }
+                {comments.length}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                This Week
+                Total Comments
               </p>
             </div>
           </div>

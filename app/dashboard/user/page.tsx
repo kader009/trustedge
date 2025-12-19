@@ -2,7 +2,7 @@
 
 import { useAppSelector } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
-import { FaStar, FaHeart, FaEye, FaComment, FaCalendar } from 'react-icons/fa';
+import { FaStar, FaEye, FaComment, FaCalendar } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function UserDashboard() {
@@ -15,13 +15,6 @@ export default function UserDashboard() {
       icon: FaStar,
       color: 'bg-primary',
       href: '/dashboard/user/reviews',
-    },
-    {
-      label: 'Favorites',
-      value: '0',
-      icon: FaHeart,
-      color: 'bg-primary',
-      href: '/dashboard/user/favorites',
     },
     {
       label: 'Profile Views',
@@ -51,7 +44,7 @@ export default function UserDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
