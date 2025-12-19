@@ -4,14 +4,25 @@ import { useAppSelector } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
 import { FaStar, FaEye, FaComment, FaCalendar } from 'react-icons/fa';
 import Link from 'next/link';
+import {
+  useGetUserReviewsQuery,
+  useGetUserCommentsQuery,
+} from '@/src/redux/store/api/endApi';
 
 export default function UserDashboard() {
   const { user } = useAppSelector((state: RootState) => state.user);
+  const { data, isLoading } = useGetUserReviewsQuery(undefined);
+  const { data: commentsData, isLoading: commentsLoading } =
+    useGetUserCommentsQuery(undefined);
+  const totalReviews = isLoading ? '...' : data?.stats?.total || 0;
+  const totalComments = commentsLoading
+    ? '...'
+    : commentsData?.data?.length || 0;
 
   const stats = [
     {
       label: 'Total Reviews',
-      value: '0',
+      value: totalReviews,
       icon: FaStar,
       color: 'bg-primary',
       href: '/dashboard/user/reviews',
@@ -25,7 +36,7 @@ export default function UserDashboard() {
     },
     {
       label: 'Comments',
-      value: '0',
+      value: totalComments,
       icon: FaComment,
       color: 'bg-primary',
       href: '/dashboard/user/comments',
