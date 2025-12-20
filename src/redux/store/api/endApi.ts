@@ -213,7 +213,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Approve a review (admin only)
     approveReview: build.mutation({
       query: (reviewId) => ({
-        url: `/api/v1/reviews/admin/approve/${reviewId}`,
+        url: `/api/v1/review/admin/approve/${reviewId}`,
         method: 'PATCH',
       }),
       invalidatesTags: ['PendingReview', 'Review'],

@@ -47,7 +47,10 @@ export default function AdminDashboard() {
     page: 1,
     limit: 100,
   });
-  const reviews = reviewData?.data || [];
+  const reviews =
+    reviewData?.data?.reviews ||
+    reviewData?.reviews ||
+    (Array.isArray(reviewData?.data) ? reviewData.data : []);
   const pendingReviewsData =
     pendingReview?.data?.reviews ||
     pendingReview?.reviews ||

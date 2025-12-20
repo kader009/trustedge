@@ -33,8 +33,8 @@ export default function ReviewApprovalCard({
   review,
 }: ReviewApprovalCardProps) {
   const [approveReview, { isLoading: isApproving }] =
-    useApproveReviewMutation();
-  const [rejectReview, { isLoading: isRejecting }] = useRejectReviewMutation();
+    useApproveReviewMutation(undefined);
+  const [rejectReview, { isLoading: isRejecting }] = useRejectReviewMutation(undefined);
   const [showRejectModal, setShowRejectModal] = useState(false);
 
   const handleApprove = async () => {
@@ -153,7 +153,7 @@ export default function ReviewApprovalCard({
               <button
                 onClick={handleApprove}
                 disabled={isApproving || isRejecting}
-                className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-green-300 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-green-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <FaCheck className="text-sm" />
                 {isApproving ? 'Approving...' : 'Approve'}

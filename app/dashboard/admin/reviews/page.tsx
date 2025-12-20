@@ -1,7 +1,10 @@
 'use client';
 import { useState } from 'react';
 import { FaStar, FaCheckCircle, FaClock } from 'react-icons/fa';
-import { useGetallReviewQuery } from '@/src/redux/store/api/endApi';
+import {
+  useGetallReviewQuery,
+  useGetPendingReviewsQuery,
+} from '@/src/redux/store/api/endApi';
 import Image from 'next/image';
 
 interface Review {
@@ -10,24 +13,80 @@ interface Review {
   description: string;
   rating: number;
   status: 'pending' | 'approved' | 'rejected';
-  productId: {
+  images?: string[];
+  user?: {
+    _id: string;
+    name: string;
+    email: string;
+    image?: string;
+    avatar?: string;
+  };
+  productId?: {
     _id: string;
     name: string;
     image?: string;
   };
-  userId: {
+  userId?: {
     _id: string;
     name: string;
     email: string;
+    image?: string;
+    avatar?: string;
   };
   createdAt: string;
 }
 
 export default function AdminReviewsPage() {
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved'>('all');
-  const { data: reviewsData, isLoading } = useGetallReviewQuery(undefined);
+  const { data: reviewsData, isLoading: isLoadingAll } =
+    useGetallReviewQuery(undefined);
+  const { data: pendingData, isLoading: isLoadingPending } =
+    useGetPendingReviewsQuery(undefined);
 
-  const reviews: Review[] = reviewsData?.data || [];
+  const allReviews: Review[] =
+    (reviewsData?.data?.reviews as Review[]) ||
+    (reviewsData?.reviews as Review[]) ||
+    (Array.isArray(reviewsData?.data) ? (reviewsData.data as Review[]) : []) ||
+    [];
+
+  const pendingReviewsList: Review[] =
+    (pendingData?.data?.reviews as Review[]) ||
+    (pendingData?.reviews as Review[]) ||
+    (Array.isArray(pendingData?.data) ? (pendingData.data as Review[]) : []) ||
+    [];
+
+  // Merge and normalize statuses (Aggressive Normalization)
+  const normalizedReviews: Review[] = [];
+
+  // Combine both lists
+  const rawReviews = [...allReviews];
+  pendingReviewsList.forEach((pr) => {
+    if (!rawReviews.find((r) => r._id === pr._id)) {
+      rawReviews.push(pr);
+    }
+  });
+
+  rawReviews.forEach((r) => {
+    const rawStatus = (r.status || '').toString().toLowerCase().trim();
+    let finalStatus: 'pending' | 'approved' | 'rejected' = 'approved'; // Default
+
+    if (rawStatus === 'pending') {
+      finalStatus = 'pending';
+    } else if (rawStatus === 'rejected') {
+      finalStatus = 'rejected';
+    } else {
+      finalStatus = 'approved';
+    }
+
+    normalizedReviews.push({
+      ...r,
+      status: finalStatus,
+    });
+  });
+
+  const reviews = normalizedReviews;
+
+  const isLoading = isLoadingAll || isLoadingPending;
 
   const filteredReviews = reviews.filter((review) => {
     if (filter === 'all') return true;
@@ -159,11 +218,13 @@ export default function AdminReviewsPage() {
                 className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 <div className="flex gap-4">
-                  {review.productId?.image && (
-                    <div className="relative w-20 h-20 shrink-0">
+                  {(review.images?.[0] || review.productId?.image) && (
+                    <div className="relative w-24 h-24 shrink-0">
                       <Image
-                        src={review.productId.image}
-                        alt={review.productId.name}
+                        src={
+                          review.images?.[0] || review.productId?.image || ''
+                        }
+                        alt={review.title || review.productId?.name || 'Review'}
                         fill
                         className="object-cover rounded-lg"
                       />
@@ -172,12 +233,23 @@ export default function AdminReviewsPage() {
                   <div className="flex-1">
                     <div className="flex items-start justify-between mb-2">
                       <div>
-                        <h3 className="font-semibold text-text-light dark:text-text-dark">
-                          {review.title}
+                        <h3 className="font-semibold text-text-light dark:text-text-dark text-lg">
+                          {review.title ||
+                            review.productId?.name ||
+                            'Untitled Review'}
                         </h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {review.productId?.name || 'Unknown Product'}
-                        </p>
+                        <div className="flex flex-col">
+                          <p className="text-sm font-medium text-primary">
+                            {review.user?.name ||
+                              review.userId?.name ||
+                              'Unknown User'}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            {review.user?.email ||
+                              review.userId?.email ||
+                              'No email'}
+                          </p>
+                        </div>
                       </div>
                       <div className="flex items-center gap-1">
                         {[...Array(5)].map((_, i) => (
@@ -192,17 +264,16 @@ export default function AdminReviewsPage() {
                         ))}
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
                       {review.description}
                     </p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                        <span>By {review.userId?.name || 'Unknown'}</span>
                         <span>
                           {new Date(review.createdAt).toLocaleDateString()}
                         </span>
                         <span
-                          className={`px-2 py-1 rounded-full ${
+                          className={`px-2 py-1 rounded-full capitalize ${
                             review.status === 'approved'
                               ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
                               : review.status === 'pending'
