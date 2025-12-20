@@ -28,7 +28,7 @@ const EduNestApi = baseApi.injectEndpoints({
 
     postProduct: build.mutation({
       query: (productData) => ({
-        url: '/api/v1/reviews',
+        url: '/api/v1/review',
         method: 'POST',
         body: productData,
       }),
