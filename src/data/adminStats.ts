@@ -30,7 +30,7 @@ export const adminStats = [
     value: '0',
     change: 'New',
     icon: FaComment,
-    color: 'bg-yellow-500',
+    color: 'bg-primary',
     href: '/dashboard/admin/pending-comments',
   },
 ];

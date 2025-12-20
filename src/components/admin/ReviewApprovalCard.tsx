@@ -153,7 +153,7 @@ export default function ReviewApprovalCard({
               <button
                 onClick={handleApprove}
                 disabled={isApproving || isRejecting}
-                className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-green-300 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <FaCheck className="text-sm" />
                 {isApproving ? 'Approving...' : 'Approve'}
@@ -161,7 +161,7 @@ export default function ReviewApprovalCard({
               <button
                 onClick={() => setShowRejectModal(true)}
                 disabled={isApproving || isRejecting}
-                className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-4 py-2 bg-red-400 hover:bg-red-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <FaTimes className="text-sm" />
                 {isRejecting ? 'Rejecting...' : 'Reject'}

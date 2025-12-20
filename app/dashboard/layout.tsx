@@ -141,7 +141,7 @@ export default function DashboardLayout({
         {/* Sidebar */}
         <aside
           className={`
-          w-64 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark 
+          w-72 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark 
           h-screen flex flex-col
           fixed lg:sticky top-0 z-40
           transform transition-transform duration-300 ease-in-out
@@ -202,7 +202,9 @@ export default function DashboardLayout({
                   }`}
                 >
                   <Icon className="w-5 h-5" />
-                  <span className="font-medium">{link.label}</span>
+                  <span className="font-medium whitespace-nowrap">
+                    {link.label}
+                  </span>
                 </Link>
               );
             })}

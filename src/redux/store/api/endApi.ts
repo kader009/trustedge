@@ -229,6 +229,15 @@ const EduNestApi = baseApi.injectEndpoints({
       invalidatesTags: ['PendingReview', 'Review'],
     }),
 
+    // Approve a comment (admin only)
+    approveComment: build.mutation({
+      query: (commentId) => ({
+        url: `/api/v1/comments/admin/approve/${commentId}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Comment'],
+    }),
+
     // get all review route
     getallReview: build.query({
       query: () => ({
@@ -376,6 +385,7 @@ export const {
   useGetPendingReviewsQuery,
   useApproveReviewMutation,
   useRejectReviewMutation,
+  useApproveCommentMutation,
   // User Reviews
   useGetUserReviewsQuery,
   useUpdateReviewMutation,

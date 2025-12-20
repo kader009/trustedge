@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   useGetAllCommentsQuery,
   useHardDeleteCommentMutation,
+  useApproveCommentMutation,
 } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import {
@@ -12,17 +14,27 @@ import {
   FaClock,
   FaSearch,
   FaCheckCircle,
-  FaTimesCircle,
 } from 'react-icons/fa';
 
 interface Comment {
   _id: string;
-  content: string;
-  reviewId: string;
-  userId: {
+  content?: string;
+  text?: string;
+  reviewId?: string;
+  review?: string;
+  userId?: {
     _id: string;
     name: string;
     email: string;
+    image?: string;
+    avatar?: string;
+  };
+  user?: {
+    _id: string;
+    name: string;
+    email: string;
+    image?: string;
+    avatar?: string;
   };
   isApproved?: boolean;
   createdAt: string;
@@ -31,7 +43,9 @@ interface Comment {
 
 export default function PendingCommentsPage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState<'all' | 'pending' | 'approved'>('pending');
+  const [filter, setFilter] = useState<'all' | 'pending' | 'approved'>(
+    'pending'
+  );
 
   const { data: commentsData, isLoading } = useGetAllCommentsQuery({
     page: 1,
@@ -40,8 +54,15 @@ export default function PendingCommentsPage() {
 
   const [hardDeleteComment, { isLoading: isDeleting }] =
     useHardDeleteCommentMutation();
+  const [approveComment] = useApproveCommentMutation();
 
-  const comments: Comment[] = commentsData?.data || [];
+  const comments: Comment[] =
+    (commentsData?.data?.comments as Comment[]) ||
+    (commentsData?.comments as Comment[]) ||
+    (Array.isArray(commentsData?.data)
+      ? (commentsData.data as Comment[])
+      : []) ||
+    [];
 
   // Filter comments based on approval status
   const filteredByStatus = comments.filter((comment) => {
@@ -51,23 +72,28 @@ export default function PendingCommentsPage() {
   });
 
   // Then filter by search term
-  const filteredComments = filteredByStatus.filter(
-    (comment) =>
-      comment.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      comment.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredComments = filteredByStatus.filter((comment) => {
+    const commentText = comment.text || comment.content || '';
+    const userData = comment.user || comment.userId;
+    const userName = userData?.name || '';
+
+    return (
+      commentText.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      userName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   const pendingCount = comments.filter((c) => !c.isApproved).length;
   const approvedCount = comments.filter((c) => c.isApproved).length;
 
   const handleApprove = async (commentId: string) => {
-    // TODO: Implement approve API endpoint
-    toast.info('Approve functionality will be implemented in backend');
-  };
-
-  const handleReject = async (commentId: string) => {
-    // TODO: Implement reject API endpoint
-    toast.info('Reject functionality will be implemented in backend');
+    try {
+      await approveComment(commentId).unwrap();
+      toast.success('Comment approved successfully');
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Failed to approve comment');
+    }
   };
 
   const handleDelete = (commentId: string, content: string) => {
@@ -105,7 +131,8 @@ export default function PendingCommentsPage() {
             Comment Moderation
           </p>
           <p className="text-text-light dark:text-white text-base font-normal leading-normal">
-            Review and moderate user comments. Approve or reject pending comments.
+            Review and moderate user comments. Approve or reject pending
+            comments.
           </p>
         </div>
       </div>
@@ -176,7 +203,7 @@ export default function PendingCommentsPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-1 py-2">
         <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-yellow-500 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
               <FaClock className="text-white text-xl" />
             </div>
             <div>
@@ -192,7 +219,7 @@ export default function PendingCommentsPage() {
 
         <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-green-500 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
               <FaCheckCircle className="text-white text-xl" />
             </div>
             <div>
@@ -270,15 +297,42 @@ export default function PendingCommentsPage() {
 
                     {/* User Info */}
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <FaUser className="text-primary" />
+                      <div className="w-10 h-10 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center">
+                        {comment.user?.image ||
+                        comment.user?.avatar ||
+                        comment.userId?.image ||
+                        comment.userId?.avatar ? (
+                          <Image
+                            src={
+                              comment.user?.image ||
+                              comment.user?.avatar ||
+                              comment.userId?.image ||
+                              comment.userId?.avatar ||
+                              ''
+                            }
+                            alt={
+                              comment.user?.name ||
+                              comment.userId?.name ||
+                              'User'
+                            }
+                            width={40}
+                            height={40}
+                            className="object-cover w-full h-full"
+                          />
+                        ) : (
+                          <FaUser className="text-primary" />
+                        )}
                       </div>
                       <div>
                         <p className="text-gray-900 dark:text-white font-bold">
-                          {comment.userId?.name || 'Unknown User'}
+                          {comment.user?.name ||
+                            comment.userId?.name ||
+                            'Unknown User'}
                         </p>
                         <p className="text-gray-500 dark:text-gray-400 text-sm">
-                          {comment.userId?.email || 'No email'}
+                          {comment.user?.email ||
+                            comment.userId?.email ||
+                            'No email'}
                         </p>
                       </div>
                       <span className="ml-auto text-gray-500 dark:text-gray-400 text-sm">
@@ -289,7 +343,7 @@ export default function PendingCommentsPage() {
                     {/* Comment Content */}
                     <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-3">
                       <p className="text-gray-900 dark:text-white">
-                        {comment.content}
+                        {comment.text || comment.content || 'No content'}
                       </p>
                     </div>
 
@@ -304,23 +358,20 @@ export default function PendingCommentsPage() {
                   {/* Action Buttons */}
                   <div className="flex flex-col gap-2">
                     {!comment.isApproved && (
-                      <>
-                        <button
-                          onClick={() => handleApprove(comment._id)}
-                          className="flex items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap"
-                        >
-                          <FaCheckCircle /> Approve
-                        </button>
-                        <button
-                          onClick={() => handleReject(comment._id)}
-                          className="flex items-center gap-2 px-4 h-10 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400 text-sm font-medium hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors whitespace-nowrap"
-                        >
-                          <FaTimesCircle /> Reject
-                        </button>
-                      </>
+                      <button
+                        onClick={() => handleApprove(comment._id)}
+                        className="flex items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap"
+                      >
+                        <FaCheckCircle /> Approve
+                      </button>
                     )}
                     <button
-                      onClick={() => handleDelete(comment._id, comment.content)}
+                      onClick={() =>
+                        handleDelete(
+                          comment._id,
+                          comment.text || comment.content || ''
+                        )
+                      }
                       disabled={isDeleting}
                       className="flex items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap"
                     >

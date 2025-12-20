@@ -32,6 +32,12 @@ interface Review {
   description: string;
 }
 
+interface Comment {
+  _id: string;
+  content: string;
+  isApproved?: boolean;
+}
+
 export default function AdminDashboard() {
   const { data: usersData } = useGetAllUsersQuery(undefined);
   const users = usersData?.data || [];
@@ -50,7 +56,7 @@ export default function AdminDashboard() {
 
   // Calculate pending comments (those without isApproved or isApproved = false)
   const pendingCommentsCount = comments.filter(
-    (comment: any) => !comment.isApproved
+    (comment: Comment) => !comment.isApproved
   ).length;
 
   // Get recent 3 users

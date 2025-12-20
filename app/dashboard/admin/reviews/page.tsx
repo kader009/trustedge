@@ -1,10 +1,6 @@
 'use client';
 import { useState } from 'react';
-import {
-  FaStar,
-  FaCheckCircle,
-  FaClock
-} from 'react-icons/fa';
+import { FaStar, FaCheckCircle, FaClock } from 'react-icons/fa';
 import { useGetallReviewQuery } from '@/src/redux/store/api/endApi';
 import Image from 'next/image';
 
