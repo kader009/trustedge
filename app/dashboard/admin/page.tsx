@@ -9,6 +9,7 @@ import {
   useGetallReviewQuery,
   useGetAllUsersQuery,
   useGetPendingReviewsQuery,
+  useGetAllCommentsQuery,
 } from '@/src/redux/store/api/endApi';
 
 interface User {
@@ -21,14 +22,14 @@ interface User {
 
 interface Review {
   _id: string;
-  productId: {
-    title: string;
-  };
+  title: string;
   user: {
     name: string;
+    avatar?: string;
+    image?: string;
   };
   rating: number;
-  review: string;
+  description: string;
 }
 
 export default function AdminDashboard() {
@@ -36,8 +37,21 @@ export default function AdminDashboard() {
   const users = usersData?.data || [];
   const { data: reviewData } = useGetallReviewQuery(undefined);
   const { data: pendingReview } = useGetPendingReviewsQuery(undefined);
+  const { data: commentsData } = useGetAllCommentsQuery({
+    page: 1,
+    limit: 100,
+  });
   const reviews = reviewData?.data || [];
-  const pendingReviewsData = pendingReview?.reviews || [];
+  const pendingReviewsData =
+    pendingReview?.data?.reviews ||
+    pendingReview?.reviews ||
+    (Array.isArray(pendingReview?.data) ? pendingReview.data : []);
+  const comments = commentsData?.data || [];
+
+  // Calculate pending comments (those without isApproved or isApproved = false)
+  const pendingCommentsCount = comments.filter(
+    (comment: any) => !comment.isApproved
+  ).length;
 
   // Get recent 3 users
   const recentUsers = users.slice(0, 3);
@@ -57,7 +71,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {adminStats.map((stat, index) => {
           let value = stat.value;
           if (stat.label === 'Total Users') {
@@ -66,6 +80,8 @@ export default function AdminDashboard() {
             value = reviews.length;
           } else if (stat.label === 'Pending Reviews') {
             value = pendingReviewsData.length;
+          } else if (stat.label === 'Pending Comments') {
+            value = pendingCommentsCount;
           }
 
           return (
@@ -171,7 +187,7 @@ export default function AdminDashboard() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                      {review.productId?.title || 'Product'}
+                      {review.title || 'Review'}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                       By {review.user?.name || 'Unknown'}

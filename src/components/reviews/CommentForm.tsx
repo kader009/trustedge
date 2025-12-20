@@ -20,6 +20,11 @@ export default function CommentForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!reviewId) {
+      toast.error('Review ID is missing');
+      return;
+    }
+
     if (!content.trim()) {
       toast.error('Please enter a comment');
       return;
@@ -31,14 +36,27 @@ export default function CommentForm({
     }
 
     try {
+      console.log('Posting comment with:', {
+        reviewId,
+        content: content.trim(),
+      });
       await postComment({ reviewId, content: content.trim() }).unwrap();
-      toast.success('Comment posted successfully!');
+      toast.success(
+        'Comment submitted successfully! It will appear after admin approval.'
+      );
       setContent('');
       onCommentAdded();
     } catch (error) {
-      const err = error as { data?: { message?: string } };
+      const err = error as { status?: number; data?: { message?: string } };
       console.error('Comment error:', error);
-      toast.error(err?.data?.message || 'Failed to post comment');
+
+      if (err?.data?.message === 'Review not found') {
+        toast.error(
+          'This review is not available for comments. It might have been deleted or is not approved yet.'
+        );
+      } else {
+        toast.error(err?.data?.message || 'Failed to post comment');
+      }
     }
   };
 
@@ -61,7 +79,8 @@ export default function CommentForm({
 
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Be respectful and constructive
+          <span className="font-medium">📝 Note:</span> All comments are
+          reviewed by admins before being published
         </p>
         <button
           type="submit"

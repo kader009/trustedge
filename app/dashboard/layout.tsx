@@ -101,8 +101,13 @@ export default function DashboardLayout({
       icon: FaTag,
     },
     {
+      href: '/dashboard/admin/pending-comments',
+      label: 'Pending Comments',
+      icon: FaComment,
+    },
+    {
       href: '/dashboard/admin/comments',
-      label: 'Comment Modify',
+      label: 'All Comments',
       icon: FaComment,
     },
   ];

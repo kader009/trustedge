@@ -13,19 +13,18 @@ import RejectReasonModal from './RejectReasonModal';
 interface ReviewApprovalCardProps {
   review: {
     _id: string;
-    productId: {
-      title: string;
-      images?: string[];
-      category?: string;
-    };
+    title: string;
+    description: string;
+    images?: string[];
+    category?: string;
     user: {
       _id: string;
       name: string;
       email: string;
       avatar?: string;
+      image?: string;
     };
     rating: number;
-    review: string;
     createdAt: string;
   };
 }
@@ -59,9 +58,9 @@ export default function ReviewApprovalCard({
     }
   };
 
-  const getProductImage = () => {
-    if (review.productId.images && review.productId.images.length > 0) {
-      return review.productId.images[0];
+  const getReviewImage = () => {
+    if (review.images && review.images.length > 0) {
+      return review.images[0];
     }
     return 'https://via.placeholder.com/200x150/6366f1/ffffff?text=No+Image';
   };
@@ -80,11 +79,10 @@ export default function ReviewApprovalCard({
     <>
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
         <div className="flex gap-4">
-          {/* Product Image */}
           <div className="relative w-32 h-24 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-900 shrink-0">
             <Image
-              src={getProductImage()}
-              alt={review.productId.title}
+              src={getReviewImage()}
+              alt={review.title || 'Review Image'}
               fill
               className="object-cover"
             />
@@ -93,7 +91,7 @@ export default function ReviewApprovalCard({
           {/* Content */}
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 truncate">
-              {review.productId.title}
+              {review.title || 'Untitled Review'}
             </h3>
 
             {/* Rating */}
@@ -117,15 +115,15 @@ export default function ReviewApprovalCard({
 
             {/* Review Text */}
             <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
-              {review.review}
+              {review.description}
             </p>
 
             {/* User Info */}
             <div className="flex items-center gap-3 mb-4">
-              {review.user.avatar ? (
+              {review.user?.avatar || review.user?.image ? (
                 <Image
-                  src={review.user.avatar}
-                  alt={review.user.name}
+                  src={review.user.avatar || review.user.image || ''}
+                  alt={review.user.name || 'User'}
                   width={32}
                   height={32}
                   className="w-8 h-8 rounded-full object-cover"
@@ -137,10 +135,10 @@ export default function ReviewApprovalCard({
               )}
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {review.user.name}
+                  {review.user?.name || 'Anonymous User'}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {review.user.email}
+                  {review.user?.email || 'No email provided'}
                 </p>
               </div>
             </div>

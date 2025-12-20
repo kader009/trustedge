@@ -11,30 +11,39 @@ import ReviewApprovalCard from '@/src/components/admin/ReviewApprovalCard';
 
 interface Review {
   _id: string;
-  productId: {
-    title: string;
-    images?: string[];
-    category?: string;
-  };
+  title: string;
+  description: string;
+  images?: string[];
+  category?: string;
   user: {
     _id: string;
     name: string;
     email: string;
     avatar?: string;
+    image?: string;
   };
   rating: number;
-  review: string;
   createdAt: string;
 }
 
 export default function PendingReviewsPage() {
   const { data, isLoading, error } = useGetPendingReviewsQuery(undefined);
 
-  const pendingReviews = (data?.reviews as Review[]) || [];
-  const stats = data?.stats || {
-    pending: 0,
-    approvedToday: 0,
-    rejectedToday: 0,
+  const pendingReviews =
+    (data?.data?.reviews as Review[]) ||
+    (data?.reviews as Review[]) ||
+    (Array.isArray(data?.data) ? (data.data as Review[]) : []) ||
+    [];
+
+  const stats = {
+    pending:
+      data?.data?.stats?.pending ??
+      data?.stats?.pending ??
+      pendingReviews.length,
+    approvedToday:
+      data?.data?.stats?.approvedToday ?? data?.stats?.approvedToday ?? 0,
+    rejectedToday:
+      data?.data?.stats?.rejectedToday ?? data?.stats?.rejectedToday ?? 0,
   };
 
   return (

@@ -55,7 +55,7 @@ export default async function ReviewDetailPage({
       rating: product.rating || 5,
       review: product.description || 'Great product! Highly recommended.',
       createdAt: new Date().toISOString(),
-      likes: 100,
+      likes: 0,
       comments: [],
     };
   }
@@ -97,9 +97,7 @@ export default async function ReviewDetailPage({
     title: product.title || 'Review',
     author: {
       name: reviewData.user?.name || 'Anonymous',
-      avatar:
-        reviewData.user?.avatar ||
-        `https://ui-avatars.com/api/?name=${reviewData.user?.name || 'User'}`,
+      avatar: reviewData.user?.avatar || null,
       role: 'Verified Buyer',
     },
     date: new Date(reviewData.createdAt).toLocaleDateString('en-US', {
@@ -114,7 +112,7 @@ export default async function ReviewDetailPage({
     content: `
       <div class="space-y-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Product Description</h3>
-        <div class="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+        <div class="text-gray-700 dark:text-gray-300 leading-relaxed ">
           ${
             product.description ||
             reviewData.review ||
@@ -232,24 +230,6 @@ export default async function ReviewDetailPage({
                     </a>
                   </div>
                 )}
-              </div>
-
-              <div className="flex items-center gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
-                <Image
-                  src={review.author.avatar}
-                  alt={review.author.name}
-                  width={40}
-                  height={40}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {review.author.name}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {review.author.role}
-                  </p>
-                </div>
               </div>
             </div>
 

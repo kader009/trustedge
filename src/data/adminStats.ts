@@ -1,4 +1,4 @@
-import { FaUsers, FaStar, FaClock } from 'react-icons/fa';
+import { FaUsers, FaStar, FaClock, FaComment } from 'react-icons/fa';
 
 export const adminStats = [
   {
@@ -24,5 +24,13 @@ export const adminStats = [
     icon: FaClock,
     color: 'bg-primary',
     href: '/dashboard/admin/pending-reviews',
+  },
+  {
+    label: 'Pending Comments',
+    value: '0',
+    change: 'New',
+    icon: FaComment,
+    color: 'bg-yellow-500',
+    href: '/dashboard/admin/pending-comments',
   },
 ];

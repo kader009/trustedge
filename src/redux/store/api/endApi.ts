@@ -164,11 +164,18 @@ const EduNestApi = baseApi.injectEndpoints({
 
     // Post a new comment
     postComment: build.mutation({
-      query: ({ reviewId, content }) => ({
-        url: '/api/v1/comments',
-        method: 'POST',
-        body: { reviewId, content },
-      }),
+      query: ({ reviewId, content }) => {
+        const body = { review: reviewId, text: content };
+        console.log('API postComment - Sending body:', body);
+        return {
+          url: '/api/v1/comments',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body,
+        };
+      },
       invalidatesTags: (result, error, { reviewId }) => [
         { type: 'Comment', id: reviewId },
       ],
