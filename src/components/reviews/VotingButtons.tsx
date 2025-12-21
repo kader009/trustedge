@@ -53,9 +53,21 @@ export default function VotingButtons({
         setVoteCount(result.data?.totalVotes || voteCount);
         toast.success(`Review ${voteType}d!`);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Vote error:', error);
-      toast.error(error?.data?.message || 'Failed to vote');
+      if (
+        error &&
+        typeof error === 'object' &&
+        'data' in error &&
+        typeof (error as { data?: { message?: string } }).data === 'object'
+      ) {
+        toast.error(
+          (error as { data?: { message?: string } }).data?.message ||
+            'Failed to vote'
+        );
+      } else {
+        toast.error('Failed to vote');
+      }
     }
   };
 

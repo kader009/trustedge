@@ -5,8 +5,28 @@ import { useSearchParams } from 'next/navigation';
 import Pagination from '@/src/components/product/Pagination';
 import ReviewCard from '@/src/components/product/ReviewCard';
 
+interface Review {
+  id: string;
+  category: string;
+  categoryColor: string;
+  title: string;
+  rating: number;
+  imageUrl: string;
+  author: string;
+  date: string;
+  likes: number;
+  comments: number;
+  description?: string;
+  product: {
+    title: string;
+    price: number;
+    category: string;
+    image: string;
+  };
+}
+
 interface CategoriesClientProps {
-  reviews: any[];
+  reviews: Review[];
 }
 
 export default function CategoriesClient({ reviews }: CategoriesClientProps) {
@@ -51,9 +71,11 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
     startIndex + itemsPerPage
   );
 
-  // Reset page when filters change
   useEffect(() => {
-    setCurrentPage(1);
+    if (currentPage !== 1) {
+      setCurrentPage(1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, searchParams]);
 
   const handlePageChange = (page: number) => {
@@ -130,7 +152,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
                   className="fixed inset-0 z-10"
                   onClick={() => setIsSortOpen(false)}
                 />
-                <div className="absolute top-full left-0 mt-2 w-full min-w-[160px] bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl z-20 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full left-0 mt-2 w-full min-w-40 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl z-20 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                   {['Most Popular', 'Most Recent', 'Highest Rated'].map(
                     (option) => (
                       <button
@@ -215,7 +237,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
         ) : (
           <div className="col-span-full text-center py-12">
             <p className="text-lg text-neutral-500 dark:text-neutral-400">
-              No reviews found matching "{searchQuery}"
+              No reviews found matching &quot;{searchQuery}&quot;
             </p>
           </div>
         )}
