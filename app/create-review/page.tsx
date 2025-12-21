@@ -15,6 +15,7 @@ import {
   setDescription,
   setImages,
   setRatings,
+  setPurchaseSource,
 } from '@/src/redux/store/features/productSlice';
 import { toast } from 'sonner';
 
@@ -22,8 +23,15 @@ export default function CreateReviewPage() {
   const { token } = useAppSelector((state: RootState) => state.user);
   const router = useRouter();
   const { data: categoryData } = useAllCategoryQuery([]);
-  const { category, description, price, images, ratings, title } =
-    useAppSelector((state: RootState) => state.product);
+  const {
+    category,
+    description,
+    price,
+    images,
+    ratings,
+    title,
+    purchaseSource,
+  } = useAppSelector((state: RootState) => state.product);
   const dispatch = useAppDispatch();
   const [postProduct, { isLoading }] = usePostProductMutation();
 
@@ -45,14 +53,12 @@ export default function CreateReviewPage() {
       category,
       description,
       images,
-      ratings,
-      status: 'pending', // Submit for admin approval
+      rating: ratings,
+      purchaseSource,
     };
     try {
       await postProduct(productData).unwrap();
-      toast.success(
-        'Review submitted for approval! You will be notified once it is reviewed.'
-      );
+      toast.success('Review submitted successfully! wait for admin approval.');
 
       dispatch(setTitle(''));
       dispatch(setPrice(0));
@@ -60,11 +66,12 @@ export default function CreateReviewPage() {
       dispatch(setDescription(''));
       dispatch(setImages([]));
       dispatch(setRatings(0));
+      dispatch(setPurchaseSource(''));
 
       // Redirect to user reviews dashboard
-      setTimeout(() => {
-        router.push('/dashboard/user/reviews');
-      }, 1500);
+      // setTimeout(() => {
+      //   router.push('/dashboard/user/reviews');
+      // }, 1500);
     } catch (error) {
       console.error(error);
       toast.error('something went wrong');
@@ -189,6 +196,19 @@ export default function CreateReviewPage() {
                   .filter((url) => url.length > 0);
                 dispatch(setImages(urls));
               }}
+            />
+          </label>
+
+          {/* Product Name */}
+          <label className="flex flex-col w-full">
+            <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">
+              Purchase Source Name
+            </p>
+            <input
+              className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+              placeholder="e.g., Amazon, ebay or others store.."
+              value={purchaseSource}
+              onChange={(e) => dispatch(setPurchaseSource(e.target.value))}
             />
           </label>
 

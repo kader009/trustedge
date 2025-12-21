@@ -251,7 +251,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Get user's own reviews (using /products endpoint as reviews are products)
     getUserReviews: build.query({
       query: () => ({
-        url: '/api/v1/products',
+        url: '/api/v1/review',
         method: 'GET',
       }),
       providesTags: ['UserReview'],

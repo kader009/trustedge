@@ -124,12 +124,6 @@ export default function UserCommentsPage() {
             <p className="text-gray-500 dark:text-gray-400 mb-4">
               You haven&apos;t made any comments yet
             </p>
-            <Link
-              href="/reviews"
-              className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
-            >
-              Browse Reviews
-            </Link>
           </div>
         ) : (
           <div className="space-y-4">

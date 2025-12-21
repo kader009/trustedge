@@ -7,6 +7,7 @@ interface IProduct {
   category: string;
   images: string[];
   ratings: number;
+  purchaseSource: string;
 }
 
 const initialState: IProduct = {
@@ -16,6 +17,7 @@ const initialState: IProduct = {
   category: '',
   images: [],
   ratings: 0,
+  purchaseSource:''
 };
 
 const productSlice = createSlice({
@@ -40,6 +42,9 @@ const productSlice = createSlice({
     setRatings: (state, action: PayloadAction<number>) => {
       state.ratings = action.payload;
     },
+    setPurchaseSource: (state, action: PayloadAction<string>) => {
+      state.purchaseSource = action.payload;
+    },
   },
 });
 
@@ -50,6 +55,7 @@ export const {
   setPrice,
   setImages,
   setRatings,
+  setPurchaseSource
 } = productSlice.actions;
 
 export default productSlice.reducer;
