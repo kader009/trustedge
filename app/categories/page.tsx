@@ -56,7 +56,7 @@ export default async function CategoriesPage() {
 
     return {
       id: product._id,
-      category: categoryMap.get(product.category) || 'Unknown Category',
+      category: product.category || 'Unknown Category',
       categoryColor: categoryColor,
       title: product.title,
       rating: product.rating || 5,
@@ -69,10 +69,11 @@ export default async function CategoriesPage() {
       }),
       likes: (index + 1) * 23 + 50,
       comments: product.numReviews || 0,
+      description: (product as any).description,
       product: {
         title: product.title,
         price: product.price || 0,
-        category: categoryMap.get(product.category) || 'Unknown Category',
+        category: product.category || 'Unknown Category',
         image: image,
       },
     };

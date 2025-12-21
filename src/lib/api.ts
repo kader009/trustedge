@@ -7,8 +7,8 @@ const CACHE_REVALIDATE = 300;
 export async function getProducts(limit?: number) {
   try {
     const url = limit
-      ? `${API_BASE_URL}/products?limit=${limit}`
-      : `${API_BASE_URL}/products`;
+      ? `${API_BASE_URL}/review?limit=${limit}`
+      : `${API_BASE_URL}/review`;
 
     const response = await fetch(url, {
       next: { revalidate: CACHE_REVALIDATE },
@@ -54,8 +54,8 @@ export async function getReviews(params?: {
     if (params?.sort) queryParams.append('sort', params.sort);
 
     const url = queryParams.toString()
-      ? `${API_BASE_URL}/reviews?${queryParams.toString()}`
-      : `${API_BASE_URL}/reviews`;
+      ? `${API_BASE_URL}/review?${queryParams.toString()}`
+      : `${API_BASE_URL}/review`;
 
     const response = await fetch(url, {
       next: { revalidate: 60 }, // Cache for 1 minute

@@ -12,6 +12,7 @@ interface ReviewCardProps {
   date: string;
   likes: number;
   comments: number;
+  description?: string;
   product?: {
     title: string;
     price: number;
@@ -31,6 +32,7 @@ const ReviewCard = ({
   date,
   likes,
   comments,
+  description,
   product,
 }: ReviewCardProps) => {
   const renderStars = () => {
@@ -88,7 +90,14 @@ const ReviewCard = ({
               <h3 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-2 leading-tight">
                 {product.title}
               </h3>
-              <div className="flex items-center gap-1 mb-3">{renderStars()}</div>
+              <div className="flex items-center gap-1 mb-3">
+                {renderStars()}
+              </div>
+              {description && (
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 mt-auto">
+                  {description}
+                </p>
+              )}
             </>
           )}
         </div>

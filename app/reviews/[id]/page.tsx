@@ -67,9 +67,9 @@ export default async function ReviewDetailPage({
     categoryMap.set(cat._id, cat.name);
   });
 
-  const product = reviewData.productId || {};
-  const categoryName =
-    categoryMap.get(product.category) || product.category || 'General';
+  // Handle flat data structure or populated productId
+  const product = reviewData.productId || reviewData || {};
+  const categoryName = product.category || 'General';
 
   // Get related products from same category
   const allProducts = await getProducts(100);
@@ -96,18 +96,26 @@ export default async function ReviewDetailPage({
     id: reviewData._id,
     title: product.title || 'Review',
     author: {
-      name: reviewData.user?.name || 'Anonymous',
-      avatar: reviewData.user?.avatar || null,
+      name:
+        typeof reviewData.user === 'object'
+          ? reviewData.user?.name
+          : 'Verified Buyer',
+      avatar:
+        typeof reviewData.user === 'object' ? reviewData.user?.avatar : null,
       role: 'Verified Buyer',
     },
-    date: new Date(reviewData.createdAt).toLocaleDateString('en-US', {
+    date: new Date(
+      reviewData.createdAt && !isNaN(Date.parse(reviewData.createdAt))
+        ? reviewData.createdAt
+        : new Date()
+    ).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
     }),
     rating: reviewData.rating || 0,
     category: categoryName,
-    source: 'TrustEdge',
+    source: reviewData.purchaseSource || 'TrustEdge',
     sourceLink: '#',
     content: `
       <div class="space-y-4">
@@ -215,6 +223,11 @@ export default async function ReviewDetailPage({
                     <span className="text-sm font-medium text-gray-900 dark:text-white">
                       {review.rating.toFixed(1)}/5.0
                     </span>
+                    {product.price && (
+                      <span className="ml-auto text-2xl font-bold text-primary">
+                        ${product.price.toFixed(2)}
+                      </span>
+                    )}
                   </div>
                 </div>
                 {review.source && (
