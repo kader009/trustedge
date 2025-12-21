@@ -235,12 +235,9 @@ export default async function ReviewDetailPage({
                     <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
                       Purchased at
                     </p>
-                    <a
-                      href={review.sourceLink}
-                      className="text-sm font-semibold text-primary hover:underline"
-                    >
+                    <p className="text-sm font-semibold text-primary">
                       {review.source}
-                    </a>
+                    </p>
                   </div>
                 )}
               </div>

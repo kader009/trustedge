@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FaCheckCircle, FaUsers, FaStar } from 'react-icons/fa';
 
 export default function AboutUsPage() {
@@ -163,7 +164,7 @@ export default function AboutUsPage() {
                 others make better, more informed decisions.
               </p>
               <button className="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                <span className="truncate">Join Our Community</span>
+                <span className="truncate"><Link href="/register">Registered Now</Link></span>
               </button>
             </div>
           </section>

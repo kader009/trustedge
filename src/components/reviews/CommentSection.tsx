@@ -6,6 +6,7 @@ import { useGetCommentsQuery } from '@/src/redux/store/api/endApi';
 import CommentForm from '@/src/components/reviews/CommentForm';
 import CommentItem from '@/src/components/reviews/CommentItem';
 import { FaComment } from 'react-icons/fa';
+import Link from 'next/link';
 
 interface CommentSectionProps {
   reviewId: string;
@@ -48,9 +49,9 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
         <div className="mb-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center">
           <p className="text-gray-600 dark:text-gray-400">
             Please{' '}
-            <a href="/login" className="text-primary hover:underline">
+            <Link href="/login" className="text-primary hover:underline">
               login
-            </a>{' '}
+            </Link>{' '}
             to comment
           </p>
         </div>
