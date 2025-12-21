@@ -15,6 +15,7 @@ interface Product {
   rating?: number;
   price?: number;
   numReviews?: number;
+  description?: string;
 }
 
 export default async function CategoriesPage() {
@@ -69,7 +70,7 @@ export default async function CategoriesPage() {
       }),
       likes: (index + 1) * 23 + 50,
       comments: product.numReviews || 0,
-      description: (product as any).description,
+      description: product.description,
       product: {
         title: product.title,
         price: product.price || 0,

@@ -10,8 +10,8 @@ import Link from 'next/link';
 
 interface Comment {
   _id: string;
-  content: string;
-  reviewId: {
+  text: string;
+  review: {
     _id: string;
     title: string;
   };
@@ -21,10 +21,16 @@ interface Comment {
 
 export default function UserCommentsPage() {
   const { data: commentsData, isLoading } = useGetUserCommentsQuery(undefined);
-  const [deleteComment, { isLoading: isDeleting }] = useDeleteCommentMutation();
+  const [deleteComment, { isLoading: isDeleting }] =
+    useDeleteCommentMutation(undefined);
+
+  console.log(commentsData, 'Fetched comments data:', commentsData);
 
   const comments: Comment[] = useMemo(
-    () => commentsData?.data || [],
+    () =>
+      (commentsData?.data || []).filter(
+        (c: Comment) => c.review && c.review._id && c.review.title
+      ),
     [commentsData?.data]
   );
 
@@ -136,10 +142,10 @@ export default function UserCommentsPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <Link
-                        href={`/reviews/${comment.reviewId._id}`}
+                        href={`/reviews/${comment.review._id}`}
                         className="text-primary hover:text-primary/80 font-medium"
                       >
-                        {comment.reviewId.title}
+                        {comment.review.title}
                       </Link>
                       <span className="text-gray-400 dark:text-gray-500 text-sm">
                         •
@@ -150,7 +156,7 @@ export default function UserCommentsPage() {
                     </div>
 
                     <p className="text-gray-700 dark:text-gray-300 mb-2">
-                      {comment.content}
+                      {comment.text}
                     </p>
 
                     {comment.updatedAt &&

@@ -100,58 +100,6 @@ export default function UserDashboard() {
           </Link>
         </div>
       </div>
-
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
-          <h3 className="text-lg font-bold text-text-light dark:text-text-dark mb-4">
-            Quick Actions
-          </h3>
-          <div className="space-y-3">
-            <Link
-              href="/create-review"
-              className="block w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transition-colors text-center"
-            >
-              Write a Review
-            </Link>
-            <Link
-              href="/categories"
-              className="block w-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-medium py-3 px-4 rounded-lg transition-colors text-center"
-            >
-              Browse Products
-            </Link>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
-          <h3 className="text-lg font-bold text-text-light dark:text-text-dark mb-4">
-            Profile Completion
-          </h3>
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                Profile Status
-              </span>
-              <span className="text-sm font-semibold text-primary">60%</span>
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-              <div
-                className="bg-primary h-2 rounded-full"
-                style={{ width: '60%' }}
-              ></div>
-            </div>
-          </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-            Complete your profile to unlock all features
-          </p>
-          <Link
-            href="/dashboard/user/profile"
-            className="text-primary hover:underline text-sm font-medium"
-          >
-            Complete Profile →
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }

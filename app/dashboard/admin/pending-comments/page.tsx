@@ -53,8 +53,8 @@ export default function PendingCommentsPage() {
   });
 
   const [hardDeleteComment, { isLoading: isDeleting }] =
-    useHardDeleteCommentMutation();
-  const [approveComment] = useApproveCommentMutation();
+    useHardDeleteCommentMutation(undefined);
+  const [approveComment] = useApproveCommentMutation(undefined);
 
   const comments: Comment[] =
     (commentsData?.data?.comments as Comment[]) ||
