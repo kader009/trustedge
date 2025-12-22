@@ -11,6 +11,7 @@ const ProductCard = ({
   image,
   price,
   numReviews,
+  commentCount,
   tags,
   isFavorite = false,
 }: ProductCardProps) => {
@@ -132,7 +133,7 @@ const ProductCard = ({
             <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400 mb-2">
               <FaStar className="w-3 h-3 text-yellow-500" />
               <span>
-                {numReviews} {numReviews === 1 ? 'review' : 'reviews'}
+                {commentCount} {commentCount === 1 ? 'comment' : 'comments'}
               </span>
             </div>
 

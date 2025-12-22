@@ -5,7 +5,7 @@ import { getProducts } from '@/src/lib/api';
 const CommunityFavorites = async () => {
   const products: Product[] = await getProducts(8);
 
-  const favoriteProducts = products.slice(0, 4).map((product, index) => {
+  const favoriteProducts = products.slice(0, 4).map((product) => {
     let image =
       'https://via.placeholder.com/400x192/6366f1/ffffff?text=No+Image';
 
@@ -29,6 +29,7 @@ const CommunityFavorites = async () => {
       image: image,
       price: product.price || 0,
       numReviews: product.numReviews || 0,
+      commentCount: product.commentCount || 0,
       tags: product.tags || [],
       isFavorite: true,
     };

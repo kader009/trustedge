@@ -7,6 +7,7 @@ export interface Product {
   images: string[];
   rating: number;
   numReviews: number;
+  commentCount: number;
   tags: string[];
 }
 
@@ -18,6 +19,7 @@ export interface ProductCardProps {
   image: string;
   price: number;
   numReviews: number;
+  commentCount: number;
   tags: string[];
   isFavorite?: boolean;
 }

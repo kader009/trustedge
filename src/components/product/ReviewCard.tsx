@@ -85,7 +85,10 @@ const ReviewCard = ({
                 {product.category}
               </span>
               <span className="text-lg font-bold text-primary mb-2 block">
-                ${product.price.toFixed(2)}
+                $
+                {Number(product.price) % 1 === 0
+                  ? Number(product.price)
+                  : Number(product.price).toFixed(2)}
               </span>
               <h3 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-2 leading-tight">
                 {product.title}
