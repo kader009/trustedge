@@ -7,7 +7,7 @@ import WhyChooseUs from '@/src/components/home/WhyChooose';
 export default function Home() {
   return (
     <div>
-      <main className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
+      <main className="container mx-auto px-4 py-8">
         <BannerSection />
         <WhyChooseUs />
         <Category />

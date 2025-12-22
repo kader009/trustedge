@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const BannerSection = () => {
   return (
-    <section className="mb-16">
+    <section className="mb-8">
       <div className="w-full">
         <div
           className="flex min-h-[520px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 text-center"
@@ -13,10 +13,10 @@ const BannerSection = () => {
         >
           <div className="flex flex-col gap-4">
             <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
-              Honest Reviews from Real People.
+              Honest Reviews from Real People
             </h1>
             <h2 className="text-white/90 text-base font-normal leading-normal max-w-2xl mx-auto md:text-lg">
-              Find, share, and discuss the best products on the market.
+              Find, share, and discuss the best products on the single market
             </h2>
           </div>
           <Link href="/create-review">

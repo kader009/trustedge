@@ -6,7 +6,7 @@ const PopularThisWeek = async () => {
   const products: Product[] = await getProducts(8);
 
   // Transform products to match ProductCard props
-  const popularProducts = products.slice(4, 8).map((product, index) => {
+  const popularProducts = products.slice(4, 8).map((product) => {
     let image =
       'https://via.placeholder.com/400x192/6366f1/ffffff?text=No+Image';
 

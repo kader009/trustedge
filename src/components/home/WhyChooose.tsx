@@ -2,10 +2,10 @@ import { MdVerifiedUser, MdThumbUp, MdStars } from 'react-icons/md';
 
 const WhyChooseUs = () => {
   return (
-    <div className="w-full pb-6">
+    <div className="w-full mb-8">
       <div>
         <div className="flex flex-wrap flex-col gap-4 mb-4 text-center md:text-left">
-          <h1 className="text-text-light text-2xl md:text-3xl font-black leading-tight tracking-tight">
+          <h1 className="text-text-light text-2xl md:text-3xl font-bold leading-tight tracking-tight">
             Why Trust Us?
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl">
@@ -13,7 +13,7 @@ const WhyChooseUs = () => {
             on our platform.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-6">
           <div className="group relative flex flex-col gap-6 rounded-lg p-8 hover:scale-[1.02] transition-transform duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(73,230,25,0.1)] bg-white">
             <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
               <MdVerifiedUser className="text-3xl" />

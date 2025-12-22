@@ -36,7 +36,7 @@ const CommunityFavorites = async () => {
   });
 
   return (
-    <section className="mb-16">
+    <section className="mb-8">
       <h2 className="text-2xl font-bold leading-tight tracking-[-0.015em] mb-6">
         Community Favorites
       </h2>

@@ -2,13 +2,13 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-card-dark dark:bg-gray-900 mt-16 text-white/80">
+    <footer className="bg-card-dark dark:bg-gray-900 text-white/80">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3 text-white">
               <h1 className="text-xl font-bold leading-tight tracking-[-0.015em]">
-                ReviewPortal
+                <Link href="/">ReviewPortal</Link>
               </h1>
             </div>
             <p className="text-sm">
