@@ -11,13 +11,9 @@ interface RejectReasonModalProps {
 
 const PREDEFINED_REASONS = [
   'Inappropriate content',
-  'Spam or irrelevant',
   'Fake or misleading information',
   'Violates community guidelines',
-  'Duplicate review',
-  'Off-topic',
   'Contains personal information',
-  'Other',
 ];
 
 export default function RejectReasonModal({
@@ -36,9 +32,9 @@ export default function RejectReasonModal({
     }
   };
 
-  const isValid =
-    selectedReason &&
-    (selectedReason !== 'Other' || customReason.trim().length > 0);
+  const finalReason =
+    selectedReason === 'Other' ? customReason : selectedReason;
+  const isValid = finalReason.trim().length >= 10;
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">

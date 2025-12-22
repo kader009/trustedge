@@ -34,7 +34,8 @@ export default function ReviewApprovalCard({
 }: ReviewApprovalCardProps) {
   const [approveReview, { isLoading: isApproving }] =
     useApproveReviewMutation(undefined);
-  const [rejectReview, { isLoading: isRejecting }] = useRejectReviewMutation(undefined);
+  const [rejectReview, { isLoading: isRejecting }] =
+    useRejectReviewMutation(undefined);
   const [showRejectModal, setShowRejectModal] = useState(false);
 
   const handleApprove = async () => {
