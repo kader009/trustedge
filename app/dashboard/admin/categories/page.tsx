@@ -163,7 +163,13 @@ export default function CategoryManagementPage() {
                     <div className="w-12 h-12 rounded-lg overflow-hidden bg-primary/10 flex items-center justify-center">
                       {category.image ? (
                         <Image
-                          src={category.image}
+                          src={
+                            category.image.includes('ibb.co.com')
+                              ? `https://i.ibb.co/${category.image
+                                  .split('/')
+                                  .pop()}/image.png`
+                              : category.image
+                          }
                           alt={category.name}
                           width={48}
                           height={48}

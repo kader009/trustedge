@@ -29,14 +29,18 @@ export default function CommentModerationPage() {
   });
 
   const [hardDeleteComment, { isLoading: isDeleting }] =
-    useHardDeleteCommentMutation();
+    useHardDeleteCommentMutation(undefined);
 
   const comments: Comment[] = commentsData?.data || [];
 
   const filteredComments = comments.filter(
     (comment) =>
-      comment.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      comment.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+      (comment.content || '')
+        .toLowerCase()
+        .includes((searchTerm || '').toLowerCase()) ||
+      (comment.userId?.name || '')
+        .toLowerCase()
+        .includes((searchTerm || '').toLowerCase())
   );
 
   const handleDelete = (commentId: string, content: string) => {

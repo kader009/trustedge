@@ -30,6 +30,7 @@ const PopularThisWeek = async () => {
       image: image,
       price: product.price || 0,
       numReviews: product.numReviews || 0,
+      commentCount: product.commentCount ?? product.numReviews ?? 0,
       tags: product.tags || [],
       isFavorite: false,
     };

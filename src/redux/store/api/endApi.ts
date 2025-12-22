@@ -222,7 +222,7 @@ const EduNestApi = baseApi.injectEndpoints({
     // Reject a review (admin only)
     rejectReview: build.mutation({
       query: ({ reviewId, reason }) => ({
-        url: `/api/v1/reviews/admin/reject/${reviewId}`,
+        url: `/api/v1/reviews/admin/unpublish/${reviewId}`,
         method: 'PATCH',
         body: { reason },
       }),
