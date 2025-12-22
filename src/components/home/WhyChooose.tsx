@@ -1,6 +1,6 @@
 import { MdVerifiedUser, MdThumbUp, MdStars } from 'react-icons/md';
 
-const ReviewChart = () => {
+const WhyChooseUs = () => {
   return (
     <div className="w-full pb-6">
       <div>
@@ -62,4 +62,4 @@ const ReviewChart = () => {
   );
 };
 
-export default ReviewChart;
+export default WhyChooseUs;
