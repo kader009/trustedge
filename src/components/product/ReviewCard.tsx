@@ -11,7 +11,7 @@ interface ReviewCardProps {
   author: string;
   date: string;
   likes: number;
-  comments: number;
+  commentCount: number;
   description?: string;
   product?: {
     title: string;
@@ -23,15 +23,11 @@ interface ReviewCardProps {
 
 const ReviewCard = ({
   id,
-  category,
   categoryColor,
   title,
   rating,
   imageUrl,
-  author,
-  date,
-  likes,
-  comments,
+  commentCount,
   description,
   product,
 }: ReviewCardProps) => {
@@ -101,6 +97,18 @@ const ReviewCard = ({
                   {description}
                 </p>
               )}
+              {/* Comment Count */}
+              <div className="flex items-center gap-1 mt-4 text-sm text-gray-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  className="w-4 h-4 text-accent"
+                >
+                  <path d="M18 10c0 3.314-3.582 6-8 6-.98 0-1.926-.09-2.818-.26-.31-.06-.63-.09-.95-.09-.37 0-.73.04-1.08.13l-2.13.53a1 1 0 0 1-1.22-1.22l.53-2.13c.09-.35.13-.71.13-1.08 0-.32-.03-.64-.09-.95C2.09 11.926 2 10.98 2 10c0-3.314 3.582-6 8-6s8 2.686 8 6z" />
+                </svg>
+                {commentCount} {commentCount === 1 ? 'comment' : 'comments'}
+              </div>
             </>
           )}
         </div>

@@ -231,8 +231,14 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
         }`}
       >
         {paginatedReviews.length > 0 ? (
-          paginatedReviews.map((review) => (
-            <ReviewCard key={review.id} {...review} />
+          paginatedReviews.map((review: Review) => (
+            <ReviewCard
+              key={review.id}
+              {...review}
+              commentCount={
+                Array.isArray(review.comments) ? review.comments.length : 0
+              }
+            />
           ))
         ) : (
           <div className="col-span-full text-center py-12">

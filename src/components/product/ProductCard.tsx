@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaStar, FaTag } from 'react-icons/fa';
+import { FaTag, FaComment } from 'react-icons/fa';
 import { ProductCardProps } from '@/src/types/ProductType';
 
 const ProductCard = ({
@@ -10,7 +10,6 @@ const ProductCard = ({
   review,
   image,
   price,
-  numReviews,
   commentCount,
   tags,
   isFavorite = false,
@@ -131,7 +130,7 @@ const ProductCard = ({
           <div className="mt-auto pt-3 border-t border-gray-200 dark:border-gray-700">
             {/* Reviews Count */}
             <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400 mb-2">
-              <FaStar className="w-3 h-3 text-yellow-500" />
+              <FaComment className="w-3 h-3 text-yellow-500" />
               <span>
                 {commentCount} {commentCount === 1 ? 'comment' : 'comments'}
               </span>
