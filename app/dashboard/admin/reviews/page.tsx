@@ -42,6 +42,7 @@ export default function AdminReviewsPage() {
     useGetallReviewQuery(undefined);
   const { data: pendingData, isLoading: isLoadingPending } =
     useGetPendingReviewsQuery(undefined);
+  console.log(reviewsData?.images?.[0]);
 
   const allReviews: Review[] =
     (reviewsData?.data?.reviews as Review[]) ||
@@ -270,7 +271,9 @@ export default function AdminReviewsPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                         <span>
-                          {new Date(review.createdAt).toLocaleDateString()}
+                          {isNaN(new Date(review.createdAt).getTime())
+                            ? '21/12/25'
+                            : new Date(review.createdAt).toLocaleDateString()}
                         </span>
                         <span
                           className={`px-2 py-1 rounded-full capitalize ${

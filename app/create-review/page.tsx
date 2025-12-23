@@ -79,27 +79,27 @@ export default function CreateReviewPage() {
   };
 
   return (
-    <main className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8">
+    <main className="flex flex-1 justify-center mx-4">
       <div className="layout-content-container flex flex-col w-full max-w-3xl flex-1">
-        <div className="flex flex-wrap justify-between gap-3 p-4">
-          <div className="flex min-w-72 flex-col gap-3">
-            <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+        <div className="flex flex-wrap justify-between p-4">
+          <div className="flex min-w-72 flex-col">
+            <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] mb-1">
               Create a New Review
             </p>
-            <p className="text-text-light dark:text-white text-base font-normal leading-normal">
+            <p className="text-text-light dark:text-white text-base font-normal leading-normal mb-4">
               Share your experience with the community.
             </p>
           </div>
         </div>
         <form
-          className="flex flex-col gap-8 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 mt-4"
+          className="flex flex-col gap-8 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 mt-4 mb-8"
           onSubmit={handleSubmit}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Product Name */}
             <label className="flex flex-col w-full">
               <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">
-                Product Name / Title
+                Product Title
               </p>
               <input
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
