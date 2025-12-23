@@ -7,6 +7,7 @@ import { RootState } from '@/src/redux/store/store';
 import { setEmail, setPassword } from '@/src/redux/userAuth/loginSlice';
 import { setUser } from '@/src/redux/userAuth/userSlice';
 import { loginSchema } from '@/src/validation/authSchema';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -143,12 +144,12 @@ const Loginview = () => {
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Don&apos;t have an account?{' '}
-            <a
+            <Link
               href="/register"
               className="text-primary font-semibold hover:underline"
             >
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
         <div className="relative flex py-5 items-center">

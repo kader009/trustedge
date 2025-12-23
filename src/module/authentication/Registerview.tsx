@@ -11,6 +11,7 @@ import {
   setRole,
 } from '@/src/redux/userAuth/registerSlice';
 import { registerSchema } from '@/src/validation/authSchema';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -222,12 +223,12 @@ const Registerview = () => {
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{' '}
-            <a
+            <Link
               href="/login"
               className="text-primary font-semibold hover:underline"
             >
               Log in
-            </a>
+            </Link>
           </p>
         </div>
         <div className="relative flex py-5 items-center">

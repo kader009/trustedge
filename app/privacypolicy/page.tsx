@@ -12,7 +12,7 @@ import {
 
 const PrivacyPolicy = () => {
   return (
-    <main className="w-full max-w-[95rem] mx-auto my-8 px-4 overflow-x-hidden">
+    <main className="w-full max-w-380 mx-auto my-8 px-4 overflow-x-hidden">
       <div className="mb-4">
         <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-text-main dark:text-white mb-2">
           Privacy Policy
@@ -28,7 +28,7 @@ const PrivacyPolicy = () => {
               Introduction
             </h2>
           </div>
-          <div className="prose prose-lg dark:prose-invert text-text-secondary dark:text-gray-300 leading-relaxed break-words max-w-full">
+          <div className="prose prose-lg dark:prose-invert text-text-secondary dark:text-gray-300 leading-relaxed wrap-break-word max-w-full">
             <p className="mb-4">
               At <strong>ReviewPortal</strong> (&quot;we,&quot; &quot;our,&quot;
               or &quot;us&quot;), we value your trust and are committed to
@@ -58,7 +58,7 @@ const PrivacyPolicy = () => {
             We may collect information about you in a variety of ways. The
             information we may collect on the Site includes:
           </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-6">
             <div className="p-6 rounded-2xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow">
               <div className="size-10 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
                 <FaUser className="w-5 h-5" />
