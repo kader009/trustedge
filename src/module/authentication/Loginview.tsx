@@ -71,11 +71,11 @@ const Loginview = () => {
 
   return (
     <main className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8 mt-8">
-      <div className="flex flex-col w-full max-w-md mx-auto bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-8">
+      <div className="flex flex-col w-full max-w-md mx-auto bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-8">
         <h1 className="text-[#333333] dark:text-white tracking-tight text-2xl font-bold leading-tight text-center pb-2">
           Welcome Back!
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal pb-6 text-center">
+        <p className="text-gray-500 dark:text-gray-200 text-sm font-normal leading-normal pb-6 text-center">
           Log in to share and discover product reviews.
         </p>
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>
@@ -85,7 +85,7 @@ const Loginview = () => {
             </p>
             <div className="relative">
               <input
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-card-dark focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
                 placeholder="Enter your email"
                 type="email"
                 value={email}
@@ -104,7 +104,7 @@ const Loginview = () => {
             </div>
             <div className="relative">
               <input
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#333333] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-card-dark focus:border-primary h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
                 placeholder="Enter your password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
@@ -142,7 +142,7 @@ const Loginview = () => {
           </button>
         </form>
         <div className="text-center mt-4">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-600 dark:text-gray-200">
             Don&apos;t have an account?{' '}
             <Link
               href="/register"
@@ -154,7 +154,7 @@ const Loginview = () => {
         </div>
         <div className="relative flex py-5 items-center">
           <div className="grow border-t border-gray-300 dark:border-gray-600"></div>
-          <span className="shrink mx-4 text-gray-400 dark:text-gray-500 text-sm">
+          <span className="shrink mx-4 text-gray-400 dark:text-gray-200 text-sm">
             Or continue with
           </span>
           <div className="grow border-t border-gray-300 dark:border-gray-600"></div>

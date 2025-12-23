@@ -17,14 +17,13 @@ import DeleteConfirmModal from '@/src/components/user/DeleteConfirmModal';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ReviewType } from '@/src/types/reviewType';
-import { reviews } from '@/src/types/reviews';
+import { Review } from '@/src/types/reviews';
 
 export default function UserReviewsPage() {
   const { data, isLoading, error, refetch } = useGetUserReviewsQuery(undefined);
 
-  const [editingReview, setEditingReview] = useState<ReviewType>(null);
-  const [deletingReview, setDeletingReview] = useState<ReviewType>(null);
-
+  const [editingReview, setEditingReview] = useState<ReviewType | null>(null);
+  const [deletingReview, setDeletingReview] = useState<ReviewType | null>(null);
   const reviews = data?.reviews || [];
   const stats = data?.stats || {
     total: 0,
@@ -74,14 +73,14 @@ export default function UserReviewsPage() {
         <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
           My Reviews
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-200">
           Manage all your product reviews
         </p>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaStar className="w-6 h-6" />
@@ -90,13 +89,13 @@ export default function UserReviewsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {isLoading ? '...' : stats.total || reviews.length}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Total Reviews
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaEye className="w-6 h-6" />
@@ -105,13 +104,13 @@ export default function UserReviewsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {isLoading ? '...' : stats.totalViews || 0}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Total Views
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaStar className="w-6 h-6" />
@@ -120,7 +119,7 @@ export default function UserReviewsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {isLoading ? '...' : (stats.avgRating || 0).toFixed(1)}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Avg Rating
               </p>
             </div>
@@ -129,7 +128,7 @@ export default function UserReviewsPage() {
       </div>
 
       {/* Reviews List */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
             All Reviews
@@ -144,21 +143,21 @@ export default function UserReviewsPage() {
         {isLoading ? (
           <div className="text-center py-12">
             <FaSpinner className="w-12 h-12 text-primary mx-auto mb-4 animate-spin" />
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 dark:text-gray-200">
               Loading your reviews...
             </p>
           </div>
         ) : error ? (
           <div className="text-center py-12">
             <p className="text-red-500 mb-2">Failed to load reviews</p>
-            <p className="text-sm text-gray-400 dark:text-gray-500">
+            <p className="text-sm text-gray-400 dark:text-gray-200">
               Please try again later
             </p>
           </div>
         ) : reviews.length === 0 ? (
           <div className="text-center py-12">
-            <FaStar className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
+            <FaStar className="w-16 h-16 text-gray-300 dark:text-gray-200 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-200 mb-4">
               You haven&apos;t written any reviews yet
             </p>
             <Link href="/create-review">
@@ -169,14 +168,14 @@ export default function UserReviewsPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {reviews.map((review: reviews) => (
+            {reviews.map((review: Review) => (
               <div
                 key={review._id}
                 className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 <div className="flex gap-4">
                   {/* Product Image */}
-                  <div className="relative w-24 h-18 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                  <div className="relative w-24 h-18 rounded-lg overflow-hidden bg-white dark:bg-card-dark shrink-0">
                     <Image
                       src={getProductImage(review.productId?.images)}
                       alt={review.productId?.title || 'Product'}
@@ -230,13 +229,13 @@ export default function UserReviewsPage() {
                           />
                         ))}
                       </div>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                      <span className="text-sm text-gray-500 dark:text-gray-200">
                         {review.rating}/5
                       </span>
                     </div>
 
                     {/* Review Text */}
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-2 mb-3">
                       {review.review}
                     </p>
 
@@ -253,7 +252,7 @@ export default function UserReviewsPage() {
                     )}
 
                     {/* Meta */}
-                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-200">
                       <span>
                         {new Date(review.createdAt).toLocaleDateString(
                           'en-US',

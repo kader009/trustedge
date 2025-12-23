@@ -165,36 +165,36 @@ export default async function ReviewDetailPage({
   });
 
   return (
-    <div className="min-h-screen dark:bg-gray-900 pb-12">
+    <div className="min-h-screen pb-12">
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="flex mb-6 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="/" className="hover:text-primary">
+          <Link href="/" className="hover:text-primary dark:text-white">
             Home
           </Link>
           <span className="mx-2">/</span>
-          <Link href="/categories" className="hover:text-primary">
+          <Link href="/categories" className="hover:text-primary dark:text-white">
             Reviews
           </Link>
           <span className="mx-2">/</span>
           <Link
             href={`/categories?category=${review.category}`}
-            className="hover:text-primary"
+            className="hover:text-primary dark:text-white"
           >
             {review.category}
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-900 dark:text-white truncate max-w-xs">
+          <span className="text-gray-900 dark:text-white truncate max-w-xs dark:text-white">
             {review.title}
           </span>
         </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Review Header */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-              <div className="flex items-start justify-between gap-4">
+            <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+              <div className="flex items-start justify-between gap-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
@@ -244,7 +244,7 @@ export default async function ReviewDetailPage({
             </div>
 
             {/* Review Content */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <div
                 className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
                 dangerouslySetInnerHTML={{ __html: review.content }}
@@ -256,7 +256,7 @@ export default async function ReviewDetailPage({
                   {review.images.map((imageUrl: string, index: number) => (
                     <div
                       key={index}
-                      className="relative aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-900"
+                      className="relative aspect-video rounded-lg overflow-hidden bg-white dark:bg-card-dark"
                     >
                       <Image
                         src={imageUrl}
@@ -298,7 +298,7 @@ export default async function ReviewDetailPage({
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
                 Related Products
               </h3>
@@ -347,7 +347,7 @@ export default async function ReviewDetailPage({
               </div>
             </div>
 
-            <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+            <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-primary/10">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                 Write a Review
               </h3>
@@ -356,7 +356,7 @@ export default async function ReviewDetailPage({
                 community.
               </p>
               <Link href="/create-review">
-                <button className="w-full py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:opacity-90 transition-opacity">
+                <button className="w-full py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:opacity-90 transition-opacity cursor-pointer">
                   Write a Review
                 </button>
               </Link>

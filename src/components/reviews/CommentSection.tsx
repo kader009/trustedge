@@ -30,7 +30,7 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
       {/* Header */}
       <h3 className="text-2xl font-bold text-text-light dark:text-text-dark mb-6 flex items-center gap-2">
         <FaComment className="text-primary" />

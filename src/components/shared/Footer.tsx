@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-card-dark dark:bg-gray-900 text-white/80">
+    <footer className="bg-card-dark dark:bg-card-dark text-white/80">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="flex flex-col gap-4">
@@ -119,10 +119,10 @@ const Footer = () => {
                 required
               />
               <button
-                className="flex items-center justify-center rounded-r-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:opacity-90 transition-opacity"
+                className="flex items-center justify-center rounded-r-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer"
                 type="submit"
               >
-                <span className="material-symbols-outlined">send</span>
+                send
               </button>
             </form>
           </div>

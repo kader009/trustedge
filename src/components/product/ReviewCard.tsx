@@ -62,7 +62,7 @@ const ReviewCard = ({
 
   return (
     <Link href={`/reviews/${id}`} className="block h-full">
-      <div className="flex flex-col h-full bg-neutral-100 dark:bg-neutral-900 rounded-xl overflow-hidden border border-neutral-200/80 dark:border-neutral-800/80 transition-shadow hover:shadow-lg cursor-pointer">
+      <div className="flex flex-col h-full bg-white dark:bg-card-dark rounded-xl overflow-hidden border border-neutral-200/80 dark:border-neutral-800/80 transition-shadow hover:shadow-lg cursor-pointer">
         <div className="relative aspect-4/3 w-full">
           <Image
             className="object-cover"

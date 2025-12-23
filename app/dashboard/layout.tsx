@@ -115,7 +115,7 @@ export default function DashboardLayout({
   const links = isAdmin ? adminLinks : userLinks;
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
+    <div className="min-h-screen bg-background-light dark:bg-card-dark">
       {/* Mobile Hamburger Button */}
       <button
         onClick={toggleSidebar}
@@ -141,7 +141,7 @@ export default function DashboardLayout({
         {/* Sidebar */}
         <aside
           className={`
-          w-72 bg-white dark:bg-gray-900 border-r border-border-light dark:border-border-dark 
+          w-72 bg-white dark:bg-card-dark border-r border-border-light dark:border-border-dark 
           h-screen flex flex-col
           fixed lg:sticky top-0 z-40
           transform transition-transform duration-300 ease-in-out
@@ -155,7 +155,7 @@ export default function DashboardLayout({
           {/* User Profile Section */}
           <div className="p-6 border-b border-border-light dark:border-border-dark">
             <div className="flex items-center gap-3">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden bg-white dark:bg-card-dark flex items-center justify-center">
                 {user.image ? (
                   <Image
                     src={user.image}
@@ -172,7 +172,7 @@ export default function DashboardLayout({
                 <h2 className="text-sm font-bold text-text-light dark:text-text-dark truncate">
                   {user.name}
                 </h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
+                <p className="text-xs text-gray-500 dark:text-gray-200 capitalize">
                   {user.role}
                 </p>
               </div>

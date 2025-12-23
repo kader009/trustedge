@@ -54,14 +54,14 @@ export default function UserCommentsPage() {
         <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
           My Comments
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-200">
           Comments you&apos;ve made on reviews
         </p>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaComment className="w-6 h-6" />
@@ -70,41 +70,41 @@ export default function UserCommentsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {comments.length}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Total Comments
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaReply className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-text-light dark:text-text-dark">
+              <p className="text-2xl font-bold text-text-light dark:text-white">
                 {
                   comments.filter(
                     (c) => c.updatedAt && c.updatedAt !== c.createdAt
                   ).length
                 }
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Edited Comments
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaThumbsUp className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-text-light dark:text-text-dark">
+              <p className="text-2xl font-bold text-text-light dark:text-white">
                 {comments.length}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Total Comments
               </p>
             </div>
@@ -113,7 +113,7 @@ export default function UserCommentsPage() {
       </div>
 
       {/* Comments List */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
             All Comments
@@ -121,7 +121,7 @@ export default function UserCommentsPage() {
         </div>
 
         {isLoading ? (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-12 text-gray-500 dark:text-gray-200">
             Loading comments...
           </div>
         ) : comments.length === 0 ? (
@@ -150,18 +150,18 @@ export default function UserCommentsPage() {
                       <span className="text-gray-400 dark:text-gray-500 text-sm">
                         •
                       </span>
-                      <span className="text-gray-500 dark:text-gray-400 text-sm">
+                      <span className="text-gray-500 dark:text-gray-200 text-sm">
                         {new Date(comment.createdAt).toLocaleDateString()}
                       </span>
                     </div>
 
-                    <p className="text-gray-700 dark:text-gray-300 mb-2">
+                    <p className="text-gray-500 dark:text-gray-200 mb-2">
                       {comment.text}
                     </p>
 
                     {comment.updatedAt &&
                       comment.updatedAt !== comment.createdAt && (
-                        <p className="text-gray-500 dark:text-gray-400 text-xs italic">
+                        <p className="text-gray-500 dark:text-gray-200 text-xs">
                           Edited: {new Date(comment.updatedAt).toLocaleString()}
                         </p>
                       )}

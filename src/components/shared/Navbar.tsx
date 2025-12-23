@@ -114,12 +114,12 @@ const Navbar = () => {
                         className="fixed inset-0 z-40"
                         onClick={() => setShowDropdown(false)}
                       />
-                      <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-border-light dark:border-border-dark py-2 z-50">
+                      <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-card-dark rounded-lg shadow-lg border border-border-light dark:border-border-dark py-2 z-50">
                         <div className="px-4 py-3 border-b border-border-light dark:border-border-dark">
                           <p className="font-semibold text-text-light dark:text-text-dark truncate">
                             {user.name}
                           </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          <p className="text-xs text-gray-500 dark:text-gray-200 truncate">
                             {user.email}
                           </p>
                         </div>

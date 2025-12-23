@@ -14,12 +14,12 @@ const WhyChooseUs = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-6">
-          <div className="group relative flex flex-col gap-6 rounded-lg p-8 hover:scale-[1.02] transition-transform duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(73,230,25,0.1)] bg-card-light dakr:bg-card-dark border border-border-light dark:border-border-dark">
+          <div className="group relative flex flex-col gap-6 rounded-lg p-8 hover:scale-[1.02] transition-transform duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(73,230,25,0.1)] bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark">
             <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
               <MdVerifiedUser className="text-3xl" />
             </div>
             <div className="flex flex-col gap-2">
-              <h2 className="text-text-light text-xl font-bold">
+              <h2 className="text-text-light text-xl font-bold dark:text-text-secondary">
                 Verified Reviews
               </h2>
               <p className="text-text-secondary leading-relaxed">
@@ -28,12 +28,12 @@ const WhyChooseUs = () => {
               </p>
             </div>
           </div>
-          <div className="group relative flex flex-col gap-6 rounded-lg p-8 hover:scale-[1.02] transition-transform duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(73,230,25,0.1)] bg-white">
+          <div className="group relative flex flex-col gap-6 rounded-lg p-8 hover:scale-[1.02] transition-transform duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(73,230,25,0.1)] bg-white dark:bg-card-dark">
             <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
               <MdThumbUp className="text-3xl" />
             </div>
             <div className="flex flex-col gap-2">
-              <h2 className="text-text-light text-xl font-bold">
+              <h2 className="text-text-light text-xl font-bold dark:text-text-secondary">
                 Community Voting
               </h2>
               <p className="text-text-secondary leading-relaxed">
@@ -42,12 +42,12 @@ const WhyChooseUs = () => {
               </p>
             </div>
           </div>
-          <div className="group relative flex flex-col gap-6 rounded-lg p-8 hover:scale-[1.02] transition-transform duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(73,230,25,0.1)] bg-white">
+          <div className="group relative flex flex-col gap-6 rounded-lg p-8 hover:scale-[1.02] transition-transform duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(73,230,25,0.1)] bg-white dark:bg-card-dark">
             <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
               <MdStars className="text-3xl" />
             </div>
             <div className="flex flex-col gap-2">
-              <h2 className="text-text-light text-xl font-bold">
+              <h2 className="text-text-light text-xl font-bold dark:text-text-secondary">
                 Premium Insights
               </h2>
               <p className="text-text-secondary leading-relaxed">

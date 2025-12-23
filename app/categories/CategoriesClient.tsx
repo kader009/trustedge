@@ -93,7 +93,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
         <div className="w-full md:max-w-xs">
           <label className="flex flex-col h-12 w-full">
             <div className="flex w-full flex-1 items-stretch rounded-lg h-full">
-              <div className="text-neutral-300 dark:text-neutral-500 flex bg-neutral-100 dark:bg-neutral-900 items-center justify-center pl-4 rounded-l-lg border-y border-l border-neutral-200/80 dark:border-neutral-800/80">
+              <div className="text-neutral-300 dark:text-neutral-500 flex bg-white dark:bg-card-dark items-center justify-center pl-4 rounded-l-lg border-y border-l border-neutral-200/80 dark:border-neutral-800/80">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -108,7 +108,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
                 </svg>
               </div>
               <input
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-neutral-800 dark:text-neutral-100 focus:outline-0  border-y border-r border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100 dark:bg-neutral-900 h-full placeholder:text-neutral-300 dark:placeholder:text-neutral-500 pl-2 text-base font-normal leading-normal"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-neutral-800 dark:text-neutral-100 focus:outline-0  border-y border-r border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100 dark:bg-card-dark h-full placeholder:text-neutral-300 dark:placeholder:text-neutral-500 pl-2 text-base font-normal leading-normal"
                 placeholder="Search reviews..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -119,7 +119,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
       </div>
 
       {/* Toolbar */}
-      <div className="flex justify-between items-center gap-2 px-4 py-3 mb-4 rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800/80">
+      <div className="flex justify-between items-center gap-2 px-4 py-3 mb-4 rounded-xl bg-white dark:bg-card-dark border border-neutral-200/80 dark:border-neutral-800/80">
         <div className="flex gap-2 items-center relative">
           <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium whitespace-nowrap">
             Sort by:
@@ -127,7 +127,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
           <div className="relative">
             <button
               onClick={() => setIsSortOpen(!isSortOpen)}
-              className="flex items-center gap-2 bg-white dark:bg-neutral-800 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm font-semibold text-neutral-800 dark:text-neutral-100 hover:border-primary/50 transition-colors min-w-[140px] justify-between"
+              className="flex items-center gap-2 bg-white dark:bg-card-dark dark:border-neutral-700 rounded-lg px-3 py-2 text-sm font-semibold text-neutral-800 dark:text-neutral-100 hover:border-primary/50 transition-colors min-w-[140px] justify-between"
             >
               <span>{sortBy}</span>
               <svg
@@ -164,7 +164,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
                         className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                           sortBy === option
                             ? 'bg-primary/10 text-primary font-bold'
-                            : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700/50'
+                            : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 dark:bg-card-dark'
                         }`}
                       >
                         {option}

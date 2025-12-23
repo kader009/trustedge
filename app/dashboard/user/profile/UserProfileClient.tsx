@@ -29,13 +29,13 @@ export default function UserProfileClient() {
         <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
           My Profile
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-200">
           Manage your account information
         </p>
       </div>
 
       {/* Profile Header */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-8 mb-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-8 mb-6">
         <div className="flex flex-col md:flex-row items-center gap-6">
           {/* Profile Image */}
           <div className="relative">
@@ -83,7 +83,7 @@ export default function UserProfileClient() {
             <h2 className="text-2xl font-bold text-text-light dark:text-text-dark mb-2">
               {user.name}
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-gray-500 dark:text-gray-200 mb-4">
               {user.email}
             </p>
             <div className="flex flex-wrap gap-2 justify-center md:justify-start">
@@ -109,15 +109,15 @@ export default function UserProfileClient() {
       {/* Profile Details */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Personal Information */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <h3 className="text-xl font-bold text-text-light dark:text-text-dark mb-6">
             Personal Information
           </h3>
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div className="flex items-center gap-3 p-3 bg-white dark:bg-card-dark rounded-lg">
               <FaUser className="w-5 h-5 text-primary" />
               <div className="flex-1">
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-200">
                   Full Name
                 </p>
                 <p className="text-sm font-medium text-text-light dark:text-text-dark">
@@ -125,10 +125,10 @@ export default function UserProfileClient() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div className="flex items-center gap-3 p-3 bg-white dark:bg-card-dark rounded-lg">
               <FaEnvelope className="w-5 h-5 text-primary" />
               <div className="flex-1">
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-200">
                   Email Address
                 </p>
                 <p className="text-sm font-medium text-text-light dark:text-text-dark">
@@ -136,20 +136,20 @@ export default function UserProfileClient() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div className="flex items-center gap-3 p-3 bg-white dark:bg-card-dark rounded-lg">
               <FaShieldAlt className="w-5 h-5 text-primary" />
               <div className="flex-1">
-                <p className="text-xs text-gray-500 dark:text-gray-400">Role</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200">Role</p>
                 <p className="text-sm font-medium text-text-light dark:text-text-dark capitalize">
                   {user.role}
                 </p>
               </div>
             </div>
             {user.createdAt && (
-              <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="flex items-center gap-3 p-3 bg-white dark:bg-card-dark rounded-lg">
                 <FaCalendar className="w-5 h-5 text-primary" />
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-gray-500 dark:text-gray-200">
                     Member Since
                   </p>
                   <p className="text-sm font-medium text-text-light dark:text-text-dark">
@@ -166,38 +166,38 @@ export default function UserProfileClient() {
         </div>
 
         {/* Account Settings */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <h3 className="text-xl font-bold text-text-light dark:text-text-dark mb-6">
             Account Settings
           </h3>
           <div className="space-y-3">
-            <button className="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <button className="w-full text-left p-4 bg-white dark:bg-card-dark rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
               <p className="font-medium text-text-light dark:text-text-dark mb-1">
                 Change Password
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Update your password to keep your account secure
               </p>
             </button>
-            <button className="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <button className="w-full text-left p-4 bg-white dark:bg-card-dark rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
               <p className="font-medium text-text-light dark:text-text-dark mb-1">
                 Email Preferences
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Manage your email notification settings
               </p>
             </button>
-            <button className="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <button className="w-full text-left p-4 bg-white dark:bg-card-dark rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
               <p className="font-medium text-text-light dark:text-text-dark mb-1">
                 Privacy Settings
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Control who can see your profile and reviews
               </p>
             </button>
             <button className="w-full text-left p-4 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
               <p className="font-medium text-danger mb-1">Delete Account</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Permanently delete your account and all data (Only admins can perform this action)
               </p>
             </button>

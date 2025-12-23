@@ -49,7 +49,7 @@ export default function UserDashboard() {
         <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
           Welcome back, {user?.name}!
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-200">
           Here&apos;s what&apos;s happening with your account today.
         </p>
       </div>
@@ -62,7 +62,7 @@ export default function UserDashboard() {
             <Link
               key={index}
               href={stat.href}
-              className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105 cursor-pointer"
+              className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105 cursor-pointer"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className={`${stat.color} p-3 rounded-lg text-white`}>
@@ -72,7 +72,7 @@ export default function UserDashboard() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark mb-1">
                 {stat.value}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 {stat.label}
               </p>
             </Link>
@@ -81,7 +81,7 @@ export default function UserDashboard() {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 mb-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 mb-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
             Recent Activity
@@ -89,7 +89,7 @@ export default function UserDashboard() {
           <FaCalendar className="text-gray-400" />
         </div>
         <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
+          <p className="text-gray-500 dark:text-gray-200 mb-4">
             No recent activity yet
           </p>
           <Link
