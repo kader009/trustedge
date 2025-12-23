@@ -248,28 +248,6 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-
-      {/* Quick Actions */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Link
-          href="/dashboard/admin/users"
-          className="bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-6 rounded-lg transition-colors text-center"
-        >
-          Manage Users
-        </Link>
-        <Link
-          href="/dashboard/admin/reviews"
-          className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-semibold py-4 px-6 rounded-lg transition-colors text-center"
-        >
-          Review Management
-        </Link>
-        <Link
-          href="/dashboard/admin/categories"
-          className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-semibold py-4 px-6 rounded-lg transition-colors text-center"
-        >
-          View Category
-        </Link>
-      </div>
     </div>
   );
 }

@@ -131,7 +131,7 @@ export default function CategoryManagementPage() {
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-6 h-12 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-colors"
+          className="flex items-center gap-2 px-6 h-12 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-colors cursor-pointer"
         >
           <FaPlus /> Add Category
         </button>
@@ -190,14 +190,14 @@ export default function CategoryManagementPage() {
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
                   <button
                     onClick={() => handleOpenModal(category)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                   >
                     <FaEdit /> Edit
                   </button>
                   <button
                     onClick={() => handleDelete(category._id, category.name)}
                     disabled={isDeleting}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
                   >
                     <FaTrash /> Delete
                   </button>
@@ -218,7 +218,7 @@ export default function CategoryManagementPage() {
               </h2>
               <button
                 onClick={handleCloseModal}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer"
               >
                 <FaTimes className="text-xl" />
               </button>
@@ -280,14 +280,14 @@ export default function CategoryManagementPage() {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isCreating || isUpdating}
-                  className="flex-1 h-12 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 h-12 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {isCreating || isUpdating
                     ? 'Saving...'

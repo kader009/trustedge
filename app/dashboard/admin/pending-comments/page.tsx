@@ -142,7 +142,7 @@ export default function PendingCommentsPage() {
         <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
           <button
             onClick={() => setFilter('pending')}
-            className={`px-6 py-3 font-semibold transition-colors relative ${
+            className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer ${
               filter === 'pending'
                 ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
@@ -157,7 +157,7 @@ export default function PendingCommentsPage() {
           </button>
           <button
             onClick={() => setFilter('approved')}
-            className={`px-6 py-3 font-semibold transition-colors relative ${
+            className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer ${
               filter === 'approved'
                 ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
@@ -172,7 +172,7 @@ export default function PendingCommentsPage() {
           </button>
           <button
             onClick={() => setFilter('all')}
-            className={`px-6 py-3 font-semibold transition-colors ${
+            className={`px-6 py-3 font-semibold transition-colors cursor-pointer ${
               filter === 'all'
                 ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
@@ -360,7 +360,7 @@ export default function PendingCommentsPage() {
                     {!comment.isApproved && (
                       <button
                         onClick={() => handleApprove(comment._id)}
-                        className="flex items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap"
+                        className="flex items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap cursor-pointer"
                       >
                         <FaCheckCircle /> Approve
                       </button>
@@ -373,7 +373,7 @@ export default function PendingCommentsPage() {
                         )
                       }
                       disabled={isDeleting}
-                      className="flex items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap"
+                      className="flex items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap cursor-pointer"
                     >
                       <FaTrash /> Delete
                     </button>
