@@ -98,7 +98,7 @@ const Footer = () => {
               >
                 Contact Us
               </Link>
-              <Link className="hover:text-primary transition-colors" href="#">
+              <Link className="hover:text-primary transition-colors" href="/termandservices">
                 Terms of Service
               </Link>
               <Link className="hover:text-primary transition-colors" href="/privacypolicy">
