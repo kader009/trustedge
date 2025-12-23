@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   FaEnvelope,
   FaPhone,
@@ -18,23 +19,23 @@ const ContactPage = () => {
           }}
         ></div>
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center mb-6">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-white">
+          <h1 className="text-4xl font-black tracking-tighter text-white">
             Get in Touch
           </h1>
           <p className="mt-4 text-lg text-white/90">
-            We're here to help and answer any question you might have. We look
+            We are here to help and answer any question you might have. We look
             forward to hearing from you.
           </p>
         </div>
       </div>
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-24 sm:-mt-32 relative z-10">
-        <div className="bg-white dark:bg-background-dark/80 backdrop-blur-sm shadow-xl rounded-xl p-8 sm:p-12">
+        <div className="bg-white dark:bg-background-dark/80 backdrop-blur-sm rounded-xl p-8 mb-8">
           <div className="flex flex-col gap-3 mb-8 text-center">
             <h2 className="text-3xl font-bold tracking-tight text-text-light dark:text-white">
               Send us a Message
             </h2>
             <p className="text-text-light dark:text-text-dark">
-              Fill out the form below and we'll get back to you as soon as
+              Fill out the form below and we&apos;ll get back to you as soon as
               possible.
             </p>
           </div>
@@ -191,13 +192,13 @@ const ContactPage = () => {
                     Check out our frequently asked questions to find solutions
                     to common issues and learn more about our platform.
                   </p>
-                  <a
+                  <Link
                     className="inline-flex items-center gap-2 rounded-lg bg-primary/20 dark:bg-primary/30 px-5 py-3 text-sm font-bold text-primary hover:bg-primary/30 dark:hover:bg-primary/40"
-                    href="#"
+                    href="termandservices"
                   >
-                    <span>Visit our FAQ</span>
+                    <span>Visit here</span>
                     <FaArrowRight className="text-base" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

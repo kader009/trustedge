@@ -15,7 +15,7 @@ const TermAndServices = () => {
             </h1>
           </div>
         </div>
-        <div className="p-8 sm:p-12 space-y-10">
+        <div className="p-8 space-y-6">
           <section>
             <p className="text-base font-normal leading-relaxed text-gray-700 dark:text-gray-300">
               Welcome to ReviewPortal. Please read these Terms of Service
