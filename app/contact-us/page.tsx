@@ -39,7 +39,7 @@ const ContactPage = () => {
               possible.
             </p>
           </div>
-          <form action="#" className="space-y-6" method="POST">
+          <form className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label
@@ -130,7 +130,7 @@ const ContactPage = () => {
                   <FaChevronDown />
                 </span>
               </label>
-              <div className="accordion-content space-y-6 pt-4">
+              <div className="space-y-6 pt-4">
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 p-5 rounded-xl bg-gray-100 dark:bg-white/5">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
@@ -194,9 +194,9 @@ const ContactPage = () => {
                   </p>
                   <Link
                     className="inline-flex items-center gap-2 rounded-lg bg-primary/20 dark:bg-primary/30 px-5 py-3 text-sm font-bold text-primary hover:bg-primary/30 dark:hover:bg-primary/40"
-                    href="termandservices"
+                    href="/termandservices"
                   >
-                    <span>Visit here</span>
+                    <span>Visit our FAQ</span>{' '}
                     <FaArrowRight className="text-base" />
                   </Link>
                 </div>
