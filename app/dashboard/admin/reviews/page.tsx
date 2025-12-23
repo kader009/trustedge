@@ -222,9 +222,18 @@ export default function AdminReviewsPage() {
                   {(review.images?.[0] || review.productId?.image) && (
                     <div className="relative w-24 h-24 shrink-0">
                       <Image
-                        src={
-                          review.images?.[0] || review.productId?.image || ''
-                        }
+                        src={(() => {
+                          const img =
+                            review.images?.[0] || review.productId?.image || '';
+                          // If the image is an ibb.co.com share link, try to convert to i.ibb.co direct link
+                          if (img.includes('ibb.co.com')) {
+                            // Extract image ID
+                            const id = img.split('/').pop();
+                            // Fallback to png extension
+                            return `https://i.ibb.co/${id}/image.png`;
+                          }
+                          return img;
+                        })()}
                         alt={review.title || review.productId?.name || 'Review'}
                         fill
                         className="object-cover rounded-lg"
