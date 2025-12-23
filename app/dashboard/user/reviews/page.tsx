@@ -16,20 +16,11 @@ import EditReviewModal from '@/src/components/user/EditReviewModal';
 import DeleteConfirmModal from '@/src/components/user/DeleteConfirmModal';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ReviewType } from '@/src/types/reviewType';
+import { reviews } from '@/src/types/reviews';
 
 export default function UserReviewsPage() {
   const { data, isLoading, error, refetch } = useGetUserReviewsQuery(undefined);
-  type ReviewType = {
-    _id: string;
-    rating: number;
-    review: string;
-    status: string;
-    createdAt?: string;
-    productId?: { title?: string; images?: string[] };
-    adminFeedback?: string;
-    views?: number;
-    likes?: number;
-  } | null;
 
   const [editingReview, setEditingReview] = useState<ReviewType>(null);
   const [deletingReview, setDeletingReview] = useState<ReviewType>(null);
@@ -144,7 +135,7 @@ export default function UserReviewsPage() {
             All Reviews
           </h2>
           <Link href="/create-review">
-            <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+            <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer">
               Write New Review
             </button>
           </Link>
@@ -171,127 +162,115 @@ export default function UserReviewsPage() {
               You haven&apos;t written any reviews yet
             </p>
             <Link href="/create-review">
-              <button className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+              <button className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-6 rounded-lg transition-colors cursor-pointer">
                 Write Your First Review
               </button>
             </Link>
           </div>
         ) : (
           <div className="space-y-4">
-            {reviews.map(
-              (review: {
-                _id: string;
-                rating: number;
-                review: string;
-                status: string;
-                createdAt: string;
-                productId?: { title?: string; images?: string[] };
-                adminFeedback?: string;
-                views?: number;
-                likes?: number;
-              }) => (
-                <div
-                  key={review._id}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex gap-4">
-                    {/* Product Image */}
-                    <div className="relative w-24 h-18 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
-                      <Image
-                        src={getProductImage(review.productId?.images)}
-                        alt={review.productId?.title || 'Product'}
-                        fill
-                        className="object-cover"
-                      />
+            {reviews.map((review: reviews) => (
+              <div
+                key={review._id}
+                className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
+              >
+                <div className="flex gap-4">
+                  {/* Product Image */}
+                  <div className="relative w-24 h-18 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                    <Image
+                      src={getProductImage(review.productId?.images)}
+                      alt={review.productId?.title || 'Product'}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-4 mb-2">
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                          {review.productId?.title || 'Untitled Product'}
+                        </h3>
+                        {getStatusBadge(review.status)}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {review.status === 'pending' && (
+                          <>
+                            <button
+                              onClick={() => setEditingReview(review)}
+                              className="p-2 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors cursor-pointer"
+                              title="Edit"
+                            >
+                              <FaEdit />
+                            </button>
+                            <button
+                              onClick={() => setDeletingReview(review)}
+                              className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer"
+                              title="Delete"
+                            >
+                              <FaTrash />
+                            </button>
+                          </>
+                        )}
+                      </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-4 mb-2">
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                            {review.productId?.title || 'Untitled Product'}
-                          </h3>
-                          {getStatusBadge(review.status)}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {review.status === 'pending' && (
-                            <>
-                              <button
-                                onClick={() => setEditingReview(review)}
-                                className="p-2 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
-                                title="Edit"
-                              >
-                                <FaEdit />
-                              </button>
-                              <button
-                                onClick={() => setDeletingReview(review)}
-                                className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                                title="Delete"
-                              >
-                                <FaTrash />
-                              </button>
-                            </>
-                          )}
-                        </div>
+                    {/* Rating */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="flex items-center gap-1">
+                        {[...Array(5)].map((_, i) => (
+                          <FaStar
+                            key={i}
+                            className={`text-sm ${
+                              i < review.rating
+                                ? 'text-yellow-400'
+                                : 'text-gray-300 dark:text-gray-600'
+                            }`}
+                          />
+                        ))}
                       </div>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                        {review.rating}/5
+                      </span>
+                    </div>
 
-                      {/* Rating */}
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="flex items-center gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <FaStar
-                              key={i}
-                              className={`text-sm ${
-                                i < review.rating
-                                  ? 'text-yellow-400'
-                                  : 'text-gray-300 dark:text-gray-600'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          {review.rating}/5
-                        </span>
+                    {/* Review Text */}
+                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                      {review.review}
+                    </p>
+
+                    {/* Admin Feedback (if rejected) */}
+                    {review.status === 'rejected' && review.adminFeedback && (
+                      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 mb-3">
+                        <p className="text-sm font-medium text-red-800 dark:text-red-300 mb-1">
+                          Rejection Reason:
+                        </p>
+                        <p className="text-sm text-red-700 dark:text-red-400">
+                          {review.adminFeedback}
+                        </p>
                       </div>
+                    )}
 
-                      {/* Review Text */}
-                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
-                        {review.review}
-                      </p>
-
-                      {/* Admin Feedback (if rejected) */}
-                      {review.status === 'rejected' && review.adminFeedback && (
-                        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 mb-3">
-                          <p className="text-sm font-medium text-red-800 dark:text-red-300 mb-1">
-                            Rejection Reason:
-                          </p>
-                          <p className="text-sm text-red-700 dark:text-red-400">
-                            {review.adminFeedback}
-                          </p>
-                        </div>
-                      )}
-
-                      {/* Meta */}
-                      <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                        <span>
-                          {new Date(review.createdAt).toLocaleDateString(
-                            'en-US',
-                            {
-                              month: 'short',
-                              day: 'numeric',
-                              year: 'numeric',
-                            }
-                          )}
-                        </span>
-                        {review.views && <span>• {review.views} views</span>}
-                        {review.likes && <span>• {review.likes} votes</span>}
-                      </div>
+                    {/* Meta */}
+                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                      <span>
+                        {new Date(review.createdAt).toLocaleDateString(
+                          'en-US',
+                          {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                          }
+                        )}
+                      </span>
+                      {review.views && <span>• {review.views} views</span>}
+                      {review.likes && <span>• {review.likes} votes</span>}
                     </div>
                   </div>
                 </div>
-              )
-            )}
+              </div>
+            ))}
           </div>
         )}
       </div>
