@@ -4,10 +4,10 @@ import { FaCheckCircle, FaUsers, FaStar } from 'react-icons/fa';
 export default function AboutUsPage() {
   return (
     <div className="w-full">
-      <main className="flex-1 px-4 py-8 md:py-12 lg:py-16">
-        <div className="mx-auto container flex flex-col gap-12 md:gap-16 lg:gap-20">
+      <main className="flex-1 px-4 pt-8">
+        <div className="mx-auto container flex flex-col gap-8">
           {/* Hero Section */}
-          <section className="mb-16">
+          <section>
             <div className="w-full">
               <div
                 className="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 text-center"
@@ -17,7 +17,7 @@ export default function AboutUsPage() {
                 }}
               >
                 <div className="flex flex-col gap-4">
-                  <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
+                  <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em]">
                     About Our Portal
                   </h1>
                   <h2 className="text-white/90 text-base font-normal leading-normal max-w-2xl mx-auto md:text-lg">
@@ -89,7 +89,7 @@ export default function AboutUsPage() {
             </div>
           </section>
           {/* Meet the Team Section */}
-          <section className="flex flex-col gap-8">
+          <section className="flex flex-col gap-6">
             <h2 className="text-gray-900 dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
               The Team Behind the Reviews
             </h2>
@@ -154,7 +154,7 @@ export default function AboutUsPage() {
             </div>
           </section>
           {/* Call to Action Section */}
-          <section className="bg-white dark:bg-background-dark/50 border border-gray-200 dark:border-white/10 rounded-xl p-8 md:p-12 text-center max-w-4xl mx-auto w-full">
+          <section className="bg-white dark:bg-background-dark/50 border border-gray-200 dark:border-white/10 rounded-xl p-8 md:p-12 text-center max-w-4xl mx-auto w-full mb-8">
             <div className="flex flex-col items-center gap-4">
               <h2 className="text-gray-900 dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
                 Ready to Join Us?
@@ -164,7 +164,9 @@ export default function AboutUsPage() {
                 others make better, more informed decisions.
               </p>
               <button className="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                <span className="truncate"><Link href="/register">Registered Now</Link></span>
+                <span className="truncate">
+                  <Link href="/register">Registered Now</Link>
+                </span>
               </button>
             </div>
           </section>
