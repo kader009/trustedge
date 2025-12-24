@@ -1,5 +1,7 @@
 'use client';
 
+import { AdminDashboardSkeleton } from '@/src/components/skeletons/AdminSkeleton';
+import UserDashboardSkeleton from '@/src/components/skeletons/UserSkeleton';
 import { useAppSelector } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
 import { useRouter } from 'next/navigation';
@@ -19,9 +21,16 @@ export default function DashboardPage() {
     }
   }, [user, router]);
 
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-    </div>
+  // Show role-specific skeleton while determining role
+  if (!user) {
+    // Default to user skeleton if role unknown
+    return <UserDashboardSkeleton />;
+  }
+
+  // Show correct skeleton during redirect
+  return user.role === 'admin' ? (
+    <AdminDashboardSkeleton />
+  ) : (
+    <UserDashboardSkeleton />
   );
 }
