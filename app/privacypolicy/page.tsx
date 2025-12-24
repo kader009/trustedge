@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
             information we may collect on the Site includes:
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-6 rounded-2xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 transition-shadow">
               <div className="size-10 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
                 <FaUser className="w-5 h-5" />
               </div>
