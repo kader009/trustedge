@@ -173,7 +173,10 @@ export default async function ReviewDetailPage({
             Home
           </Link>
           <span className="mx-2">/</span>
-          <Link href="/categories" className="hover:text-primary dark:text-white">
+          <Link
+            href="/categories"
+            className="hover:text-primary dark:text-white"
+          >
             Reviews
           </Link>
           <span className="mx-2">/</span>

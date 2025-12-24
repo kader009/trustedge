@@ -11,7 +11,7 @@ const Category = async () => {
       <h1 className="text-2xl font-bold leading-tight tracking-[-0.015em] pb-6">
         Explore by Category
       </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
         {categories.length > 0 ? (
           categories.map((category) => (
             <Link
