@@ -1,6 +1,6 @@
 'use client';
 
-import { AdminDashboardSkeleton } from '@/src/components/skeletons/AdminSkeleton';
+import AdminDashboardSkeleton  from '@/src/components/skeletons/AdminSkeleton';
 import UserDashboardSkeleton from '@/src/components/skeletons/UserSkeleton';
 import { useAppSelector } from '@/src/redux/hook';
 import { RootState } from '@/src/redux/store/store';
