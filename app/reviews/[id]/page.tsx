@@ -184,7 +184,7 @@ export default async function ReviewDetailPage({
             {review.category}
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-900 dark:text-white truncate max-w-xs dark:text-white">
+          <span className="text-gray-900 dark:text-white truncate max-w-xs">
             {review.title}
           </span>
         </nav>
