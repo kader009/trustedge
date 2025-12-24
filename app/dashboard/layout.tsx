@@ -198,7 +198,7 @@ export default function DashboardLayout({
                   className={`flex items-center gap-3 px-4 py-3 mb-2 rounded-lg transition-colors ${
                     isActive
                       ? 'bg-primary text-white'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-500'
                   }`}
                 >
                   <Icon className="w-5 h-5" />

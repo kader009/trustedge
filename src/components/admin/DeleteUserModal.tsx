@@ -39,11 +39,11 @@ export default function DeleteUserModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-900 rounded-xl max-w-md w-full p-6 relative">
+      <div className="bg-white dark:bg-card-dark rounded-xl max-w-md w-full p-6 relative">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer"
           disabled={isLoading}
         >
           <FaTimes className="w-5 h-5" />
@@ -62,7 +62,7 @@ export default function DeleteUserModal({
         </h2>
 
         {/* Message */}
-        <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
+        <p className="text-gray-500 dark:text-gray-200 text-center mb-6">
           Are you sure you want to delete{' '}
           <span className="font-semibold text-text-light dark:text-text-dark">
             {user.name}
@@ -71,16 +71,16 @@ export default function DeleteUserModal({
         </p>
 
         {/* User Details */}
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 mb-6">
+        <div className="bg-white dark:bg-card-dark rounded-lg p-4 mb-6">
           <div className="flex flex-col gap-2">
             <div className="flex justify-between">
-              <span className="text-gray-600 dark:text-gray-400">Email:</span>
+              <span className="text-gray-500 dark:text-gray-200">Email:</span>
               <span className="font-medium text-text-light dark:text-text-dark">
                 {user.email}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600 dark:text-gray-400">Role:</span>
+              <span className="text-gray-500 dark:text-gray-200">Role:</span>
               <span className="font-medium text-text-light dark:text-text-dark capitalize">
                 {user.role}
               </span>
@@ -94,7 +94,7 @@ export default function DeleteUserModal({
             type="button"
             onClick={onClose}
             disabled={isLoading}
-            className="flex-1 px-4 py-2 border border-border-light dark:border-border-dark rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="flex-1 px-4 py-2 border border-border-light dark:border-border-dark rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 cursor-pointer"
           >
             Cancel
           </button>
@@ -102,7 +102,7 @@ export default function DeleteUserModal({
             type="button"
             onClick={handleDelete}
             disabled={isLoading}
-            className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {isLoading ? 'Deleting...' : 'Delete User'}
           </button>

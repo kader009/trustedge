@@ -74,7 +74,7 @@ export default function AdminDashboard() {
         <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
           Admin Dashboard
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-200">
           Manage your platform and monitor activity
         </p>
       </div>
@@ -108,7 +108,7 @@ export default function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Recent Users */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
               Recent Users
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
           {recentUsers.length === 0 ? (
             <div className="text-center py-8">
               <FaUsers className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-200">
                 No users registered yet
               </p>
             </div>
@@ -165,7 +165,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Pending Reviews */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
               Pending Reviews
@@ -179,8 +179,8 @@ export default function AdminDashboard() {
           </div>
           {recentPendingReviews.length === 0 ? (
             <div className="text-center py-8">
-              <FaCheckCircle className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-              <p className="text-gray-500 dark:text-gray-400">
+              <FaCheckCircle className="w-12 h-12 text-gray-300 dark:text-gray-200 mx-auto mb-3" />
+              <p className="text-gray-500 dark:text-gray-200">
                 No pending reviews
               </p>
             </div>
@@ -191,14 +191,14 @@ export default function AdminDashboard() {
                   key={review._id}
                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-orange-500/10 dark:bg-card-dark flex items-center justify-center">
                     <FaCheckCircle className="text-orange-500" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                       {review.title || 'Review'}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    <p className="text-xs text-gray-500 dark:text-gray-200 truncate">
                       By {review.user?.name || 'Unknown'}
                     </p>
                   </div>
@@ -213,7 +213,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* System Status */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
         <h2 className="text-xl font-bold text-text-light dark:text-text-dark mb-6">
           System Status
         </h2>
@@ -225,21 +225,21 @@ export default function AdminDashboard() {
                 <p className="font-semibold text-text-light dark:text-text-dark">
                   API Status
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-500 dark:text-gray-200">
                   All systems operational
                 </p>
               </div>
             </div>
             <span className="text-primary font-semibold">Active</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-blue-900/20 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-card-dark rounded-lg">
             <div className="flex items-center gap-3">
               <FaCheckCircle className="text-primary w-5 h-5" />
               <div>
                 <p className="font-semibold text-text-light dark:text-text-dark">
                   Database
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-500 dark:text-gray-200">
                   Connected and synced
                 </p>
               </div>

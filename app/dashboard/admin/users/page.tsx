@@ -127,14 +127,14 @@ export default function AdminUsersPage() {
         <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
           User Management
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-300">
           Manage all registered users
         </p>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaUsers className="w-6 h-6" />
@@ -143,13 +143,13 @@ export default function AdminUsersPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {isLoading ? '...' : totalUsers}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Total Users
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaUserCheck className="w-6 h-6" />
@@ -158,13 +158,13 @@ export default function AdminUsersPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {isLoading ? '...' : activeUsers}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Active Users
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaUserPlus className="w-6 h-6" />
@@ -173,7 +173,7 @@ export default function AdminUsersPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {isLoading ? '...' : newThisWeek}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 New This Week
               </p>
             </div>
@@ -182,7 +182,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Search and Filter */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 mb-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
@@ -192,14 +192,14 @@ export default function AdminUsersPage() {
                 placeholder="Search users by name or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full pl-10 pr-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
           </div>
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
+            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="all">All Roles</option>
             <option value="admin">Admin</option>
@@ -208,7 +208,7 @@ export default function AdminUsersPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
+            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -218,21 +218,21 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users List */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
         {isLoading ? (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="text-gray-500 dark:text-gray-400 mt-4">
+            <p className="text-gray-500 dark:text-gray-200 mt-4">
               Loading users...
             </p>
           </div>
         ) : filteredUsers.length === 0 ? (
           <div className="text-center py-12">
-            <FaUsers className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
+            <FaUsers className="w-16 h-16 text-gray-500 dark:text-gray-200 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-200 mb-4">
               No users found
             </p>
-            <p className="text-sm text-gray-400 dark:text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-200">
               {searchQuery || roleFilter !== 'all' || statusFilter !== 'all'
                 ? 'Try adjusting your filters'
                 : 'Users will appear here once they register'}
@@ -243,22 +243,22 @@ export default function AdminUsersPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border-light dark:border-border-dark">
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
                     Name
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
                     Email
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
                     Role
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
                     Status
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
                     Joined
                   </th>
-                  <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <th className="text-right py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
                     Actions
                   </th>
                 </tr>
@@ -289,7 +289,7 @@ export default function AdminUsersPage() {
                         </span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
+                    <td className="py-3 px-4 text-gray-500 dark:text-gray-200">
                       {user.email}
                     </td>
                     <td className="py-3 px-4">

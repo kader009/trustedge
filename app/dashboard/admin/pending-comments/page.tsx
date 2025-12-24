@@ -145,12 +145,12 @@ export default function PendingCommentsPage() {
             className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer ${
               filter === 'pending'
                 ? 'text-primary border-b-2 border-primary'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                : 'text-gray-500 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
             Pending
             {pendingCount > 0 && (
-              <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-full">
+              <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-100 dark:bg-card-dark text-yellow-800 dark:text-yellow-300 rounded-full">
                 {pendingCount}
               </span>
             )}
@@ -160,7 +160,7 @@ export default function PendingCommentsPage() {
             className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer ${
               filter === 'approved'
                 ? 'text-primary border-b-2 border-primary'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                : 'text-gray-500 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
             Approved
@@ -175,7 +175,7 @@ export default function PendingCommentsPage() {
             className={`px-6 py-3 font-semibold transition-colors cursor-pointer ${
               filter === 'all'
                 ? 'text-primary border-b-2 border-primary'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                : 'text-gray-500 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
             All Comments
@@ -193,7 +193,7 @@ export default function PendingCommentsPage() {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+            className="w-full pl-12 pr-4 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
             placeholder="Search comments by content or author..."
           />
         </div>
@@ -201,48 +201,48 @@ export default function PendingCommentsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-1 py-2">
-        <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
               <FaClock className="text-white text-xl" />
             </div>
             <div>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-gray-500 dark:text-gray-200 text-sm">
                 Pending Review
               </p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-2xl font-bold text-gray-500 dark:text-white">
                 {pendingCount}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
               <FaCheckCircle className="text-white text-xl" />
             </div>
             <div>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-gray-500 dark:text-gray-200 text-sm">
                 Approved
               </p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-2xl font-bold text-gray-500 dark:text-white">
                 {approvedCount}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
               <FaComment className="text-white text-xl" />
             </div>
             <div>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-gray-500 dark:text-gray-200 text-sm">
                 Total Comments
               </p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-2xl font-bold text-gray-500 dark:text-white">
                 {comments.length}
               </p>
             </div>
@@ -253,13 +253,13 @@ export default function PendingCommentsPage() {
       {/* Comments List */}
       <div className="px-1 py-2">
         {isLoading ? (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-12 text-gray-500 dark:text-gray-200">
             Loading comments...
           </div>
         ) : filteredComments.length === 0 ? (
           <div className="text-center py-12">
-            <FaComment className="mx-auto text-6xl text-gray-300 dark:text-gray-600 mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
+            <FaComment className="mx-auto text-6xl text-gray-500 dark:text-gray-200 mb-4" />
+            <p className="text-gray-500 dark:text-gray-200 text-lg">
               {searchTerm
                 ? 'No comments found matching your search'
                 : filter === 'pending'
@@ -274,7 +274,7 @@ export default function PendingCommentsPage() {
             {filteredComments.map((comment) => (
               <div
                 key={comment._id}
-                className={`bg-white dark:bg-gray-900/50 rounded-xl border ${
+                className={`bg-white dark:bg-card-dark rounded-xl border ${
                   comment.isApproved
                     ? 'border-green-200 dark:border-green-800/30'
                     : 'border-yellow-200 dark:border-yellow-800/30'
@@ -285,11 +285,11 @@ export default function PendingCommentsPage() {
                     {/* Status Badge */}
                     <div className="mb-3">
                       {comment.isApproved ? (
-                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs font-semibold rounded-full">
+                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 dark:bg-card-dark text-green-800 dark:text-green-300 text-xs font-semibold rounded-full">
                           <FaCheckCircle /> Approved
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 text-xs font-semibold rounded-full">
+                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 dark:bg-card-dark text-yellow-800 dark:text-yellow-300 text-xs font-semibold rounded-full">
                           <FaClock /> Pending Review
                         </span>
                       )}
@@ -324,32 +324,32 @@ export default function PendingCommentsPage() {
                         )}
                       </div>
                       <div>
-                        <p className="text-gray-900 dark:text-white font-bold">
+                        <p className="text-gray-500 dark:text-white font-bold">
                           {comment.user?.name ||
                             comment.userId?.name ||
                             'Unknown User'}
                         </p>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        <p className="text-gray-500 dark:text-gray-200 text-sm">
                           {comment.user?.email ||
                             comment.userId?.email ||
                             'No email'}
                         </p>
                       </div>
-                      <span className="ml-auto text-gray-500 dark:text-gray-400 text-sm">
+                      <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm">
                         {new Date(comment.createdAt).toLocaleString()}
                       </span>
                     </div>
 
                     {/* Comment Content */}
-                    <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-3">
-                      <p className="text-gray-900 dark:text-white">
+                    <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-4 mb-3">
+                      <p className="text-gray-500 dark:text-white">
                         {comment.text || comment.content || 'No content'}
                       </p>
                     </div>
 
                     {comment.updatedAt &&
                       comment.updatedAt !== comment.createdAt && (
-                        <p className="text-gray-500 dark:text-gray-400 text-xs italic">
+                        <p className="text-gray-500 dark:text-gray-200 text-xs">
                           Edited: {new Date(comment.updatedAt).toLocaleString()}
                         </p>
                       )}

@@ -143,11 +143,11 @@ export default function CategoryManagementPage() {
           <CategorySkeleton />
         ) : categories.length === 0 ? (
           <div className="text-center py-12">
-            <FaTag className="mx-auto text-6xl text-gray-300 dark:text-gray-600 mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
+            <FaTag className="mx-auto text-6xl text-gray-500 dark:text-gray-200 mb-4" />
+            <p className="text-gray-500 dark:text-gray-200 text-lg">
               No categories found
             </p>
-            <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+            <p className="text-gray-500 dark:text-gray-200 text-sm mt-2">
               Create your first category to get started
             </p>
           </div>
@@ -156,7 +156,7 @@ export default function CategoryManagementPage() {
             {categories.map((category: Category) => (
               <div
                 key={category._id}
-                className="bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6 hover:shadow-lg transition-shadow"
+                className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-6 hover:shadow-lg transition-shadow"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
@@ -180,7 +180,7 @@ export default function CategoryManagementPage() {
                       )}
                     </div>
                     <div>
-                      <h3 className="text-gray-900 dark:text-white text-lg font-bold">
+                      <h3 className="text-gray-500 dark:text-white text-lg font-bold">
                         {category.name}
                       </h3>
                     </div>
@@ -190,7 +190,7 @@ export default function CategoryManagementPage() {
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
                   <button
                     onClick={() => handleOpenModal(category)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-500 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                   >
                     <FaEdit /> Edit
                   </button>
@@ -211,14 +211,14 @@ export default function CategoryManagementPage() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-900 rounded-xl max-w-md w-full border border-gray-200 dark:border-gray-800">
+          <div className="bg-white dark:bg-card-dark rounded-xl max-w-md w-full border border-gray-200 dark:border-gray-800">
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
               <h2 className="text-gray-900 dark:text-white text-xl font-bold">
                 {editingCategory ? 'Edit Category' : 'Add New Category'}
               </h2>
               <button
                 onClick={handleCloseModal}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-200 cursor-pointer"
               >
                 <FaTimes className="text-xl" />
               </button>
@@ -226,7 +226,7 @@ export default function CategoryManagementPage() {
 
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div className="flex flex-col gap-2">
-                <label className="text-gray-900 dark:text-white text-sm font-medium">
+                <label className="text-gray-500 dark:text-white text-sm font-medium">
                   Category Name *
                 </label>
                 <input
@@ -235,14 +235,14 @@ export default function CategoryManagementPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+                  className="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
                   placeholder="e.g., Electronics, Books, Clothing"
                   required
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-gray-900 dark:text-white text-sm font-medium">
+                <label className="text-gray-500 dark:text-white text-sm font-medium">
                   Slug *
                 </label>
                 <input
@@ -251,17 +251,17 @@ export default function CategoryManagementPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, slug: e.target.value })
                   }
-                  className="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+                  className="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
                   placeholder="e.g., electronics, books, clothing"
                   required
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-200">
                   URL-friendly version (lowercase, no spaces)
                 </p>
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-gray-900 dark:text-white text-sm font-medium">
+                <label className="text-gray-500 dark:text-white text-sm font-medium">
                   Image URL *
                 </label>
                 <input
@@ -270,7 +270,7 @@ export default function CategoryManagementPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, image: e.target.value })
                   }
-                  className="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+                  className="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
                   placeholder="https://example.com/image.jpg"
                   required
                 />
@@ -280,7 +280,7 @@ export default function CategoryManagementPage() {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>

@@ -103,14 +103,14 @@ export default function AdminReviewsPage() {
         <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
           Review Management
         </h1>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-200">
           Manage all product reviews
         </p>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaStar className="w-6 h-6" />
@@ -119,13 +119,13 @@ export default function AdminReviewsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {totalReviews}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Total Reviews
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaCheckCircle className="w-6 h-6" />
@@ -134,13 +134,13 @@ export default function AdminReviewsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {approvedCount}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Approved
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
               <FaClock className="w-6 h-6" />
@@ -149,7 +149,7 @@ export default function AdminReviewsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {pendingCount}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-200">
                 Pending
               </p>
             </div>
@@ -158,7 +158,7 @@ export default function AdminReviewsPage() {
       </div>
 
       {/* Reviews List */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
             All Reviews
@@ -169,7 +169,7 @@ export default function AdminReviewsPage() {
               className={`px-4 py-2 rounded-lg transition-colors ${
                 filter === 'all'
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
+                  : 'bg-gray-100 dark:bg-card-dark text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
             >
               All
@@ -179,7 +179,7 @@ export default function AdminReviewsPage() {
               className={`px-4 py-2 rounded-lg transition-colors ${
                 filter === 'pending'
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
+                  : 'bg-gray-100 dark:bg-card-dark text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
             >
               Pending
@@ -189,7 +189,7 @@ export default function AdminReviewsPage() {
               className={`px-4 py-2 rounded-lg transition-colors ${
                 filter === 'approved'
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
+                  : 'bg-gray-100 dark:bg-card-dark text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
             >
               Approved
@@ -198,16 +198,16 @@ export default function AdminReviewsPage() {
         </div>
 
         {isLoading ? (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-12 text-gray-500 dark:text-gray-200">
             Loading reviews...
           </div>
         ) : filteredReviews.length === 0 ? (
           <div className="text-center py-12">
             <FaStar className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-gray-500 dark:text-gray-200 mb-4">
               No reviews available
             </p>
-            <p className="text-sm text-gray-400 dark:text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-200">
               Reviews will appear here once users start submitting them
             </p>
           </div>
@@ -254,7 +254,7 @@ export default function AdminReviewsPage() {
                               review.userId?.name ||
                               'Unknown User'}
                           </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-xs text-gray-500 dark:text-gray-200">
                             {review.user?.email ||
                               review.userId?.email ||
                               'No email'}
@@ -268,17 +268,17 @@ export default function AdminReviewsPage() {
                             className={`w-4 h-4 ${
                               i < review.rating
                                 ? 'text-yellow-400'
-                                : 'text-gray-300 dark:text-gray-600'
+                                : 'text-gray-500 dark:text-gray-200'
                             }`}
                           />
                         ))}
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                    <p className="text-sm text-gray-500 dark:text-gray-200 mb-3 line-clamp-2">
                       {review.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-200">
                         <span>
                           {isNaN(new Date(review.createdAt).getTime())
                             ? '21/12/25'
@@ -287,10 +287,10 @@ export default function AdminReviewsPage() {
                         <span
                           className={`px-2 py-1 rounded-full capitalize ${
                             review.status === 'approved'
-                              ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+                              ? 'bg-green-100 dark:bg-card-dark text-green-600 dark:text-green-400'
                               : review.status === 'pending'
-                              ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400'
-                              : 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'
+                              ? 'bg-yellow-100 dark:bg-card-dark text-yellow-600 dark:text-yellow-400'
+                              : 'bg-red-100 dark:bg-card-dark text-red-600 dark:text-red-400'
                           }`}
                         >
                           {review.status}

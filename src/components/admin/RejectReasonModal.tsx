@@ -38,10 +38,10 @@ export default function RejectReasonModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-md w-full">
+      <div className="bg-white dark:bg-card-dark rounded-xl shadow-xl max-w-md w-full">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-bold text-gray-500 dark:text-white">
             Reject Review
           </h3>
           <button
@@ -49,13 +49,13 @@ export default function RejectReasonModal({
             disabled={isLoading}
             className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors disabled:opacity-50"
           >
-            <FaTimes />
+            <FaTimes className="text-gray-500 dark:text-gray-200" />
           </button>
         </div>
 
         {/* Content */}
         <div className="p-6 space-y-4">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-gray-200">
             Please select a reason for rejecting this review. This will be sent
             to the user.
           </p>
@@ -76,7 +76,7 @@ export default function RejectReasonModal({
                   disabled={isLoading}
                   className="text-primary focus:ring-primary"
                 />
-                <span className="text-sm text-gray-700 dark:text-gray-300">
+                <span className="text-sm text-gray-500 dark:text-gray-200">
                   {reason}
                 </span>
               </label>
@@ -91,7 +91,7 @@ export default function RejectReasonModal({
               placeholder="Enter custom reason..."
               disabled={isLoading}
               maxLength={500}
-              className="w-full p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none h-24 text-sm"
+              className="w-full p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-500 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none h-24 text-sm"
             />
           )}
         </div>
@@ -101,7 +101,7 @@ export default function RejectReasonModal({
           <button
             onClick={onCancel}
             disabled={isLoading}
-            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50"
+            className="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50"
           >
             Cancel
           </button>

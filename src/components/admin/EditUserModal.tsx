@@ -59,7 +59,7 @@ export default function EditUserModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div
         key={user._id}
-        className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-md shadow-xl border border-gray-100 dark:border-gray-700"
+        className="bg-white dark:bg-card-dark rounded-xl w-full max-w-md shadow-xl border border-gray-100 dark:border-gray-700"
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
@@ -106,7 +106,7 @@ export default function EditUserModal({
                 onChange={(e) =>
                   setFormData({ ...formData, image: e.target.value })
                 }
-                className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="Image URL"
                 disabled={isLoading}
               />
@@ -125,7 +125,7 @@ export default function EditUserModal({
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="Full name"
                 required
                 disabled={isLoading}
@@ -142,7 +142,7 @@ export default function EditUserModal({
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="user@example.com"
                 required
                 disabled={isLoading}
@@ -159,7 +159,7 @@ export default function EditUserModal({
                   onChange={(e) =>
                     setFormData({ ...formData, role: e.target.value })
                   }
-                  className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
                   disabled={isLoading}
                 >
                   <option value="user">User</option>
@@ -176,12 +176,12 @@ export default function EditUserModal({
                     onChange={(e) =>
                       setFormData({ ...formData, isActive: e.target.checked })
                     }
-                    className="w-3.5 h-3.5 text-primary bg-white border-gray-300 rounded focus:ring-primary focus:ring-2"
+                    className="w-3.5 h-3.5 text-primary bg-white dark:bg-card-dark border-gray-300 rounded focus:ring-primary focus:ring-2"
                     disabled={isLoading}
                   />
                   <label
                     htmlFor="isActive"
-                    className="text-xs font-medium text-gray-700 dark:text-gray-300"
+                    className="text-xs font-medium text-gray-500 dark:text-gray-200"
                   >
                     Active
                   </label>
@@ -196,7 +196,7 @@ export default function EditUserModal({
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
+              className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 cursor-pointer"
             >
               Cancel
             </button>

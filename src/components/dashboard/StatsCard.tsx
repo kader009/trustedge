@@ -19,7 +19,7 @@ export default function StatsCard({
   href,
 }: StatsCardProps) {
   const content = (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105">
+    <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105">
       <div className="flex items-center justify-between mb-4">
         <div className={`${color} p-3 rounded-lg text-white`}>
           <Icon className="w-6 h-6" />
@@ -38,7 +38,7 @@ export default function StatsCard({
         <p className="text-2xl font-bold text-text-light dark:text-text-dark mb-1">
           {value}
         </p>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-200">{label}</p>
       </div>
     </div>
   );

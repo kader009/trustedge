@@ -78,7 +78,7 @@ export default function ReviewApprovalCard({
 
   return (
     <>
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
+      <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
         <div className="flex gap-4">
           <div className="relative w-32 h-24 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-900 shrink-0">
             <Image
@@ -91,7 +91,7 @@ export default function ReviewApprovalCard({
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 truncate">
+            <h3 className="text-lg font-semibold text-gray-500 dark:text-white mb-2 truncate">
               {review.title || 'Untitled Review'}
             </h3>
 
@@ -104,18 +104,18 @@ export default function ReviewApprovalCard({
                     className={`text-sm ${
                       i < review.rating
                         ? 'text-yellow-400'
-                        : 'text-gray-300 dark:text-gray-600'
+                        : 'text-gray-500 dark:text-gray-200'
                     }`}
                   />
                 ))}
               </div>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-200">
                 {review.rating}/5
               </span>
             </div>
 
             {/* Review Text */}
-            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
+            <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-3 mb-4">
               {review.description}
             </p>
 
@@ -135,17 +135,17 @@ export default function ReviewApprovalCard({
                 </div>
               )}
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-sm font-medium text-gray-500 dark:text-white">
                   {review.user?.name || 'Anonymous User'}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-200">
                   {review.user?.email || 'No email provided'}
                 </p>
               </div>
             </div>
 
             {/* Timestamp */}
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-xs text-gray-500 dark:text-gray-200 mb-4">
               Submitted: {formatDate(review.createdAt)}
             </p>
 
