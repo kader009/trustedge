@@ -8,20 +8,9 @@ import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import {
-  FaHome,
-  FaUser,
-  FaStar,
-  FaUsers,
-  FaClipboardList,
-  FaSignOutAlt,
-  FaBars,
-  FaTimes,
-  FaComment,
-  FaLock,
-  FaTag,
-  FaCheckCircle,
-} from 'react-icons/fa';
+import { adminLinks } from '@/src/data/adminLinks';
+import { userLinks } from '@/src/data/userLinks';
+import { FaBars, FaHome, FaSignOutAlt, FaTimes, FaUser } from 'react-icons/fa';
 
 export default function DashboardLayout({
   children,
@@ -69,48 +58,6 @@ export default function DashboardLayout({
   }
 
   const isAdmin = user.role === 'admin';
-
-  const userLinks = [
-    { href: '/dashboard/user', label: 'Overview', icon: FaHome },
-    { href: '/dashboard/user/profile', label: 'Profile', icon: FaUser },
-    { href: '/dashboard/user/reviews', label: 'My Reviews', icon: FaStar },
-    { href: '/dashboard/user/comments', label: 'My Comments', icon: FaComment },
-    {
-      href: '/dashboard/user/change-password',
-      label: 'Change Password',
-      icon: FaLock,
-    },
-  ];
-
-  const adminLinks = [
-    { href: '/dashboard/admin', label: 'Overview', icon: FaHome },
-    { href: '/dashboard/admin/users', label: 'Users', icon: FaUsers },
-    {
-      href: '/dashboard/admin/reviews',
-      label: 'All Reviews',
-      icon: FaClipboardList,
-    },
-    {
-      href: '/dashboard/admin/pending-reviews',
-      label: 'Pending Reviews',
-      icon: FaCheckCircle,
-    },
-    {
-      href: '/dashboard/admin/categories',
-      label: 'Categories',
-      icon: FaTag,
-    },
-    {
-      href: '/dashboard/admin/pending-comments',
-      label: 'Pending Comments',
-      icon: FaComment,
-    },
-    {
-      href: '/dashboard/admin/comments',
-      label: 'All Comments',
-      icon: FaComment,
-    },
-  ];
 
   const links = isAdmin ? adminLinks : userLinks;
 
