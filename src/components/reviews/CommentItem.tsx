@@ -158,8 +158,6 @@ export default function CommentItem({
     } catch (error: any) {
       console.error('Reply submission failed:', error);
 
-      // If the error contains a message from backend, show it.
-      // Otherwise, show a generic failure message.
       const errorMsg =
         error?.data?.message || error?.message || 'Failed to post reply';
       toast.error(errorMsg);

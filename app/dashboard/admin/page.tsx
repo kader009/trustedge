@@ -35,6 +35,7 @@ interface Review {
 interface Comment {
   _id: string;
   content: string;
+  status?: string;
   isApproved?: boolean;
 }
 
@@ -55,11 +56,17 @@ export default function AdminDashboard() {
     pendingReview?.data?.reviews ||
     pendingReview?.reviews ||
     (Array.isArray(pendingReview?.data) ? pendingReview.data : []);
-  const comments = commentsData?.data || [];
+  const comments: Comment[] =
+    (commentsData?.data?.comments as Comment[]) ||
+    (commentsData?.comments as Comment[]) ||
+    (Array.isArray(commentsData?.data)
+      ? (commentsData.data as Comment[])
+      : []) ||
+    [];
 
-  // Calculate pending comments (those without isApproved or isApproved = false)
+  // Calculate pending comments (matching status === 'pending' or missing status)
   const pendingCommentsCount = comments.filter(
-    (comment: Comment) => !comment.isApproved
+    (comment: Comment) => comment.status === 'pending' || !comment.status
   ).length;
 
   // Get recent 3 users
@@ -82,7 +89,7 @@ export default function AdminDashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {adminStats.map((stat, index) => {
-          let value = stat.value;
+          let value: string | number = stat.value;
           if (stat.label === 'Total Users') {
             value = users.length;
           } else if (stat.label === 'Total Reviews') {
