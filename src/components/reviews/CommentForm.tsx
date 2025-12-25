@@ -47,10 +47,7 @@ export default function CommentForm({
         content: content.trim(),
       }).unwrap();
 
-      toast.success(
-        response?.message ||
-          'Comment submitted successfully! It will appear after admin approval.'
-      );
+      toast.success('Comment post successfully wait for admin approved');
       setContent('');
       onCommentAdded();
       router.refresh();

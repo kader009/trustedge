@@ -150,7 +150,7 @@ export default function CommentItem({
         parentComment: comment._id,
       }).unwrap();
 
-      toast.success(response?.message || 'Reply submitted for approval!');
+      toast.success('Comment post successfully wait for admin approved');
       setReplyContent('');
       setIsReplying(false);
       setShowReplies(true);

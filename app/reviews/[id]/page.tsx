@@ -104,10 +104,9 @@ export default async function ReviewDetailPage({
         typeof reviewData.user === 'object' ? reviewData.user?.avatar : null,
       role: 'Verified Buyer',
     },
-    date: new Date(
-      reviewData.createdAt && !isNaN(Date.parse(reviewData.createdAt))
-        ? reviewData.createdAt
-        : new Date()
+    date: (reviewData.createdAt && !isNaN(Date.parse(reviewData.createdAt))
+      ? new Date(reviewData.createdAt)
+      : new Date('2025-12-23')
     ).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -228,7 +227,7 @@ export default async function ReviewDetailPage({
                     </span>
                     {product.price && (
                       <span className="ml-auto text-2xl font-bold text-primary">
-                        ${product.price.toFixed(2)}
+                        ${Math.round(product.price)}
                       </span>
                     )}
                   </div>
@@ -336,7 +335,7 @@ export default async function ReviewDetailPage({
                         {related.title}
                       </h4>
                       <p className="text-lg font-bold text-primary mb-1">
-                        ${related.price.toFixed(2)}
+                        ${Math.round(related.price)}
                       </p>
                       <div className="flex items-center gap-1">
                         <FaStar className="text-yellow-400 text-xs" />
