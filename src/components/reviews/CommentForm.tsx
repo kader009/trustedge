@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { usePostCommentMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import { FaPaperPlane } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 interface CommentFormProps {
   reviewId: string;
@@ -14,6 +15,7 @@ export default function CommentForm({
   reviewId,
   onCommentAdded,
 }: CommentFormProps) {
+  const router = useRouter();
   const [content, setContent] = useState('');
   const [postComment, { isLoading }] = usePostCommentMutation();
 
@@ -40,17 +42,23 @@ export default function CommentForm({
         reviewId,
         content: content.trim(),
       });
-      await postComment({ reviewId, content: content.trim() }).unwrap();
+      const response = await postComment({
+        reviewId,
+        content: content.trim(),
+      }).unwrap();
+
       toast.success(
-        'Comment submitted successfully! It will appear after admin approval.'
+        response?.message ||
+          'Comment submitted successfully! It will appear after admin approval.'
       );
       setContent('');
       onCommentAdded();
+      router.refresh();
     } catch (error) {
       const err = error as { status?: number; data?: { message?: string } };
       console.error('Comment error:', error);
 
-      if (err?.data?.message === 'Review not found') {
+      if (err?.data?.message === 'Review not found' || err?.status === 404) {
         toast.error(
           'This review is not available for comments. It might have been deleted or is not approved yet.'
         );

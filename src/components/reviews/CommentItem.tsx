@@ -19,6 +19,7 @@ import {
 } from 'react-icons/fa';
 import { toast } from 'sonner';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface CommentItemProps {
   comment: {
@@ -52,6 +53,7 @@ export default function CommentItem({
   onUpdated,
   reviewId,
 }: CommentItemProps) {
+  const router = useRouter();
   const { user } = useAppSelector((state) => state.user);
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
@@ -128,31 +130,39 @@ export default function CommentItem({
   };
 
   const handleReply = async () => {
-    if (!replyContent.trim()) {
+    const trimmedContent = replyContent.trim();
+    if (!trimmedContent) {
       toast.error('Reply cannot be empty');
       return;
     }
 
     if (!activeReviewId) {
-      toast.error('Review ID not found. Cannot post reply.');
+      console.error('CommentItem: Missing reviewId for comment', comment._id);
+      toast.error('Review communication error. Please refresh.');
       return;
     }
 
     try {
-      await postReply({
+      // Use .unwrap() to get the direct response and catch errors properly
+      const response = await postReply({
         reviewId: activeReviewId,
-        content: replyContent.trim(),
+        content: trimmedContent,
         parentComment: comment._id,
       }).unwrap();
 
-      toast.success('Reply posted successfully!');
+      toast.success(response?.message || 'Reply submitted for approval!');
       setReplyContent('');
       setIsReplying(false);
-      setShowReplies(true); // Auto expand replies
-      refetchReplies(); // Refresh replies list
-    } catch (error) {
-      const err = error as { data?: { message?: string } };
-      toast.error(err?.data?.message || 'Failed to post reply');
+      setShowReplies(true);
+      router.refresh();
+    } catch (error: any) {
+      console.error('Reply submission failed:', error);
+
+      // If the error contains a message from backend, show it.
+      // Otherwise, show a generic failure message.
+      const errorMsg =
+        error?.data?.message || error?.message || 'Failed to post reply';
+      toast.error(errorMsg);
     }
   };
 

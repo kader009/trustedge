@@ -180,18 +180,15 @@ const EduNestApi = baseApi.injectEndpoints({
         if (parentComment) {
           body.parentComment = parentComment;
         }
-        console.log('API postComment - Sending body:', body);
         return {
           url: '/api/v1/comments',
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body,
         };
       },
-      invalidatesTags: (result, error, { reviewId }) => [
+      invalidatesTags: (result, error, { reviewId, parentComment }) => [
         { type: 'Comment', id: reviewId },
+        parentComment ? { type: 'Comment', id: parentComment } : 'Comment',
       ],
     }),
 
@@ -201,6 +198,9 @@ const EduNestApi = baseApi.injectEndpoints({
         url: `/api/v1/comments/replies/${commentId}`,
         method: 'GET',
       }),
+      providesTags: (result, error, commentId) => [
+        { type: 'Comment', id: commentId },
+      ],
     }),
 
     // Search and filter reviews

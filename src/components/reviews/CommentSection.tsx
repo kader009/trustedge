@@ -107,9 +107,9 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
             <div className="mt-6 text-center">
               <button
                 onClick={() => setPage(page + 1)}
-                className="px-6 py-2 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-colors"
+                className="px-6 py-2 bg-primary hover:bg-primary/90 text-white cursor-pointer font-semibold rounded-lg transition-colors"
               >
-                Load More Comments
+                Load More comments
               </button>
             </div>
           )}

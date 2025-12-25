@@ -1,8 +1,8 @@
 // Centralized API functions with proper caching
 const API_BASE_URL = 'https://trustedge-backend.vercel.app/api/v1';
 
-// Cache duration: 5 minutes (300 seconds)
-const CACHE_REVALIDATE = 300;
+// Cache duration: 10 seconds (for better sync between client and server)
+const CACHE_REVALIDATE = 10;
 
 export async function getProducts(limit?: number) {
   try {
