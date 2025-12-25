@@ -6,13 +6,17 @@ import {
 } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import { FaTrash, FaComment, FaUser, FaClock, FaSearch } from 'react-icons/fa';
+import Image from 'next/image';
 
 interface Comment {
   _id: string;
+  text: string;
+  image: string;
   content: string;
   reviewId: string;
-  userId: {
+  user: {
     _id: string;
+    image: string;
     name: string;
     email: string;
   };
@@ -38,7 +42,7 @@ export default function CommentModerationPage() {
       (comment.content || '')
         .toLowerCase()
         .includes((searchTerm || '').toLowerCase()) ||
-      (comment.userId?.name || '')
+      (comment.user?.name || '')
         .toLowerCase()
         .includes((searchTerm || '').toLowerCase())
   );
@@ -75,7 +79,7 @@ export default function CommentModerationPage() {
       <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-2">
         <div className="flex min-w-72 flex-col gap-3">
           <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
-            Comment Moderation
+            All Comment Moderation
           </p>
           <p className="text-text-light dark:text-white text-base font-normal leading-normal">
             Review and moderate user comments across all reviews.
@@ -127,7 +131,7 @@ export default function CommentModerationPage() {
                 Unique Users
               </p>
               <p className="text-2xl font-bold text-gray-500 dark:text-white">
-                {new Set(comments.map((c) => c.userId?._id)).size}
+                {new Set(comments.map((c) => c.user?._id)).size}
               </p>
             </div>
           </div>
@@ -163,7 +167,7 @@ export default function CommentModerationPage() {
           </div>
         ) : filteredComments.length === 0 ? (
           <div className="text-center py-12">
-            <FaComment className="mx-auto text-6xl text-gray-500 dark:text-gray-200 mb-4" />
+            <FaComment className="mx-auto text-4xl text-gray-500 dark:text-gray-200 mb-4" />
             <p className="text-gray-500 dark:text-gray-200 text-lg">
               {searchTerm
                 ? 'No comments found matching your search'
@@ -181,14 +185,20 @@ export default function CommentModerationPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <FaUser className="text-primary" />
+                        <Image
+                          src={comment.user?.image}
+                          alt={comment.user?.name}
+                          width={40}
+                          height={40}
+                          className="object-cover w-full h-full rounded-full"
+                        />
                       </div>
                       <div>
                         <p className="text-gray-500 dark:text-white font-bold">
-                          {comment.userId?.name || 'Unknown User'}
+                          {comment.user?.name || 'Unknown User'}
                         </p>
                         <p className="text-gray-500 dark:text-gray-200 text-sm">
-                          {comment.userId?.email || 'No email'}
+                          {comment.user?.email || 'No email'}
                         </p>
                       </div>
                       <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm">
@@ -198,7 +208,7 @@ export default function CommentModerationPage() {
 
                     <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-4 mb-3">
                       <p className="text-gray-500 dark:text-white">
-                        {comment.content}
+                        {comment?.text}
                       </p>
                     </div>
 

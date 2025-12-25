@@ -128,7 +128,7 @@ export default function PendingCommentsPage() {
       <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-2">
         <div className="flex min-w-72 flex-col gap-3">
           <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
-            Comment Moderation
+            Pending Comment Moderation
           </p>
           <p className="text-text-light dark:text-white text-base font-normal leading-normal">
             Review and moderate user comments. Approve or reject pending
