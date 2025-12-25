@@ -1,6 +1,6 @@
 export default function UserDashboardSkeleton() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-50 to-teal-50 dark:from-gray-900 dark:to-gray-800 p-4 sm:p-6">
+    <div className="min-h-screen p-4 sm:p-6">
       {/* Header Section */}
       <div className="mb-6 sm:mb-8">
         <div className="h-8 sm:h-10 bg-gray-200 dark:bg-card-dark rounded w-64 sm:w-80 mb-2 sm:mb-3 animate-pulse"></div>

@@ -15,6 +15,7 @@ interface Product {
   rating?: number;
   price?: number;
   numReviews?: number;
+  commentCount?: number;
   description?: string;
 }
 
@@ -69,7 +70,7 @@ export default async function CategoriesPage() {
         year: 'numeric',
       }),
       likes: (index + 1) * 23 + 50,
-      comments: product.numReviews || 0,
+      comments: product.numReviews || product.commentCount || 0,
       description: product.description,
       product: {
         title: product.title,

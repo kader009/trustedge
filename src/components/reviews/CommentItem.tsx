@@ -15,10 +15,13 @@ interface CommentItemProps {
     _id: string;
     content?: string;
     comment?: string;
+    text?: string;
     user: {
       _id: string;
       name: string;
       image?: string;
+      avatar?: string;
+      profileImg?: string;
     };
     createdAt: string;
     updatedAt?: string;
@@ -35,7 +38,7 @@ export default function CommentItem({
 }: CommentItemProps) {
   const { user } = useAppSelector((state) => state.user);
   const [isEditing, setIsEditing] = useState(false);
-  const commentText = comment.content || comment.comment || '';
+  const commentText = comment.text || comment.content || comment.comment || '';
   const [editContent, setEditContent] = useState(commentText);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
@@ -99,14 +102,22 @@ export default function CommentItem({
     <div className="flex gap-4">
       {/* Avatar */}
       <div className="shrink-0">
-        {comment.user.image ? (
-          <Image
-            src={comment.user.image}
-            alt={comment.user.name}
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
-          />
+        {comment.user.image ||
+        comment.user.avatar ||
+        comment.user.profileImg ? (
+          <div className="relative w-10 h-10 rounded-full overflow-hidden">
+            <Image
+              src={
+                comment.user.image ||
+                comment.user.avatar ||
+                comment.user.profileImg ||
+                ''
+              }
+              alt={comment.user.name}
+              fill
+              className="object-cover"
+            />
+          </div>
         ) : (
           <div className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
             <FaUser className="w-5 h-5 text-gray-500 dark:text-gray-400" />

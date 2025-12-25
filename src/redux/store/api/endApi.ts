@@ -186,7 +186,7 @@ const EduNestApi = baseApi.injectEndpoints({
       query: ({ commentId, content }) => ({
         url: `/api/v1/comments/${commentId}`,
         method: 'PUT',
-        body: { content },
+        body: { text: content },
       }),
       invalidatesTags: ['Comment'],
     }),

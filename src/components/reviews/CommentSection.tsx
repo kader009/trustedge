@@ -22,7 +22,9 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
     limit: 10,
   });
 
-  const comments = data?.data?.comments || [];
+  const comments = Array.isArray(data?.data)
+    ? data.data
+    : data?.data?.comments || [];
   const pagination = data?.data?.pagination || {};
 
   const handleCommentAdded = () => {
@@ -78,7 +80,14 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
                 _id: string;
                 content?: string;
                 comment?: string;
-                user: { _id: string; name: string; image?: string };
+                text?: string;
+                user: {
+                  _id: string;
+                  name: string;
+                  image?: string;
+                  avatar?: string;
+                  profileImg?: string;
+                };
                 createdAt: string;
                 updatedAt?: string;
               };

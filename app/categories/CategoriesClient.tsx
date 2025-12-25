@@ -236,7 +236,9 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
               key={review.id}
               {...review}
               commentCount={
-                Array.isArray(review.comments) ? review.comments.length : 0
+                Array.isArray(review.comments)
+                  ? review.comments.length
+                  : Number(review.comments) || 0
               }
             />
           ))

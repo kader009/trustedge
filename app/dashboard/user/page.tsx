@@ -32,7 +32,7 @@ export default function UserDashboard() {
       value: '0',
       icon: FaEye,
       color: 'bg-primary',
-      href: '/dashboard/user/profile-views',
+      href: '/dashboard/user',
     },
     {
       label: 'Comments',
