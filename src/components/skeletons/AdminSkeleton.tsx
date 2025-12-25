@@ -54,7 +54,7 @@ export default function AdminDashboardSkeleton() {
               <div key={item} className="flex items-center justify-between">
                 <div className="flex items-center gap-3 sm:gap-4 flex-1">
                   {/* Avatar */}
-                  <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gray-200 dark:bg-card-dark rounded-full flex-shrink-0 animate-pulse"></div>
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gray-200 dark:bg-card-dark rounded-full shrink-0 animate-pulse"></div>
 
                   {/* User Info */}
                   <div className="flex-1 min-w-0">
@@ -64,7 +64,7 @@ export default function AdminDashboardSkeleton() {
                 </div>
 
                 {/* Role Badge */}
-                <div className="h-6 sm:h-7 bg-gray-200 dark:bg-card-dark rounded-full w-14 sm:w-16 flex-shrink-0 animate-pulse"></div>
+                <div className="h-6 sm:h-7 bg-gray-200 dark:bg-card-dark rounded-full w-14 sm:w-16 shrink-0 animate-pulse"></div>
               </div>
             ))}
           </div>
@@ -95,7 +95,7 @@ export default function AdminDashboardSkeleton() {
         <div className="flex items-center justify-between p-4 sm:p-5 bg-teal-50/50 dark:bg-card-dark rounded-xl">
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Status Icon */}
-            <div className="w-10 h-10 sm:w-11 sm:h-11 bg-teal-600 dark:bg-card-dark rounded-full flex-shrink-0 animate-pulse"></div>
+            <div className="w-10 h-10 sm:w-11 sm:h-11 bg-teal-600 dark:bg-card-dark rounded-full shrink-0 animate-pulse"></div>
 
             {/* Status Info */}
             <div>
@@ -105,7 +105,7 @@ export default function AdminDashboardSkeleton() {
           </div>
 
           {/* Status Badge */}
-          <div className="h-6 sm:h-7 bg-teal-600/20 dark:bg-card-dark rounded-full w-14 sm:w-16 flex-shrink-0 animate-pulse"></div>
+          <div className="h-6 sm:h-7 bg-teal-600/20 dark:bg-card-dark rounded-full w-14 sm:w-16 shrink-0 animate-pulse"></div>
         </div>
       </div>
     </div>

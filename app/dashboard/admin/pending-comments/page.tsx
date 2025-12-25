@@ -36,7 +36,7 @@ interface Comment {
     image?: string;
     avatar?: string;
   };
-  isApproved?: boolean;
+  status?: string;
   createdAt: string;
   updatedAt?: string;
 }
@@ -66,8 +66,8 @@ export default function PendingCommentsPage() {
 
   // Filter comments based on approval status
   const filteredByStatus = comments.filter((comment) => {
-    if (filter === 'pending') return !comment.isApproved;
-    if (filter === 'approved') return comment.isApproved;
+    if (filter === 'pending') return !comment.status;
+    if (filter === 'approved') return comment.status;
     return true; // 'all'
   });
 
@@ -83,8 +83,8 @@ export default function PendingCommentsPage() {
     );
   });
 
-  const pendingCount = comments.filter((c) => !c.isApproved).length;
-  const approvedCount = comments.filter((c) => c.isApproved).length;
+  const pendingCount = comments.filter((comment) => !comment.status).length;
+  const approvedCount = comments.filter((comment) => comment.status).length;
 
   const handleApprove = async (commentId: string) => {
     try {
@@ -275,7 +275,7 @@ export default function PendingCommentsPage() {
               <div
                 key={comment._id}
                 className={`bg-white dark:bg-card-dark rounded-xl border ${
-                  comment.isApproved
+                  comment.status
                     ? 'border-green-200 dark:border-green-800/30'
                     : 'border-yellow-200 dark:border-yellow-800/30'
                 } p-6 hover:shadow-lg transition-shadow`}
@@ -284,7 +284,7 @@ export default function PendingCommentsPage() {
                   <div className="flex-1">
                     {/* Status Badge */}
                     <div className="mb-3">
-                      {comment.isApproved ? (
+                      {comment.status ? (
                         <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 dark:bg-card-dark text-green-800 dark:text-green-300 text-xs font-semibold rounded-full">
                           <FaCheckCircle /> Approved
                         </span>
@@ -357,7 +357,7 @@ export default function PendingCommentsPage() {
 
                   {/* Action Buttons */}
                   <div className="flex flex-col gap-2">
-                    {!comment.isApproved && (
+                    {!comment.status && (
                       <button
                         onClick={() => handleApprove(comment._id)}
                         className="flex items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap cursor-pointer"

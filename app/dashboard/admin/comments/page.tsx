@@ -6,6 +6,7 @@ import {
 } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import { FaTrash, FaComment, FaUser, FaClock, FaSearch } from 'react-icons/fa';
+import CommentSkeleton from '@/src/components/skeletons/CommentSkeleton';
 import Image from 'next/image';
 
 interface Comment {
@@ -162,9 +163,7 @@ export default function CommentModerationPage() {
       {/* Comments List */}
       <div className="px-1 py-2">
         {isLoading ? (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-200">
-            Loading comments...
-          </div>
+          <CommentSkeleton />
         ) : filteredComments.length === 0 ? (
           <div className="text-center py-12">
             <FaComment className="mx-auto text-4xl text-gray-500 dark:text-gray-200 mb-4" />
