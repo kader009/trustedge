@@ -36,7 +36,7 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
       {/* Header */}
       <h3 className="text-2xl font-bold text-text-light dark:text-text-dark mb-6 flex items-center gap-2">
         <FaComment className="text-primary" />
-        Comments ({pagination.total || 0})
+        Comments ({pagination.total || comments.length || 0})
       </h3>
 
       {/* Comment Form */}

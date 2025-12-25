@@ -103,14 +103,14 @@ const EduNestApi = baseApi.injectEndpoints({
 
     // ============ VOTING SYSTEM ============
     // Vote on a review (upvote)
+    // Vote on a review (upvote/downvote)
     voteReview: build.mutation({
       query: ({ reviewId, voteType }) => ({
         url:
           voteType === 'upvote'
-            ? '/api/v1/votes/upvote'
-            : '/api/v1/votes/downvote',
+            ? `/api/v1/votes/upvote/${reviewId}`
+            : `/api/v1/votes/downvote/${reviewId}`,
         method: 'POST',
-        body: { reviewId },
       }),
       invalidatesTags: (result, error, { reviewId }) => [
         { type: 'Review', id: reviewId },
@@ -130,10 +130,21 @@ const EduNestApi = baseApi.injectEndpoints({
       ],
     }),
 
+    // Get vote counts for a review
+    getVoteCounts: build.query({
+      query: (reviewId) => ({
+        url: `/api/v1/votes/counts/${reviewId}`,
+        method: 'GET',
+      }),
+      providesTags: (result, error, reviewId) => [
+        { type: 'Vote', id: reviewId },
+      ],
+    }),
+
     // Get user's vote on a specific review
     getUserVote: build.query({
       query: (reviewId) => ({
-        url: `/api/v1/votes/user/${reviewId}`,
+        url: `/api/v1/votes/my-vote/${reviewId}`,
         method: 'GET',
       }),
       providesTags: (result, error, reviewId) => [
@@ -372,6 +383,7 @@ export const {
   useVoteReviewMutation,
   useUnvoteReviewMutation,
   useGetUserVoteQuery,
+  useGetVoteCountsQuery,
   // Comments
   useGetAllCommentsQuery,
   useGetCommentsQuery,

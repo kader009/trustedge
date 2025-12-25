@@ -6,6 +6,7 @@ import {
   useVoteReviewMutation,
   useUnvoteReviewMutation,
   useGetUserVoteQuery,
+  useGetVoteCountsQuery,
 } from '@/src/redux/store/api/endApi';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { toast } from 'sonner';
@@ -22,8 +23,17 @@ export default function VotingButtons({
 }: VotingButtonsProps) {
   const router = useRouter();
   const { token } = useAppSelector((state) => state.user);
-  const [voteCount, setVoteCount] = useState(initialVoteCount);
 
+  // Local state for optimistic update fallback
+  const [localVoteState, setLocalVoteState] = useState<{
+    count: number;
+    userVote: 'upvote' | 'downvote' | null;
+  }>({
+    count: initialVoteCount,
+    userVote: null,
+  });
+
+  const { data: voteCountsData } = useGetVoteCountsQuery(reviewId);
   const { data: userVoteData } = useGetUserVoteQuery(reviewId, {
     skip: !token,
   });
@@ -31,8 +41,11 @@ export default function VotingButtons({
   const [voteReview, { isLoading: isVoting }] = useVoteReviewMutation();
   const [unvoteReview, { isLoading: isUnvoting }] = useUnvoteReviewMutation();
 
-  const userVote = userVoteData?.data?.userVote;
   const isLoading = isVoting || isUnvoting;
+
+  // Derive display values from API data with fallback to local state/props
+  const displayCount = voteCountsData?.data?.upvotes ?? localVoteState.count;
+  const userVote = userVoteData?.data?.type ?? localVoteState.userVote;
 
   const handleVote = async (voteType: 'upvote' | 'downvote') => {
     if (!token) {
@@ -44,30 +57,17 @@ export default function VotingButtons({
     try {
       if (userVote === voteType) {
         // Remove vote if clicking the same vote type
-        const result = await unvoteReview(reviewId).unwrap();
-        setVoteCount(result.data?.totalVotes || voteCount - 1);
+        await unvoteReview(reviewId).unwrap();
         toast.success('Vote removed');
       } else {
         // Add or change vote
-        const result = await voteReview({ reviewId, voteType }).unwrap();
-        setVoteCount(result.data?.totalVotes || voteCount);
+        await voteReview({ reviewId, voteType }).unwrap();
         toast.success(`Review ${voteType}d!`);
       }
     } catch (error: unknown) {
       console.error('Vote error:', error);
-      if (
-        error &&
-        typeof error === 'object' &&
-        'data' in error &&
-        typeof (error as { data?: { message?: string } }).data === 'object'
-      ) {
-        toast.error(
-          (error as { data?: { message?: string } }).data?.message ||
-            'Failed to vote'
-        );
-      } else {
-        toast.error('Failed to vote');
-      }
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Failed to vote');
     }
   };
 
@@ -92,7 +92,7 @@ export default function VotingButtons({
       {/* Vote Count */}
       <div className="text-center">
         <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-          {voteCount}
+          {displayCount}
         </p>
         <p className="text-sm text-gray-500 dark:text-gray-400">votes</p>
       </div>

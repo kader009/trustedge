@@ -1,12 +1,23 @@
 'use client';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   useGetUserCommentsQuery,
   useDeleteCommentMutation,
+  useUpdateCommentMutation,
 } from '@/src/redux/store/api/endApi';
-import { FaComment, FaReply, FaThumbsUp, FaTrash } from 'react-icons/fa';
+import {
+  FaComment,
+  FaReply,
+  FaThumbsUp,
+  FaTrash,
+  FaEdit,
+  FaCheck,
+  FaTimes,
+} from 'react-icons/fa';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import { useAppSelector } from '@/src/redux/hook';
+import Image from 'next/image';
 
 interface Comment {
   _id: string;
@@ -20,11 +31,15 @@ interface Comment {
 }
 
 export default function UserCommentsPage() {
+  const { user } = useAppSelector((state) => state.user);
   const { data: commentsData, isLoading } = useGetUserCommentsQuery(undefined);
   const [deleteComment, { isLoading: isDeleting }] =
     useDeleteCommentMutation(undefined);
+  const [updateComment, { isLoading: isUpdating }] =
+    useUpdateCommentMutation(undefined);
 
-  console.log(commentsData, 'Fetched comments data:', commentsData);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editText, setEditText] = useState('');
 
   const comments: Comment[] = useMemo(
     () =>
@@ -45,6 +60,33 @@ export default function UserCommentsPage() {
     } catch (error: unknown) {
       const err = error as { data?: { message?: string } };
       toast.error(err?.data?.message || 'Failed to delete comment');
+    }
+  };
+
+  const startEdit = (comment: Comment) => {
+    setEditingId(comment._id);
+    setEditText(comment.text);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditText('');
+  };
+
+  const handleUpdate = async (commentId: string) => {
+    if (!editText.trim()) {
+      toast.error('Comment cannot be empty');
+      return;
+    }
+
+    try {
+      await updateComment({ commentId, content: editText }).unwrap();
+      toast.success('Comment updated successfully!');
+      setEditingId(null);
+      setEditText('');
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Failed to update comment');
     }
   };
 
@@ -138,6 +180,31 @@ export default function UserCommentsPage() {
                 key={comment._id}
                 className="border border-gray-200 dark:border-gray-800 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
+                {/* User Info Header */}
+                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100 dark:border-gray-800">
+                  {user?.image ? (
+                    <Image
+                      src={user.image}
+                      alt={user.name}
+                      width={40}
+                      height={40}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+                      {user?.name?.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-semibold text-text-light dark:text-white">
+                      {user?.name}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {user?.email}
+                    </p>
+                  </div>
+                </div>
+
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
@@ -155,27 +222,68 @@ export default function UserCommentsPage() {
                       </span>
                     </div>
 
-                    <p className="text-gray-500 dark:text-gray-200 mb-2">
-                      {comment.text}
-                    </p>
-
-                    {comment.updatedAt &&
-                      comment.updatedAt !== comment.createdAt && (
-                        <p className="text-gray-500 dark:text-gray-200 text-xs">
-                          Edited: {new Date(comment.updatedAt).toLocaleString()}
+                    {editingId === comment._id ? (
+                      <div className="mt-2">
+                        <textarea
+                          value={editText}
+                          onChange={(e) => setEditText(e.target.value)}
+                          className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-text-light dark:text-text-dark"
+                          rows={3}
+                          autoFocus
+                        />
+                        <div className="flex items-center gap-2 mt-2">
+                          <button
+                            onClick={() => handleUpdate(comment._id)}
+                            disabled={isUpdating}
+                            className="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-md text-sm hover:bg-primary/90 disabled:opacity-50"
+                          >
+                            <FaCheck size={12} /> Save
+                          </button>
+                          <button
+                            onClick={cancelEdit}
+                            disabled={isUpdating}
+                            className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
+                          >
+                            <FaTimes size={12} /> Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <p className="text-gray-500 dark:text-gray-200 mb-2 whitespace-pre-wrap">
+                          {comment.text}
                         </p>
-                      )}
+                        {comment.updatedAt &&
+                          comment.updatedAt !== comment.createdAt && (
+                            <p className="text-gray-500 dark:text-gray-200 text-xs">
+                              Edited:{' '}
+                              {new Date(comment.updatedAt).toLocaleString()}
+                            </p>
+                          )}
+                      </>
+                    )}
                   </div>
 
                   <div className="flex gap-2">
-                    <button
-                      onClick={() => handleDelete(comment._id)}
-                      disabled={isDeleting}
-                      className="px-3 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
-                      title="Delete comment"
-                    >
-                      <FaTrash />
-                    </button>
+                    {editingId !== comment._id && (
+                      <>
+                        <button
+                          onClick={() => startEdit(comment)}
+                          className="px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer"
+                          title="Edit comment"
+                        >
+                          <FaEdit />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(comment._id)}
+                          disabled={isDeleting}
+                          className="px-3 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
+                          title="Delete comment"
+                        >
+                          <FaTrash />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
