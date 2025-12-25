@@ -1,8 +1,8 @@
 // Centralized API functions with proper caching
 const API_BASE_URL = 'https://trustedge-backend.vercel.app/api/v1';
 
-// Cache duration: 10 seconds (for better sync between client and server)
-const CACHE_REVALIDATE = 10;
+// Cache duration: 0 seconds (Disable server caching for instant data sync)
+const CACHE_REVALIDATE = 0;
 
 export async function getProducts(limit?: number) {
   try {
@@ -11,7 +11,7 @@ export async function getProducts(limit?: number) {
       : `${API_BASE_URL}/review`;
 
     const response = await fetch(url, {
-      next: { revalidate: CACHE_REVALIDATE },
+      cache: 'no-store',
     });
 
     const data = await response.json();
@@ -25,7 +25,7 @@ export async function getProducts(limit?: number) {
 export async function getCategories() {
   try {
     const response = await fetch(`${API_BASE_URL}/category`, {
-      next: { revalidate: CACHE_REVALIDATE }, // Cache for 5 minutes
+      cache: 'no-store',
     });
 
     const data = await response.json();
@@ -58,7 +58,7 @@ export async function getReviews(params?: {
       : `${API_BASE_URL}/review`;
 
     const response = await fetch(url, {
-      next: { revalidate: 60 }, // Cache for 1 minute
+      cache: 'no-store',
     });
 
     const data = await response.json();
@@ -74,7 +74,7 @@ export async function getReviews(params?: {
 export async function getReviewById(id: string) {
   try {
     const response = await fetch(`${API_BASE_URL}/review/${id}`, {
-      next: { revalidate: CACHE_REVALIDATE },
+      cache: 'no-store',
     });
 
     if (!response.ok) {

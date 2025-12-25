@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { FaStar, FaShare, FaFlag } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
