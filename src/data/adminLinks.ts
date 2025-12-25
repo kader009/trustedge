@@ -5,6 +5,7 @@ import {
   FaCheckCircle,
   FaTag,
   FaComment,
+  FaChartLine,
 } from 'react-icons/fa';
 
 export const adminLinks = [
@@ -27,4 +28,5 @@ export const adminLinks = [
     icon: FaComment,
   },
   { href: '/dashboard/admin/comments', label: 'All Comments', icon: FaComment },
+  { href: '/dashboard/admin/analytics', label: 'Analytics', icon: FaChartLine },
 ];

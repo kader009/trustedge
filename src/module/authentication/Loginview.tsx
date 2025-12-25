@@ -60,7 +60,16 @@ const Loginview = () => {
 
       console.log('Token saved to Redux:', response.data.accessToken);
       toast.success('Login successful!');
-      route.replace('/');
+      
+      // Check for redirect path
+      const redirectPath = localStorage.getItem('redirectAfterLogin');
+      if (redirectPath) {
+        localStorage.removeItem('redirectAfterLogin');
+        route.replace(redirectPath);
+      } else {
+        route.replace('/');
+      }
+      
       dispatch(setEmail(''));
       dispatch(setPassword(''));
     } catch (error) {

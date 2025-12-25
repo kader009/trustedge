@@ -18,6 +18,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import { useAppSelector } from '@/src/redux/hook';
 import Image from 'next/image';
+import UserCommentSkeleton from '@/src/components/skeletons/UserCommentSkeleton';
 
 interface Comment {
   _id: string;
@@ -163,9 +164,7 @@ export default function UserCommentsPage() {
         </div>
 
         {isLoading ? (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-200">
-            Loading comments...
-          </div>
+          <UserCommentSkeleton />
         ) : comments.length === 0 ? (
           <div className="text-center py-12">
             <FaComment className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />

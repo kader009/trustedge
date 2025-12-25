@@ -39,6 +39,10 @@ const baseQueryWithReauth: BaseQueryFn<
 
     // Redirect to login page
     if (typeof window !== 'undefined') {
+      const currentPath = window.location.pathname + window.location.search;
+      if (!currentPath.includes('/login') && !currentPath.includes('/register')) {
+        localStorage.setItem('redirectAfterLogin', currentPath);
+      }
       setTimeout(() => {
         window.location.href = '/login';
       }, 1000);

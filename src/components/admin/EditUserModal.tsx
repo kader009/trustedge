@@ -5,6 +5,8 @@ import { FaTimes, FaCamera } from 'react-icons/fa';
 import Image from 'next/image';
 import { useUpdateUserMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
+import { setUser } from '@/src/redux/userAuth/userSlice';
 
 interface User {
   _id: string;
@@ -26,6 +28,13 @@ export default function EditUserModal({
   isOpen,
   onClose,
 }: EditUserModalProps) {
+  const dispatch = useAppDispatch();
+  const {
+    user: currentUser,
+    token,
+    refreshToken,
+  } = useAppSelector((state) => state.user);
+
   const [formData, setFormData] = useState({
     name: user.name,
     email: user.email,
@@ -46,6 +55,30 @@ export default function EditUserModal({
       }).unwrap();
 
       toast.success(response.message || 'User updated successfully!');
+
+      // If the updated user is the current user, update the Redux state
+      if (currentUser && currentUser._id === user._id) {
+        // Construct the updated user object (merging current user with updates)
+        // or use response.data if available. Assuming response structure might vary,
+        // using existing user + form data is safer for immediate UI update.
+        // But ideally use response.data.user
+
+        const updatedUser = {
+          ...currentUser,
+          ...formData, // Overwrite with new data
+        };
+
+        if (token) {
+          dispatch(
+            setUser({
+              user: updatedUser,
+              token: token,
+              refreshToken: refreshToken || undefined,
+            })
+          );
+        }
+      }
+
       onClose();
     } catch (error) {
       const err = error as { data?: { message?: string } };

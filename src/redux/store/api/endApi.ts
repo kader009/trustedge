@@ -173,10 +173,13 @@ const EduNestApi = baseApi.injectEndpoints({
       ],
     }),
 
-    // Post a new comment
+    // Post a new comment or reply
     postComment: build.mutation({
-      query: ({ reviewId, content }) => {
-        const body = { review: reviewId, text: content };
+      query: ({ reviewId, content, parentComment }) => {
+        const body: any = { review: reviewId, text: content };
+        if (parentComment) {
+          body.parentComment = parentComment;
+        }
         console.log('API postComment - Sending body:', body);
         return {
           url: '/api/v1/comments',
@@ -190,6 +193,24 @@ const EduNestApi = baseApi.injectEndpoints({
       invalidatesTags: (result, error, { reviewId }) => [
         { type: 'Comment', id: reviewId },
       ],
+    }),
+
+    // Get replies for a comment
+    getReplies: build.query({
+      query: (commentId) => ({
+        url: `/api/v1/comments/replies/${commentId}`,
+        method: 'GET',
+      }),
+    }),
+
+    // Search and filter reviews
+    searchReviews: build.query({
+      query: (params) => ({
+        url: '/api/v1/review/search',
+        method: 'GET',
+        params, // { searchTerm, category, rating, sortBy, sortOrder, page, limit }
+      }),
+      providesTags: ['Review'],
     }),
 
     // Update a comment
@@ -364,6 +385,14 @@ const EduNestApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Comment'],
     }),
+    // Get all premium reviews
+    getPremiumReviews: build.query({
+      query: () => ({
+        url: '/api/v1/review/premium',
+        method: 'GET',
+      }),
+      providesTags: ['Review'],
+    }),
   }),
 });
 
@@ -393,6 +422,7 @@ export const {
   useGetUserCommentsQuery,
   useGetCommentCountQuery,
   useHardDeleteCommentMutation,
+  useGetRepliesQuery,
   // Admin Approval
   useGetPendingReviewsQuery,
   useApproveReviewMutation,
@@ -403,6 +433,8 @@ export const {
   useUpdateReviewMutation,
   useDeleteReviewMutation,
   useGetallReviewQuery,
+  useGetPremiumReviewsQuery,
+  useSearchReviewsQuery,
   // Categories (Admin)
   useGetAllCategoriesAdminQuery,
   useGetCategoryByIdQuery,
