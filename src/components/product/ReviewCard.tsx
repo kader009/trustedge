@@ -86,7 +86,7 @@ const ReviewCard = ({
                   ? Number(product.price)
                   : Number(product.price).toFixed(2)}
               </span>
-              <h3 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-2 leading-tight">
+              <h3 className="text-lg font-bold text-text-light dark:text-white mb-2 leading-tight">
                 {product.title}
               </h3>
               <div className="flex items-center gap-1 mb-3">
