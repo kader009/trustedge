@@ -207,7 +207,7 @@ export default async function ReviewDetailPage({
                       • {review.date}
                     </span>
                   </div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                  <h1 className="text-2xl md:text-3xl font-bold text-text-light dark:text-white mb-4">
                     {review.title}
                   </h1>
                   <div className="flex items-center gap-4">
@@ -235,7 +235,7 @@ export default async function ReviewDetailPage({
                 </div>
                 {review.source && (
                   <div className="hidden sm:block text-right">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <p className="text-xs text-text-light dark:text-white mb-1">
                       Purchased at
                     </p>
                     <p className="text-sm font-semibold text-primary">
@@ -302,7 +302,7 @@ export default async function ReviewDetailPage({
           {/* Sidebar */}
           <div className="space-y-6">
             <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-lg font-bold text-text-light dark:text-white mb-4">
                 Related Products
               </h3>
               <div className="flex flex-col gap-4">
@@ -351,10 +351,10 @@ export default async function ReviewDetailPage({
             </div>
 
             <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-primary/10">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-lg font-bold text-text-light dark:text-white mb-2">
                 Write a Review
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-sm text-text-light dark:text-white mb-4">
                 Have you used this product? Share your experience with the
                 community.
               </p>

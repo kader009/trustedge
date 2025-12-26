@@ -75,13 +75,13 @@ export default function FilterSidebarClient({
   return (
     <aside className="w-full lg:w-64 xl:w-72 shrink-0">
       <div className="sticky top-24 space-y-6">
-        <h3 className="text-lg font-bold text-neutral-800 dark:text-neutral-100">
+        <h3 className="text-lg font-bold text-text-light dark:text-text-dark">
           Filters
         </h3>
 
         {/* Categories Filter */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-neutral-800 dark:text-neutral-100">
+          <h4 className="font-semibold text-text-light dark:text-text-dark">
             Categories
           </h4>
           <div className="space-y-2 text-sm">

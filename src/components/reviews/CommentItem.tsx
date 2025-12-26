@@ -20,28 +20,10 @@ import {
 import { toast } from 'sonner';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { TComment } from '@/src/types/comment';
 
 interface CommentItemProps {
-  comment: {
-    _id: string;
-    content?: string;
-    comment?: string;
-    text?: string;
-    reviewId?: string;
-    review?: {
-      _id: string;
-    };
-    user: {
-      _id: string;
-      name: string;
-      image?: string;
-      avatar?: string;
-      profileImg?: string;
-    };
-    createdAt: string;
-    updatedAt?: string;
-    [key: string]: unknown;
-  };
+  comment: TComment;
   onDeleted: () => void;
   onUpdated: () => void;
   reviewId?: string; // Passed from parent or extracted from comment

@@ -7,6 +7,7 @@ import CommentForm from '@/src/components/reviews/CommentForm';
 import CommentItem from '@/src/components/reviews/CommentItem';
 import { FaComment } from 'react-icons/fa';
 import Link from 'next/link';
+import { TComment } from '@/src/types/comment';
 
 interface CommentSectionProps {
   reviewId: string;
@@ -34,7 +35,7 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
   return (
     <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
       {/* Header */}
-      <h3 className="text-2xl font-bold text-text-light dark:text-text-dark mb-6 flex items-center gap-2">
+      <h3 className="text-2xl font-bold text-text-light dark:text-white mb-6 flex items-center gap-2">
         <FaComment className="text-primary" />
         Comments ({pagination.total || comments.length || 0})
       </h3>
@@ -49,7 +50,7 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
         </div>
       ) : (
         <div className="mb-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center">
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-text-light dark:text-white">
             Please{' '}
             <Link href="/login" className="text-primary hover:underline">
               login
@@ -75,31 +76,14 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
       ) : comments.length > 0 ? (
         <>
           <div className="space-y-4">
-            {comments.map((comment: unknown) => {
-              const commentData = comment as {
-                _id: string;
-                content?: string;
-                comment?: string;
-                text?: string;
-                user: {
-                  _id: string;
-                  name: string;
-                  image?: string;
-                  avatar?: string;
-                  profileImg?: string;
-                };
-                createdAt: string;
-                updatedAt?: string;
-              };
-              return (
-                <CommentItem
-                  key={commentData._id}
-                  comment={commentData}
-                  onDeleted={refetch}
-                  onUpdated={refetch}
-                />
-              );
-            })}
+            {comments.map((comment: TComment) => (
+              <CommentItem
+                key={comment._id}
+                comment={comment}
+                onDeleted={refetch}
+                onUpdated={refetch}
+              />
+            ))}
           </div>
 
           {/* Load More */}
