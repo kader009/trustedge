@@ -63,10 +63,24 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
     return searchMatch && categoryMatch && ratingMatch;
   });
 
+  // Sorting Logic
+  const sortedReviews = [...filteredReviews].sort((a, b) => {
+    switch (sortBy) {
+      case 'Most Popular':
+        return (b.likes || 0) - (a.likes || 0);
+      case 'Most Recent':
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      case 'Highest Rated':
+        return (b.rating || 0) - (a.rating || 0);
+      default:
+        return 0;
+    }
+  });
+
   // Pagination Logic
-  const totalPages = Math.ceil(filteredReviews.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedReviews.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedReviews = filteredReviews.slice(
+  const paginatedReviews = sortedReviews.slice(
     startIndex,
     startIndex + itemsPerPage
   );
@@ -76,7 +90,7 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
       setCurrentPage(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, searchParams]);
+  }, [searchQuery, searchParams, sortBy]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -120,60 +134,69 @@ export default function CategoriesClient({ reviews }: CategoriesClientProps) {
 
       {/* Toolbar */}
       <div className="flex justify-between items-center gap-2 px-4 py-3 mb-4 rounded-xl bg-white dark:bg-card-dark border border-neutral-200/80 dark:border-neutral-800/80">
-        <div className="flex gap-2 items-center relative">
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium whitespace-nowrap">
-            Sort by:
+        <div className="flex gap-4 items-center">
+          <p className="hidden sm:block text-sm text-neutral-500 dark:text-neutral-400 font-medium whitespace-nowrap">
+            Showing{' '}
+            <span className="text-neutral-800 dark:text-neutral-100 font-bold">
+              {filteredReviews.length}
+            </span>{' '}
+            reviews
           </p>
-          <div className="relative">
-            <button
-              onClick={() => setIsSortOpen(!isSortOpen)}
-              className="flex items-center gap-2 bg-white dark:bg-card-dark dark:border-neutral-700 rounded-lg px-3 py-2 text-sm font-semibold text-neutral-800 dark:text-neutral-100 hover:border-primary/50 transition-colors min-w-[140px] justify-between"
-            >
-              <span>{sortBy}</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className={`w-5 h-5 text-neutral-400 transition-transform ${
-                  isSortOpen ? 'rotate-180' : ''
-                }`}
+          <div className="flex gap-2 items-center relative">
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium whitespace-nowrap">
+              Sort by:
+            </p>
+            <div className="relative">
+              <button
+                onClick={() => setIsSortOpen(!isSortOpen)}
+                className="flex items-center gap-2 bg-white dark:bg-card-dark dark:border-neutral-700 rounded-lg px-3 py-2 text-sm font-semibold text-neutral-800 dark:text-neutral-100 hover:border-primary/50 transition-colors min-w-[140px] justify-between"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
+                <span>{sortBy}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className={`w-5 h-5 text-neutral-400 transition-transform ${
+                    isSortOpen ? 'rotate-180' : ''
+                  }`}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
 
-            {isSortOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => setIsSortOpen(false)}
-                />
-                <div className="absolute top-full left-0 mt-2 w-full min-w-40 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl z-20 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                  {['Most Popular', 'Most Recent', 'Highest Rated'].map(
-                    (option) => (
-                      <button
-                        key={option}
-                        onClick={() => {
-                          setSortBy(option);
-                          setIsSortOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                          sortBy === option
-                            ? 'bg-primary/10 text-primary font-bold'
-                            : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 dark:bg-card-dark'
-                        }`}
-                      >
-                        {option}
-                      </button>
-                    )
-                  )}
-                </div>
-              </>
-            )}
+              {isSortOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setIsSortOpen(false)}
+                  />
+                  <div className="absolute top-full left-0 mt-2 w-full min-w-40 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl z-20 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    {['Most Popular', 'Most Recent', 'Highest Rated'].map(
+                      (option) => (
+                        <button
+                          key={option}
+                          onClick={() => {
+                            setSortBy(option);
+                            setIsSortOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                            sortBy === option
+                              ? 'bg-primary/10 text-primary font-bold'
+                              : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 dark:bg-card-dark'
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      )
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
         <div className="flex gap-2">
