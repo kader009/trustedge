@@ -11,11 +11,7 @@ import {
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-
-interface VotingButtonsProps {
-  reviewId: string;
-  initialVoteCount?: number;
-}
+import { VotingButtonsProps } from '@/src/types/votingButton';
 
 export default function VotingButtons({
   reviewId,

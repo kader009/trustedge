@@ -5,11 +5,7 @@ import { usePostCommentMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import { FaPaperPlane } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-
-interface CommentFormProps {
-  reviewId: string;
-  onCommentAdded: () => void;
-}
+import { CommentFormProps } from '@/src/types/commentFormprop';
 
 export default function CommentForm({
   reviewId,

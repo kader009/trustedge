@@ -1,25 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-
-interface ReviewCardProps {
-  id: number | string;
-  category: string;
-  categoryColor: string;
-  title: string;
-  rating: number;
-  imageUrl: string;
-  author: string;
-  date: string;
-  likes: number;
-  commentCount: number;
-  description?: string;
-  product?: {
-    title: string;
-    price: number;
-    category: string;
-    image?: string;
-  };
-}
+import { ReviewCardProps } from '@/src/types/reviewCardProps';
 
 const ReviewCard = ({
   id,

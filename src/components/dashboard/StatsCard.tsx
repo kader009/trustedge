@@ -1,14 +1,5 @@
+import { StatsCardProps } from '@/src/types/statsCardProps';
 import Link from 'next/link';
-import { IconType } from 'react-icons';
-
-interface StatsCardProps {
-  label: string;
-  value: string | number;
-  change?: string;
-  icon: IconType;
-  color?: string;
-  href?: string;
-}
 
 export default function StatsCard({
   label,

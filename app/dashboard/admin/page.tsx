@@ -11,33 +11,7 @@ import {
   useGetPendingReviewsQuery,
   useGetAllCommentsQuery,
 } from '@/src/redux/store/api/endApi';
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-  image?: string;
-}
-
-interface Review {
-  _id: string;
-  title: string;
-  user: {
-    name: string;
-    avatar?: string;
-    image?: string;
-  };
-  rating: number;
-  description: string;
-}
-
-interface Comment {
-  _id: string;
-  content: string;
-  status?: string;
-  isApproved?: boolean;
-}
+import { Comment, Review, User } from '@/src/types/userIndex';
 
 export default function AdminDashboard() {
   const { data: usersData } = useGetAllUsersQuery(undefined);

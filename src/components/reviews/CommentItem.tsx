@@ -21,13 +21,14 @@ import { toast } from 'sonner';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { TComment } from '@/src/types/comment';
+import { CommentItemProps } from '@/src/types/commnetItemProps';
 
-interface CommentItemProps {
-  comment: TComment;
-  onDeleted: () => void;
-  onUpdated: () => void;
-  reviewId?: string; // Passed from parent or extracted from comment
-}
+// interface CommentItemProps {
+//   comment: TComment;
+//   onDeleted: () => void;
+//   onUpdated: () => void;
+//   reviewId?: string; // Passed from parent or extracted from comment
+// }
 
 export default function CommentItem({
   comment,
@@ -137,11 +138,11 @@ export default function CommentItem({
       setIsReplying(false);
       setShowReplies(true);
       router.refresh();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Reply submission failed:', error);
-
+      const err = error as { data?: { message?: string }; message?: string };
       const errorMsg =
-        error?.data?.message || error?.message || 'Failed to post reply';
+        err?.data?.message || err?.message || 'Failed to post reply';
       toast.error(errorMsg);
     }
   };
@@ -340,7 +341,7 @@ export default function CommentItem({
               Loading replies...
             </div>
           ) : replies.length > 0 ? (
-            replies.map((reply: any) => (
+            replies.map((reply: TComment) => (
               <CommentItem
                 key={reply._id}
                 comment={reply}

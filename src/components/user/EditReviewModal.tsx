@@ -4,19 +4,7 @@ import { useState } from 'react';
 import { FaTimes, FaStar } from 'react-icons/fa';
 import { useUpdateReviewMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
-
-interface EditReviewModalProps {
-  review: {
-    _id: string;
-    rating: number;
-    review: string;
-    productId?: {
-      title?: string;
-    };
-  };
-  onClose: () => void;
-  onSuccess: () => void;
-}
+import { EditReviewModalProps } from '@/src/types/editReviewmodal';
 
 export default function EditReviewModal({
   review,

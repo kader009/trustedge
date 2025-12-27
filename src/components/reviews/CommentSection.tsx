@@ -8,10 +8,7 @@ import CommentItem from '@/src/components/reviews/CommentItem';
 import { FaComment } from 'react-icons/fa';
 import Link from 'next/link';
 import { TComment } from '@/src/types/comment';
-
-interface CommentSectionProps {
-  reviewId: string;
-}
+import { CommentSectionProps } from '@/src/types/commentSectionprops';
 
 export default function CommentSection({ reviewId }: CommentSectionProps) {
   const { token } = useAppSelector((state) => state.user);

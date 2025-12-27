@@ -3,13 +3,7 @@
 import { FaTimes, FaExclamationTriangle } from 'react-icons/fa';
 import { useDeleteReviewMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
-
-interface DeleteConfirmModalProps {
-  reviewId: string;
-  productTitle: string;
-  onClose: () => void;
-  onSuccess: () => void;
-}
+import { DeleteConfirmModalProps } from '@/src/types/deleteConfirmModal';
 
 export default function DeleteConfirmModal({
   reviewId,

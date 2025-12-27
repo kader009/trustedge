@@ -2,11 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { Category } from '@/src/types/CategoryType';
-
-interface FilterSidebarClientProps {
-  categories: Category[];
-}
+import { FilterSidebarClientProps } from '@/src/types/filterSidebarClient';
 
 export default function FilterSidebarClient({
   categories,
@@ -21,6 +17,7 @@ export default function FilterSidebarClient({
   useEffect(() => {
     const categoryParam = searchParams.get('category');
     if (categoryParam) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedCategories(categoryParam.split(','));
     } else {
       setSelectedCategories([]);

@@ -4,10 +4,7 @@ import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useDebouncedCallback } from 'use-debounce';
-
-interface SearchBarProps {
-  initialSearch?: string;
-}
+import { SearchBarProps } from '@/src/types/searchBarprops';
 
 export default function SearchBar({ initialSearch }: SearchBarProps) {
   const router = useRouter();

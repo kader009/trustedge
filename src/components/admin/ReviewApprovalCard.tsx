@@ -9,25 +9,7 @@ import {
 } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import RejectReasonModal from './RejectReasonModal';
-
-interface ReviewApprovalCardProps {
-  review: {
-    _id: string;
-    title: string;
-    description: string;
-    images?: string[];
-    category?: string;
-    user: {
-      _id: string;
-      name: string;
-      email: string;
-      avatar?: string;
-      image?: string;
-    };
-    rating: number;
-    createdAt: string;
-  };
-}
+import { ReviewApprovalCardProps } from '@/src/types/reviewApprovalProps';
 
 export default function ReviewApprovalCard({
   review,

@@ -1,20 +1,9 @@
 'use client';
 
+import { PREDEFINED_REASONS } from '@/src/data/predefined';
+import { RejectReasonModalProps } from '@/src/types/rejectReasonModal';
 import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-
-interface RejectReasonModalProps {
-  onConfirm: (reason: string) => void;
-  onCancel: () => void;
-  isLoading: boolean;
-}
-
-const PREDEFINED_REASONS = [
-  'Inappropriate content',
-  'Fake or misleading information',
-  'Violates community guidelines',
-  'Contains personal information',
-];
 
 export default function RejectReasonModal({
   onConfirm,

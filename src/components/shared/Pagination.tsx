@@ -1,12 +1,8 @@
 'use client';
 
+import { PaginationProps } from '@/src/types/paginationProps';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-}
 
 export default function Pagination({
   currentPage,

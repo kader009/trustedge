@@ -3,13 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaFilter, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
-
-interface ReviewFiltersProps {
-  categories: { _id: string; name: string; [key: string]: unknown }[];
-  selectedCategory?: string;
-  selectedRating?: string;
-  selectedSort?: string;
-}
+import { ReviewFiltersProps } from '@/src/types/reviewFilterProps';
 
 export default function ReviewFilters({
   categories,

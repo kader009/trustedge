@@ -5,22 +5,7 @@ import { FaTimes, FaCamera } from 'react-icons/fa';
 import Image from 'next/image';
 import { useUpdateUserProfileMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  image?: string;
-  role: string;
-  status?: string;
-}
-
-interface EditProfileModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  user: User;
-  onSave: (updatedData: Partial<User>) => void;
-}
+import { EditProfileModalProps } from '@/src/types/editProfileModalProp';
 
 export default function EditProfileModal({
   isOpen,
