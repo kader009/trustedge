@@ -30,6 +30,7 @@ export interface IReview {
   content?: string;
   images?: string[];
   category?: string;
+  price?: string;
   user: {
     _id?: string;
     name: string;

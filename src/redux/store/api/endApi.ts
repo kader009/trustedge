@@ -101,8 +101,6 @@ const EduNestApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // ============ VOTING SYSTEM ============
-    // Vote on a review (upvote)
     // Vote on a review (upvote/downvote)
     voteReview: build.mutation({
       query: ({ reviewId, voteType }) => ({
@@ -152,7 +150,7 @@ const EduNestApi = baseApi.injectEndpoints({
       ],
     }),
 
-    // ============ COMMENT SYSTEM ============
+    // COMMENT SYSTEM
     // Get all comments (admin only)
     getAllComments: build.query({
       query: ({ page = 1, limit = 50 }) => ({
@@ -176,7 +174,13 @@ const EduNestApi = baseApi.injectEndpoints({
     // Post a new comment or reply
     postComment: build.mutation({
       query: ({ reviewId, content, parentComment }) => {
-        const body: any = { review: reviewId, text: content };
+        type PostCommentBody = {
+          review: string;
+          text: string;
+          parentComment?: string;
+        };
+
+        const body: PostCommentBody = { review: reviewId, text: content };
         if (parentComment) {
           body.parentComment = parentComment;
         }
@@ -208,7 +212,7 @@ const EduNestApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: '/api/v1/review/search',
         method: 'GET',
-        params, // { searchTerm, category, rating, sortBy, sortOrder, page, limit }
+        params,
       }),
       providesTags: ['Review'],
     }),
@@ -232,7 +236,7 @@ const EduNestApi = baseApi.injectEndpoints({
       invalidatesTags: ['Comment'],
     }),
 
-    // ============ ADMIN APPROVAL SYSTEM ============
+    // ADMIN APPROVAL SYSTEM
     // Get pending reviews (admin only)
     getPendingReviews: build.query({
       query: () => ({
@@ -279,7 +283,7 @@ const EduNestApi = baseApi.injectEndpoints({
       providesTags: ['Review'],
     }),
 
-    // ============ USER REVIEWS ============
+    // USER REVIEWS
     // Get user's own reviews (using /products endpoint as reviews are products)
     getUserReviews: build.query({
       query: () => ({
@@ -308,7 +312,7 @@ const EduNestApi = baseApi.injectEndpoints({
       invalidatesTags: ['UserReview', 'Review'],
     }),
 
-    // ============ CATEGORIES (ADMIN) ============
+    // CATEGORIES (ADMIN)
     // Get all categories (admin)
     getAllCategoriesAdmin: build.query({
       query: () => ({

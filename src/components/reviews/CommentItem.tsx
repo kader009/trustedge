@@ -23,13 +23,6 @@ import { useRouter } from 'next/navigation';
 import { TComment } from '@/src/types/comment';
 import { CommentItemProps } from '@/src/types/commnetItemProps';
 
-// interface CommentItemProps {
-//   comment: TComment;
-//   onDeleted: () => void;
-//   onUpdated: () => void;
-//   reviewId?: string; // Passed from parent or extracted from comment
-// }
-
 export default function CommentItem({
   comment,
   onDeleted,

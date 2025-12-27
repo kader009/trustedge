@@ -14,6 +14,7 @@ import {
   FaCrown,
 } from 'react-icons/fa';
 import Image from 'next/image';
+import { IReview } from '@/src/types/common';
 
 export default function AnalyticsPage() {
   const { data: allReviewsData } = useGetallReviewQuery(undefined);
@@ -27,14 +28,24 @@ export default function AnalyticsPage() {
   const users = usersData?.data || [];
 
   // Calculate Real Earnings based on review.price
-  const estimatedValue = premiumReviews.reduce((acc: number, review: any) => {
-    return acc + (Number(review.price) || 0); // Use real price or 0
-  }, 0);
+  const estimatedValue = premiumReviews.reduce(
+    (acc: number, review: IReview) => {
+      return acc + (Number(review.price) || 0); // Use real price or 0
+    },
+    0
+  );
 
   // Popular Premium Reviews (Sorted by rating)
   const popularPremium = [...premiumReviews]
-    .sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0))
+    .sort((a: IReview, b: IReview) => (b.rating || 0) - (a.rating || 0))
     .slice(0, 5);
+
+  const getCategoryLabel = (cat: unknown) =>
+    typeof cat === 'string'
+      ? cat
+      : cat && typeof cat === 'object' && 'name' in (cat as object)
+      ? (cat as { name?: string }).name
+      : undefined;
 
   return (
     <div className="flex flex-1 flex-col px-2 lg:px-4 py-8 max-w-full mx-auto w-full">
@@ -132,7 +143,7 @@ export default function AnalyticsPage() {
           </h2>
           <div className="space-y-4">
             {popularPremium.length > 0 ? (
-              popularPremium.map((review: any) => (
+              popularPremium.map((review: IReview) => (
                 <div
                   key={review._id}
                   className="flex items-center gap-4 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-700"
@@ -141,7 +152,7 @@ export default function AnalyticsPage() {
                     {review.images?.[0] ? (
                       <Image
                         src={review.images[0]}
-                        alt={review.title}
+                        alt={review.title || ''}
                         fill
                         className="object-cover"
                       />
@@ -157,7 +168,7 @@ export default function AnalyticsPage() {
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-xs px-2 py-0.5 bg-gray-100 dark:bg-card-dark rounded-full text-text-light/80 dark:text-gray-300">
-                        {review.category?.name || 'Category'}
+                        {getCategoryLabel(review.category) || 'Category'}
                       </span>
                       <div className="flex items-center text-primary text-sm">
                         <FaStar className="mr-1" /> {review.rating || 0}
