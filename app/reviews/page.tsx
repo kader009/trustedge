@@ -4,14 +4,7 @@ import ReviewFilters from '@/src/components/reviews/ReviewFilters';
 import SearchBar from '@/src/components/reviews/SearchBar';
 import Pagination from '@/src/components/shared/Pagination';
 import { FaStar } from 'react-icons/fa';
-
-interface SearchParams {
-  page?: string;
-  category?: string;
-  rating?: string;
-  search?: string;
-  sort?: string;
-}
+import { ReviewData, SearchParams } from '@/src/types/searchParams';
 
 export default async function AllReviewsPage({
   searchParams,
@@ -74,16 +67,7 @@ export default async function AllReviewsPage({
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {reviews.map((review: unknown) => {
-                    const reviewData = review as {
-                      _id: string;
-                      title: string;
-                      rating: number;
-                      createdAt: string;
-                      productId?: { images?: string[]; title?: string };
-                      user?: { name: string; image?: string };
-                      category?: { name: string };
-                      voteCount?: number;
-                    };
+                    const reviewData = review as ReviewData;
                     return (
                       <ReviewCard key={reviewData._id} review={reviewData} />
                     );

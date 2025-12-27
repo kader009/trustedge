@@ -31,7 +31,7 @@ export default function AboutUsPage() {
           {/* Our Mission Section */}
           <section>
             <div className="flex flex-col gap-4">
-              <h2 className="text-gray-900 dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
+              <h2 className="text-text-light dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
                 Our Mission
               </h2>
               <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg font-normal leading-relaxed">
@@ -46,7 +46,7 @@ export default function AboutUsPage() {
           </section>
           {/* What We Stand For Section */}
           <section className="flex flex-col gap-8">
-            <h2 className="text-gray-900 dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
+            <h2 className="text-text-light dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
               What We Stand For
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -54,7 +54,7 @@ export default function AboutUsPage() {
                 <div className="flex items-center justify-center size-12 rounded-lg bg-primary/10 text-primary">
                   <FaCheckCircle className="text-3xl" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-bold text-text-light dark:text-white">
                   Honesty
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -66,7 +66,7 @@ export default function AboutUsPage() {
                 <div className="flex items-center justify-center size-12 rounded-lg bg-primary/10 text-primary">
                   <FaUsers className="text-3xl" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-bold text-text-light dark:text-white">
                   Community
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -78,7 +78,7 @@ export default function AboutUsPage() {
                 <div className="flex items-center justify-center size-12 rounded-lg bg-primary/10 text-primary">
                   <FaStar className="text-3xl" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-bold text-text-light dark:text-white">
                   Quality
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -103,7 +103,7 @@ export default function AboutUsPage() {
                   }}
                 ></div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-text-light dark:text-white">
                     Jane Doe
                   </h3>
                   <p className="text-sm text-primary dark:text-white">Founder & CEO</p>
@@ -122,7 +122,7 @@ export default function AboutUsPage() {
                   }}
                 ></div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-text-light dark:text-white">
                     John Smith
                   </h3>
                   <p className="text-sm text-primary dark:text-white">Head of Product</p>
@@ -141,7 +141,7 @@ export default function AboutUsPage() {
                   }}
                 ></div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-text-light dark:text-white">
                     Emily Carter
                   </h3>
                   <p className="text-sm text-primary dark:text-white">Community Manager</p>
@@ -156,7 +156,7 @@ export default function AboutUsPage() {
           {/* Call to Action Section */}
           <section className="bg-white dark:bg-background-dark/50 border border-gray-200 dark:border-white/10 rounded-xl p-8 md:p-12 text-center max-w-4xl mx-auto w-full mb-8">
             <div className="flex flex-col items-center gap-4">
-              <h2 className="text-gray-900 dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
+              <h2 className="text-text-light dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">
                 Ready to Join Us?
               </h2>
               <p className="text-gray-600 dark:text-gray-300 max-w-lg">

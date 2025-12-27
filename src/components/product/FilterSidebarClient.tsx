@@ -107,7 +107,7 @@ export default function FilterSidebarClient({
 
         {/* Rating Filter */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-neutral-800 dark:text-neutral-100">
+          <h4 className="font-semibold text-text-light dark:text-white">
             Filter by Rating
           </h4>
           <div className="space-y-2">

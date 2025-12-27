@@ -6,27 +6,7 @@ import { getReviewById, getProducts, getCategories } from '@/src/lib/api';
 import { notFound } from 'next/navigation';
 import VotingButtons from '@/src/components/reviews/VotingButtons';
 import CommentSection from '@/src/components/reviews/CommentSection';
-
-interface Category {
-  _id: string;
-  name: string;
-}
-
-interface Product {
-  _id: string;
-  title?: string;
-  description?: string;
-  images?: string[];
-  category?: string;
-  rating?: number;
-  price?: number;
-}
-
-interface Comment {
-  user?: { name?: string };
-  createdAt?: string;
-  comment?: string;
-}
+import { Product, Category, Comment, Releted } from '@/src/types/singleReview';
 
 export default async function ReviewDetailPage({
   params,
@@ -49,10 +29,6 @@ export default async function ReviewDetailPage({
     reviewData = {
       _id: product._id,
       productId: product,
-      user: {
-        name: 'Verified Buyer',
-        avatar: null,
-      },
       rating: product.rating || 5,
       review: product.description || 'Great product! Highly recommended.',
       createdAt: new Date().toISOString(),
@@ -79,19 +55,6 @@ export default async function ReviewDetailPage({
       (p: Product) => p.category === product.category && p._id !== product._id
     )
     .slice(0, 2);
-
-  // Helper to get image
-  const getProductImage = (prod: Product) => {
-    if (prod.images && prod.images.length > 0) {
-      const originalImage = prod.images[0];
-      if (originalImage.includes('ibb.co')) {
-        const imageId = originalImage.split('/').pop();
-        return `https://i.ibb.co/${imageId}/image.png`;
-      }
-      return originalImage;
-    }
-    return 'https://via.placeholder.com/400x300/6366f1/ffffff?text=No+Image';
-  };
 
   const review = {
     id: reviewData._id,
@@ -160,7 +123,9 @@ export default async function ReviewDetailPage({
       title: p.title || 'Product',
       price: p.price || 0,
       rating: p.rating || 0,
-      imageUrl: getProductImage(p),
+      imageUrl: p.images
+        ? p.images[0]
+        : 'https://via.placeholder.com/400x300/6366f1/ffffff?text=No+Image',
     };
   });
 
@@ -306,47 +271,37 @@ export default async function ReviewDetailPage({
                 Related Products
               </h3>
               <div className="flex flex-col gap-4">
-                {relatedReviews.map(
-                  (related: {
-                    id: string;
-                    category: string;
-                    categoryColor: string;
-                    title: string;
-                    price: number;
-                    rating: number;
-                    imageUrl: string;
-                  }) => (
-                    <Link
-                      key={related.id}
-                      href={`/reviews/${related.id}`}
-                      className="group cursor-pointer block"
-                    >
-                      <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
-                        <Image
-                          src={related.imageUrl}
-                          alt={related.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <span className="text-xs font-semibold uppercase text-primary mb-1 block">
-                        {related.category}
+                {relatedReviews.map((related: Releted) => (
+                  <Link
+                    key={related.id}
+                    href={`/reviews/${related.id}`}
+                    className="group cursor-pointer block"
+                  >
+                    <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
+                      <Image
+                        src={related.imageUrl}
+                        alt={related.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <span className="text-xs font-semibold uppercase text-primary mb-1 block">
+                      {related.category}
+                    </span>
+                    <h4 className="font-semibold text-gray-900 dark:text-white leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                      {related.title}
+                    </h4>
+                    <p className="text-lg font-bold text-primary mb-1">
+                      ${Math.round(related.price)}
+                    </p>
+                    <div className="flex items-center gap-1">
+                      <FaStar className="text-yellow-400 text-xs" />
+                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                        {related.rating.toFixed(1)}
                       </span>
-                      <h4 className="font-semibold text-gray-900 dark:text-white leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">
-                        {related.title}
-                      </h4>
-                      <p className="text-lg font-bold text-primary mb-1">
-                        ${Math.round(related.price)}
-                      </p>
-                      <div className="flex items-center gap-1">
-                        <FaStar className="text-yellow-400 text-xs" />
-                        <span className="text-xs text-gray-600 dark:text-gray-400">
-                          {related.rating.toFixed(1)}
-                        </span>
-                      </div>
-                    </Link>
-                  )
-                )}
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
 
