@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   FaUser,
   FaStar,
@@ -156,7 +157,7 @@ const PrivacyPolicy = () => {
             </h2>
           </div>
           <div className="bg-blue-50 dark:bg-blue-900/10 p-6 rounded-2xl border border-blue-100 dark:border-blue-900/20">
-            <h4 className="flex items-center gap-2 font-bold text-blue-800 dark:text-blue-300 mb-2">
+            <h4 className="flex items-center gap-2 font-bold text-blue-800 dark:text-white mb-2">
               <FaCookieBite className="w-5 h-5" />
               Cookie Policy Overview
             </h4>
@@ -167,12 +168,12 @@ const PrivacyPolicy = () => {
               information is not collected through the use of tracking
               technology.
             </p>
-            <a
-              className="text-sm font-bold text-primary hover:underline"
+            <Link
+              className="text-sm font-bold text-primary hover:underline dark:text-white"
               href="#"
             >
               Manage Cookie Preferences →
-            </a>
+            </Link>
           </div>
         </section>
         <section className="scroll-mt-28" id="user-rights">

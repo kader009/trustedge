@@ -106,7 +106,7 @@ export default function AboutUsPage() {
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                     Jane Doe
                   </h3>
-                  <p className="text-sm text-primary">Founder & CEO</p>
+                  <p className="text-sm text-primary dark:text-white">Founder & CEO</p>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   Jane is passion for consumer rights led her to create a
@@ -125,7 +125,7 @@ export default function AboutUsPage() {
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                     John Smith
                   </h3>
-                  <p className="text-sm text-primary">Head of Product</p>
+                  <p className="text-sm text-primary dark:text-white">Head of Product</p>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   John ensures our platform is intuitive, user-friendly, and
@@ -144,7 +144,7 @@ export default function AboutUsPage() {
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                     Emily Carter
                   </h3>
-                  <p className="text-sm text-primary">Community Manager</p>
+                  <p className="text-sm text-primary dark:text-white">Community Manager</p>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   Emily is the heart of our community, fostering engagement and

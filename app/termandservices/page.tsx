@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FaGavel, FaBan, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const TermAndServices = () => {
@@ -169,12 +170,12 @@ const TermAndServices = () => {
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
               <div className="flex items-center gap-2">
                 <FaEnvelope className="text-primary" />
-                <a
+                <Link
                   className="text-primary hover:underline font-medium"
                   href="mailto:legal@reviewportal.com"
                 >
                   legal@reviewportal.com
-                </a>
+                </Link>
               </div>
               <div className="flex items-center gap-2">
                 <FaMapMarkerAlt className="text-primary" />

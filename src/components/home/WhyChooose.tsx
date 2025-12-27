@@ -19,7 +19,7 @@ const WhyChooseUs = () => {
               <MdVerifiedUser className="text-3xl" />
             </div>
             <div className="flex flex-col gap-2">
-              <h2 className="text-text-light text-xl font-bold dark:text-text-secondary">
+              <h2 className="text-text-light text-xl font-bold dark:text-white">
                 Verified Reviews
               </h2>
               <p className="text-text-secondary leading-relaxed">
@@ -33,7 +33,7 @@ const WhyChooseUs = () => {
               <MdThumbUp className="text-3xl" />
             </div>
             <div className="flex flex-col gap-2">
-              <h2 className="text-text-light text-xl font-bold dark:text-text-secondary">
+              <h2 className="text-text-light text-xl font-bold dark:text-white">
                 Community Voting
               </h2>
               <p className="text-text-secondary leading-relaxed">
@@ -47,7 +47,7 @@ const WhyChooseUs = () => {
               <MdStars className="text-3xl" />
             </div>
             <div className="flex flex-col gap-2">
-              <h2 className="text-text-light text-xl font-bold dark:text-text-secondary">
+              <h2 className="text-text-light text-xl font-bold dark:text-white">
                 Premium Insights
               </h2>
               <p className="text-text-secondary leading-relaxed">
