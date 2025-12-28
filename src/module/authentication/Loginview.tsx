@@ -1,5 +1,6 @@
 'use client';
 
+import AdminAccess from '@/src/components/shared/AdminAccess';
 import SocialLog from '@/src/components/social/SocialLog';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
 import { useLoginMutation } from '@/src/redux/store/api/endApi';
@@ -60,16 +61,7 @@ const Loginview = () => {
 
       console.log('Token saved to Redux:', response.data.accessToken);
       toast.success('Login successful!');
-      
-      // Check for redirect path
-      const redirectPath = localStorage.getItem('redirectAfterLogin');
-      if (redirectPath) {
-        localStorage.removeItem('redirectAfterLogin');
-        route.replace(redirectPath);
-      } else {
-        route.replace('/');
-      }
-      
+      route.replace('/');
       dispatch(setEmail(''));
       dispatch(setPassword(''));
     } catch (error) {
@@ -85,8 +77,13 @@ const Loginview = () => {
           Welcome Back!
         </h1>
         <p className="text-gray-500 dark:text-gray-200 text-sm font-normal leading-normal pb-6 text-center">
-          Log in to share and discover product reviews.
+          Log in to share product reviews.
         </p>
+
+        {/*  Admin Access Info */}
+        <AdminAccess />
+
+        {/* user form */}
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>
           <label className="flex flex-col w-full">
             <p className="text-[#333333] dark:text-gray-200 text-sm font-medium leading-normal pb-2">

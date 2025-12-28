@@ -185,7 +185,7 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="mt-8 border-t border-gray-200 dark:border-white/10 pt-8">
-                  <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-4">
+                  <h3 className="text-xl font-bold tracking-tight text-text-light dark:text-white mb-4">
                     Looking for quick answers?
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 mb-6">
