@@ -1,13 +1,13 @@
 'use client';
 
-const AdminAccess = () => {
+const AdminLogin = () => {
   return (
     <div className="text-center text-sm text-gray-600 mb-6">
-      <p className="font-semibold text-gray-700 mb-2 dark:text-white">Admin Demo Access</p>
+      <p className="font-semibold text-gray-700 mb-2 dark:text-white">Admin Demo Login</p>
 
       <div className="flex justify-center items-center space-x-2 mb-1">
         <span className="dark:text-white">
-          Email: <span className="text-blue-600 dark:text-white">kadermolla@gmail.com</span>
+          Email: <span className="text-primary dark:text-white">kadermolla@gmail.com</span>
         </span>
         <button
           onClick={() => navigator.clipboard.writeText('kadermolla@gmail.com')}
@@ -19,7 +19,7 @@ const AdminAccess = () => {
 
       <div className="flex justify-center items-center space-x-2">
         <span className="dark:text-white">
-          Password: <span className="text-blue-600 dark:text-white">78757278</span>
+          Password: <span className="text-primary dark:text-white">78757278</span>
         </span>
         <button
           onClick={() => navigator.clipboard.writeText('78757278')}
@@ -32,4 +32,4 @@ const AdminAccess = () => {
   );
 };
 
-export default AdminAccess;
+export default AdminLogin;

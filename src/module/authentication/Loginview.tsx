@@ -1,6 +1,6 @@
 'use client';
 
-import AdminAccess from '@/src/components/shared/AdminAccess';
+import AdminLogin from '@/src/components/shared/AdminAccess';
 import SocialLog from '@/src/components/social/SocialLog';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
 import { useLoginMutation } from '@/src/redux/store/api/endApi';
@@ -81,7 +81,7 @@ const Loginview = () => {
         </p>
 
         {/*  Admin Access Info */}
-        <AdminAccess />
+        <AdminLogin />
 
         {/* user form */}
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>

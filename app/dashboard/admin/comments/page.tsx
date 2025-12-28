@@ -13,7 +13,6 @@ interface Comment {
   _id: string;
   text: string;
   image: string;
-  content: string;
   reviewId: string;
   user: {
     _id: string;
@@ -40,18 +39,18 @@ export default function CommentModerationPage() {
 
   const filteredComments = comments.filter(
     (comment) =>
-      (comment.content || '')
+      (comment.user?.name || '')
         .toLowerCase()
         .includes((searchTerm || '').toLowerCase()) ||
-      (comment.user?.name || '')
+      (comment.text || '')
         .toLowerCase()
         .includes((searchTerm || '').toLowerCase())
   );
 
-  const handleDelete = (commentId: string, content: string) => {
+  const handleDelete = (commentId: string, text: string) => {
     toast(
-      `Delete comment: "${content.substring(0, 100)}${
-        content.length > 100 ? '...' : ''
+      `Delete comment: "${text.substring(0, 100)}${
+        text.length > 100 ? '...' : ''
       }"?`,
       {
         action: {
@@ -220,7 +219,7 @@ export default function CommentModerationPage() {
                   </div>
 
                   <button
-                    onClick={() => handleDelete(comment._id, comment.content)}
+                    onClick={() => handleDelete(comment._id, comment.text)}
                     disabled={isDeleting}
                     className="flex items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
                   >
