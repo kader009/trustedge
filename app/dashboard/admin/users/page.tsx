@@ -17,16 +17,7 @@ import { toast } from 'sonner';
 import Image from 'next/image';
 import EditUserModal from '@/src/components/admin/EditUserModal';
 import DeleteUserModal from '@/src/components/admin/DeleteUserModal';
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  image?: string;
-  role: string;
-  isActive: boolean;
-  createdAt: string;
-}
+import { User } from '@/src/types/AdminUser';
 
 export default function AdminUsersPage() {
   const [searchQuery, setSearchQuery] = useState('');

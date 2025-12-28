@@ -7,21 +7,7 @@ import { useUpdateUserMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
 import { setUser } from '@/src/redux/userAuth/userSlice';
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-  isActive: boolean;
-  image?: string;
-}
-
-interface EditUserModalProps {
-  user: User;
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { EditUserModalProps } from '@/src/types/editUserModalProps';
 
 export default function EditUserModal({
   user,
@@ -58,14 +44,9 @@ export default function EditUserModal({
 
       // If the updated user is the current user, update the Redux state
       if (currentUser && currentUser._id === user._id) {
-        // Construct the updated user object (merging current user with updates)
-        // or use response.data if available. Assuming response structure might vary,
-        // using existing user + form data is safer for immediate UI update.
-        // But ideally use response.data.user
-
         const updatedUser = {
           ...currentUser,
-          ...formData, // Overwrite with new data
+          ...formData,
         };
 
         if (token) {
