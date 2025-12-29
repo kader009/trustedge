@@ -14,8 +14,10 @@ const ContactPage = () => {
         <div
           className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage:
-              'linear-gradient(rgba(47, 79, 79, 0.4) 0%, rgba(47, 79, 79, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuC91Fgii31jjf_Wyu9n8-UvfUcryUrGRAZ956T08Lnyny4MIOqeM_0AGc7M8k0SU08wVreS8KpeWFIVklTcB4CZv4YM00xL6_lUCEs-dkYV1OkAx3LmWpwTNt6-z4aCwWGdsusOVNqGjmP3Ps2AUB50Ci3pH-F19bKNt3vY_EZ0aQsit8WedDJZJX7-tfoNk5RZCkcNmdeu1EsHmbikxsbqKE-B_2hBwghiqDv2ySPr9_Rp33FXSa9-JM43qIcfEPXfTlL6ab-KQ9c")',
+            backgroundImage: `
+              linear-gradient(rgba(47, 79, 79, 0.4) 0%, rgba(47, 79, 79, 0.7) 100%),
+              linear-gradient(to bottom, #356b6a 0%, #d9b896 70%, #f4d3b5 100%)
+            `,
           }}
         ></div>
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center mb-6">

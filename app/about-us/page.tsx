@@ -12,8 +12,10 @@ export default function AboutUsPage() {
               <div
                 className="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 text-center"
                 style={{
-                  backgroundImage:
-                    'linear-gradient(rgba(47, 79, 79, 0.4) 0%, rgba(47, 79, 79, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuC91Fgii31jjf_Wyu9n8-UvfUcryUrGRAZ956T08Lnyny4MIOqeM_0AGc7M8k0SU08wVreS8KpeWFIVklTcB4CZv4YM00xL6_lUCEs-dkYV1OkAx3LmWpwTNt6-z4aCwWGdsusOVNqGjmP3Ps2AUB50Ci3pH-F19bKNt3vY_EZ0aQsit8WedDJZJX7-tfoNk5RZCkcNmdeu1EsHmbikxsbqKE-B_2hBwghiqDv2ySPr9_Rp33FXSa9-JM43qIcfEPXfTlL6ab-KQ9c")',
+                  backgroundImage: `
+              linear-gradient(rgba(47, 79, 79, 0.4) 0%, rgba(47, 79, 79, 0.7) 100%),
+              linear-gradient(to bottom, #356b6a 0%, #d9b896 70%, #f4d3b5 100%)
+            `,
                 }}
               >
                 <div className="flex flex-col gap-4">
@@ -106,7 +108,9 @@ export default function AboutUsPage() {
                   <h3 className="text-lg font-bold text-text-light dark:text-white">
                     Jane Doe
                   </h3>
-                  <p className="text-sm text-primary dark:text-white">Founder & CEO</p>
+                  <p className="text-sm text-primary dark:text-white">
+                    Founder & CEO
+                  </p>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   Jane is passion for consumer rights led her to create a
@@ -125,7 +129,9 @@ export default function AboutUsPage() {
                   <h3 className="text-lg font-bold text-text-light dark:text-white">
                     John Smith
                   </h3>
-                  <p className="text-sm text-primary dark:text-white">Head of Product</p>
+                  <p className="text-sm text-primary dark:text-white">
+                    Head of Product
+                  </p>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   John ensures our platform is intuitive, user-friendly, and
@@ -144,7 +150,9 @@ export default function AboutUsPage() {
                   <h3 className="text-lg font-bold text-text-light dark:text-white">
                     Emily Carter
                   </h3>
-                  <p className="text-sm text-primary dark:text-white">Community Manager</p>
+                  <p className="text-sm text-primary dark:text-white">
+                    Community Manager
+                  </p>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   Emily is the heart of our community, fostering engagement and
