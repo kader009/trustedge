@@ -1,33 +1,25 @@
 'use client';
 
-const AdminLogin = () => {
+interface AdminLoginProps {
+  onDemoLogin: (email: string, password: string) => void;
+}
+
+const AdminLogin = ({ onDemoLogin }: AdminLoginProps) => {
+  const handleDemoLogin = () => {
+    const DEMO_EMAIL = 'kadermolla@gmail.com';
+    const DEMO_PASSWORD = '78757278';
+
+    onDemoLogin(DEMO_EMAIL, DEMO_PASSWORD);
+  };
+
   return (
-    <div className="text-center text-sm text-gray-600 mb-6">
-      <p className="font-semibold text-gray-700 mb-2 dark:text-white">Admin Demo Login</p>
-
-      <div className="flex justify-center items-center space-x-2 mb-1">
-        <span className="dark:text-white">
-          Email: <span className="text-primary dark:text-white">kadermolla@gmail.com</span>
-        </span>
-        <button
-          onClick={() => navigator.clipboard.writeText('kadermolla@gmail.com')}
-          className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded"
-        >
-          Copy
-        </button>
-      </div>
-
-      <div className="flex justify-center items-center space-x-2">
-        <span className="dark:text-white">
-          Password: <span className="text-primary dark:text-white">78757278</span>
-        </span>
-        <button
-          onClick={() => navigator.clipboard.writeText('78757278')}
-          className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded"
-        >
-          Copy
-        </button>
-      </div>
+    <div className="text-center mb-6">
+      <button
+        onClick={handleDemoLogin}
+        className="px-6 py-2.5 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors"
+      >
+        Try Demo Login
+      </button>
     </div>
   );
 };

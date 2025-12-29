@@ -1,6 +1,7 @@
 'use client';
 
 import AdminLogin from '@/src/components/shared/AdminAccess';
+// import AdminLogin from '@/src/components/shared/AdminAccess';
 import SocialLog from '@/src/components/social/SocialLog';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
 import { useLoginMutation } from '@/src/redux/store/api/endApi';
@@ -71,7 +72,7 @@ const Loginview = () => {
   };
 
   return (
-    <main className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8 mt-8">
+    <main className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8">
       <div className="flex flex-col w-full max-w-md mx-auto bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-8">
         <h1 className="text-text-light dark:text-white tracking-tight text-2xl font-bold leading-tight text-center pb-2">
           Welcome Back!
@@ -81,7 +82,10 @@ const Loginview = () => {
         </p>
 
         {/*  Admin Access Info */}
-        <AdminLogin />
+        <AdminLogin onDemoLogin={(email, password) => {
+          dispatch(setEmail(email));
+          dispatch(setPassword(password));
+        }} />
 
         {/* user form */}
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>
