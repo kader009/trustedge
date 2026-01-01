@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { Toaster } from 'sonner';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../redux/store/store';
+import { SessionProvider } from 'next-auth/react';
+import AuthSync from '../components/auth/AuthSync';
 
 interface Children {
   children: ReactNode;
@@ -12,12 +14,15 @@ interface Children {
 
 const Providers = ({ children }: Children) => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Toaster position="top-right" />
-        {children}
-      </PersistGate>
-    </Provider>
+    <SessionProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Toaster position="top-right" />
+          <AuthSync />
+          {children}
+        </PersistGate>
+      </Provider>
+    </SessionProvider>
   );
 };
 

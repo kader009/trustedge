@@ -19,6 +19,15 @@ const EduNestApi = baseApi.injectEndpoints({
       }),
     }),
 
+    // Social login
+    socialLogin: build.mutation({
+      query: (userInfo) => ({
+        url: '/api/v1/auth/social-login',
+        method: 'POST',
+        body: userInfo,
+      }),
+    }),
+
     allCategory: build.query({
       query: () => ({
         url: '/api/v1/category',
@@ -403,6 +412,7 @@ const EduNestApi = baseApi.injectEndpoints({
 export const {
   useSignUpMutation,
   useLoginMutation,
+  useSocialLoginMutation,
   useAllCategoryQuery,
   usePostProductMutation,
   useGetAllUsersQuery,
