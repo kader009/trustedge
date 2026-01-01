@@ -7,6 +7,9 @@ import { setUser } from '@/src/redux/userAuth/userSlice';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useSocialLoginMutation } from '@/src/redux/store/api/endApi';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
+import { CustomUser } from '@/src/types/CustomUser';
 
 export default function AuthSync() {
   const { data: session, status } = useSession();
@@ -25,14 +28,13 @@ export default function AuthSync() {
         processedSessionId.current = session.user.email;
 
         try {
-          console.log('Syncing social login with backend...');
+          const currentUser = session.user as CustomUser;
 
           const userInfo = {
-            name: session.user.name,
-            email: session.user.email,
-            image: session.user.image,
-            // @ts-ignore
-            provider: session.user?.provider || 'google',
+            name: currentUser.name,
+            email: currentUser.email,
+            image: currentUser.image,
+            provider: currentUser.provider || 'google',
           };
 
           const response = await socialLogin(userInfo).unwrap();
@@ -45,18 +47,21 @@ export default function AuthSync() {
                 refreshToken: response.data.refreshToken,
               })
             );
-            toast.success('Successfully logged in via Social Account!');
+            toast.success('Successfully logged in!');
             router.refresh();
           }
-        } catch (error: any) {
+        } catch (error) {
           // If backend fails (e.g., user not found or backend not ready), log it
           console.error('Backend social login failed:', error);
-          if (error?.status === 404) {
+
+          const err = error as FetchBaseQueryError | SerializedError;
+
+          if ('status' in err && err.status === 404) {
             console.error(
               'Account not found. Please register first or backend implementation missing.'
             );
           } else {
-            toast.error("Social login sync failed.");
+            toast.error('Social login sync failed.');
           }
         }
       }

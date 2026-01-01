@@ -1,6 +1,6 @@
 import { baseApi } from './baseApi';
 
-const EduNestApi = baseApi.injectEndpoints({
+const TrustEdgeApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     signUp: build.mutation({
       query: (userInfo) => ({
@@ -455,4 +455,4 @@ export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
-} = EduNestApi;
+} = TrustEdgeApi;
