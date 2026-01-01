@@ -22,7 +22,7 @@ const BannerSection = () => {
             </h2>
           </div>
           <Link href="/create-review">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity z-10">
+            <button aria-label="Write a Review" className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity z-10">
               Write a Review
             </button>
           </Link>
