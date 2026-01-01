@@ -108,7 +108,7 @@ const ProductCard = ({
           alt={title}
           width={400}
           height={192}
-          loading='lazy'
+          loading="lazy"
         />
         <div className="p-4 flex flex-col grow">
           <h2 className="font-bold text-lg mb-2 line-clamp-2">{title}</h2>
