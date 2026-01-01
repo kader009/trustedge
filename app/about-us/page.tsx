@@ -19,7 +19,7 @@ export default function AboutUsPage() {
                 }}
               >
                 <div className="flex flex-col gap-4">
-                  <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+                  <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
                     About Our Portal
                   </h1>
                   <h2 className="text-white/90 text-base font-normal leading-normal max-w-2xl mx-auto md:text-lg">
