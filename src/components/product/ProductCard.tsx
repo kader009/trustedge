@@ -111,7 +111,7 @@ const ProductCard = ({
           loading='lazy'
         />
         <div className="p-4 flex flex-col grow">
-          <h3 className="font-bold text-lg mb-2 line-clamp-2">{title}</h3>
+          <h2 className="font-bold text-lg mb-2 line-clamp-2">{title}</h2>
 
           {/* Rating & Price Row */}
           <div className="flex items-center justify-between mb-2">

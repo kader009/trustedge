@@ -61,7 +61,7 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h4 className="font-semibold mb-4 text-white">Quick Links</h4>
+            <h2 className="font-semibold mb-4 text-white">Quick Links</h2>
             <div className="flex flex-col gap-2 text-sm">
               <Link className="hover:text-primary transition-colors" href="/">
                 Home
@@ -87,7 +87,7 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h4 className="font-semibold mb-4 text-white">Company</h4>
+            <h2 className="font-semibold mb-4 text-white">Company</h2>
             <div className="flex flex-col gap-2 text-sm">
               <Link
                 className="hover:text-primary transition-colors"
@@ -101,16 +101,22 @@ const Footer = () => {
               >
                 Contact Us
               </Link>
-              <Link className="hover:text-primary transition-colors" href="/termandservices">
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/termandservices"
+              >
                 Terms of Service
               </Link>
-              <Link className="hover:text-primary transition-colors" href="/privacypolicy">
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/privacypolicy"
+              >
                 Privacy Policy
               </Link>
             </div>
           </div>
           <div>
-            <h4 className="font-semibold mb-4 text-white">Stay Updated</h4>
+            <h2 className="font-semibold mb-4 text-white">Stay Updated</h2>
             <p className="text-sm mb-3">
               Subscribe to our newsletter for the latest reviews and updates.
             </p>
