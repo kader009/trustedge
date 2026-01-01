@@ -34,6 +34,7 @@ const Navbar = () => {
               onClick={() => setShowMobileMenu(!showMobileMenu)}
               className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle menu"
+              role='button'
             >
               <FaBars className="w-6 h-6 text-text-light dark:text-text-dark" />
             </button>
@@ -90,6 +91,8 @@ const Navbar = () => {
                   <button
                     onClick={() => setShowDropdown(!showDropdown)}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    aria-label="User menu"
+                    role="button"
                   >
                     {user.image ? (
                       <Image
@@ -134,6 +137,8 @@ const Navbar = () => {
                         <button
                           onClick={handleLogout}
                           className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-primary cursor-pointer"
+                          aria-label="Logout"
+                          role='button'
                         >
                           <FaSignOutAlt className="w-4 h-4" />
                           <span>Logout</span>
@@ -168,6 +173,8 @@ const Navbar = () => {
           <button
             onClick={() => setShowMobileMenu(false)}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Close menu"
+            role='button'
           >
             <FaTimes className="w-5 h-5 text-text-light dark:text-text-dark" />
           </button>
@@ -243,6 +250,8 @@ const Navbar = () => {
             <button
               onClick={handleLogout}
               className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-primary hover:opacity-90 text-white rounded-lg transition-opacity font-medium"
+              aria-label="Logout"
+              role='button'
             >
               <FaSignOutAlt className="w-4 h-4" />
               <span>Logout</span>
