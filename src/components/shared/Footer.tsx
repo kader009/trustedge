@@ -122,14 +122,16 @@ const Footer = () => {
             </p>
             <form className="flex">
               <input
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-lg text-text-light dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-0 bg-black/30 dark:bg-white/5 h-10 placeholder:text-gray-400 px-4 text-sm font-normal leading-normal"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-lg text-text-light dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-0 bg-white/10 dark:bg-white/5 h-10 placeholder:text-white px-4 text-sm font-normal leading-normal"
                 placeholder="Your email here..."
                 type="email"
                 required
+                aria-label="Email address for newsletter subscription"
               />
               <button
                 className="flex items-center justify-center rounded-r-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer"
                 type="submit"
+                aria-label="Subscribe to newsletter"
               >
                 send
               </button>
