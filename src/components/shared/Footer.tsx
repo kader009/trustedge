@@ -19,6 +19,7 @@ const Footer = () => {
               <Link
                 className="text-white/80 hover:text-primary transition-colors"
                 href="#"
+                aria-label="Visit our Facebook page"
               >
                 <svg
                   className="h-6 w-6"
@@ -32,6 +33,7 @@ const Footer = () => {
               <Link
                 className="text-white/80 hover:text-primary transition-colors"
                 href="#"
+                aria-label="Visit our Twitter page"
               >
                 <svg
                   className="h-6 w-6"
@@ -45,6 +47,7 @@ const Footer = () => {
               <Link
                 className="text-white/80 hover:text-primary transition-colors"
                 href="#"
+                aria-label="Visit our Instagram page"
               >
                 <svg
                   className="h-6 w-6"
