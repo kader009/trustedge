@@ -56,8 +56,7 @@ export default function AuthSync() {
               'Account not found. Please register first or backend implementation missing.'
             );
           } else {
-            // Silently fail or show error depending on UX preference
-            // toast.error("Social login sync failed.");
+            toast.error("Social login sync failed.");
           }
         }
       }
