@@ -86,7 +86,7 @@ export default function CreateReviewPage() {
             <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] mb-1">
               Create a New Review
             </p>
-            <p className="text-text-light dark:text-white text-base font-normal leading-normal mb-4">
+            <p className="text-text-light dark:text-white text-base font-normal leading-normal">
               Share your experience with the community.
             </p>
           </div>

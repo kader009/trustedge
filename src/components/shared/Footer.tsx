@@ -132,6 +132,7 @@ const Footer = () => {
                 className="flex items-center justify-center rounded-r-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer"
                 type="submit"
                 aria-label="Subscribe to newsletter"
+                role='button'
               >
                 send
               </button>
