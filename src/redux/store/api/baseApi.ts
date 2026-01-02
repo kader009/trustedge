@@ -6,6 +6,7 @@ import type {
 } from '@reduxjs/toolkit/query';
 import { logout } from '@/src/redux/userAuth/userSlice';
 import { toast } from 'sonner';
+import { signOut } from 'next-auth/react';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_BACKENDAPI,
@@ -37,16 +38,9 @@ const baseQueryWithReauth: BaseQueryFn<
       duration: 4000,
     });
 
-    // Redirect to login page
-    if (typeof window !== 'undefined') {
-      const currentPath = window.location.pathname + window.location.search;
-      if (!currentPath.includes('/login') && !currentPath.includes('/register')) {
-        localStorage.setItem('redirectAfterLogin', currentPath);
-      }
-      setTimeout(() => {
-        window.location.href = '/login';
-      }, 1000);
-    }
+    // Sign out from NextAuth and redirect to login
+    // This cleans up both Redux (via api.dispatch above) and NextAuth session cookies
+    signOut({ callbackUrl: '/login' });
   }
 
   return result;

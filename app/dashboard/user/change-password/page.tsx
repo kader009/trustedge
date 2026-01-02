@@ -71,7 +71,7 @@ export default function ChangePasswordPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-6 p-6 bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 mt-4"
+          className="flex flex-col gap-6 p-6 bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 mt-4"
         >
           {/* Current Password */}
           <div className="flex flex-col gap-2">
@@ -158,7 +158,7 @@ export default function ChangePasswordPage() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-6 h-12 rounded-lg bg-gray-300 dark:bg-card-dark dark:text-gray-200 text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors cursor-pointer text-white"
+              className="px-6 h-12 rounded-lg bg-gray-700 dark:bg-neutral-900 dark:text-gray-200 text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors cursor-pointer text-white"
             >
               Cancel
             </button>

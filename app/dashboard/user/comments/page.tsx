@@ -177,10 +177,10 @@ export default function UserCommentsPage() {
             {comments.map((comment) => (
               <div
                 key={comment._id}
-                className="border border-gray-200 dark:border-gray-800 rounded-lg p-4 hover:shadow-md transition-shadow"
+                className="border border-gray-200 dark:border-border-dark rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 {/* User Info Header */}
-                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100 dark:border-gray-800">
+                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100 dark:border-border-dark">
                   {user?.image ? (
                     <Image
                       src={user.image}
@@ -226,7 +226,7 @@ export default function UserCommentsPage() {
                         <textarea
                           value={editText}
                           onChange={(e) => setEditText(e.target.value)}
-                          className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-text-light dark:text-text-dark"
+                          className="w-full p-3 bg-gray-50 dark:bg-card-dark border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-text-light dark:text-text-dark"
                           rows={3}
                           autoFocus
                         />
@@ -241,7 +241,7 @@ export default function UserCommentsPage() {
                           <button
                             onClick={cancelEdit}
                             disabled={isUpdating}
-                            className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
+                            className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-card-dark text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
                           >
                             <FaTimes size={12} /> Cancel
                           </button>

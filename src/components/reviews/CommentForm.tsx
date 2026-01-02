@@ -71,7 +71,7 @@ export default function CommentForm({
           rows={3}
           maxLength={500}
           disabled={isLoading}
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary resize-none disabled:opacity-50"
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary resize-none disabled:opacity-50"
         />
         <div className="absolute bottom-2 right-2 text-xs text-gray-400">
           {content.length}/500

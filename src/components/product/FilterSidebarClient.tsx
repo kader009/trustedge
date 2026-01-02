@@ -158,7 +158,7 @@ export default function FilterSidebarClient({
           </button>
           <button
             onClick={resetFilters}
-            className="flex-1 min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-white dark:bg-neutral-800 text-text-light dark:text-white text-sm font-medium"
+            className="flex-1 min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-white dark:bg-neutral-900 text-text-light dark:text-white text-sm font-medium"
           >
             Reset
           </button>

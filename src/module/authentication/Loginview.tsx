@@ -1,7 +1,6 @@
 'use client';
 
 import AdminLogin from '@/src/components/shared/AdminAccess';
-// import AdminLogin from '@/src/components/shared/AdminAccess';
 import SocialLog from '@/src/components/social/SocialLog';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hook';
 import { useLoginMutation } from '@/src/redux/store/api/endApi';

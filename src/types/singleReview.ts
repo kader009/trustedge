@@ -13,7 +13,7 @@ export interface Product {
   price?: number;
 }
 
-export interface Releted {
+export interface Related {
   id: string;
   category: string;
   categoryColor: string;
@@ -24,7 +24,12 @@ export interface Releted {
 }
 
 export interface Comment {
-  user?: { name?: string };
+  _id: string;
+  user?: {
+    name?: string;
+    image?: string;
+    avatar?: string;
+  };
   createdAt?: string;
   comment?: string;
 }

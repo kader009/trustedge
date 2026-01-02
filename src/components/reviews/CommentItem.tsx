@@ -198,7 +198,7 @@ export default function CommentItem({
                 onChange={(e) => setEditContent(e.target.value)}
                 rows={3}
                 maxLength={500}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary resize-none"
               />
               <div className="flex items-center gap-2">
                 <button

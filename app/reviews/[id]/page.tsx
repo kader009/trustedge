@@ -6,7 +6,7 @@ import { getReviewById, getProducts, getCategories } from '@/src/lib/api';
 import { notFound } from 'next/navigation';
 import VotingButtons from '@/src/components/reviews/VotingButtons';
 import CommentSection from '@/src/components/reviews/CommentSection';
-import { Product, Category, Comment, Releted } from '@/src/types/singleReview';
+import { Product, Category, Comment, Related } from '@/src/types/singleReview';
 
 export default async function ReviewDetailPage({
   params,
@@ -16,16 +16,14 @@ export default async function ReviewDetailPage({
   const { id } = await params;
   let reviewData = await getReviewById(id);
 
-  // Fallback: If review not found, try to get product data
   if (!reviewData) {
-    const products = await getProducts(100); // Fetch more products
+    const products = await getProducts(100);
     const product = products.find((p: Product) => p._id === id);
 
     if (!product) {
       notFound();
     }
 
-    // Create a mock review from product data
     reviewData = {
       _id: product._id,
       productId: product,
@@ -37,7 +35,6 @@ export default async function ReviewDetailPage({
     };
   }
 
-  // Fetch categories to map category IDs to names
   const categories = await getCategories();
   const categoryMap = new Map<string, string>();
   categories.forEach((cat: Category) => {
@@ -58,61 +55,49 @@ export default async function ReviewDetailPage({
 
   const review = {
     id: reviewData._id,
-    title: product.title || 'Review',
+    title: product.title || reviewData.title || 'Review',
     author: {
-      name:
-        typeof reviewData.user === 'object'
-          ? reviewData.user?.name
-          : 'Verified Buyer',
+      name: reviewData.user?.name || 'Verified Buyer',
       avatar:
-        typeof reviewData.user === 'object' ? reviewData.user?.avatar : null,
+        reviewData.user?.image ||
+        reviewData.user?.avatar ||
+        '/assets/default-avatar.svg',
       role: 'Verified Buyer',
     },
-    date: (reviewData.createdAt && !isNaN(Date.parse(reviewData.createdAt))
-      ? new Date(reviewData.createdAt)
-      : new Date('2025-12-23')
-    ).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    }),
+    date: new Date(reviewData.createdAt || Date.now()).toLocaleDateString(
+      'en-US',
+      {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }
+    ),
     rating: reviewData.rating || 0,
     category: categoryName,
     source: reviewData.purchaseSource || 'TrustEdge',
     sourceLink: '#',
-    content: `
-      <div class="space-y-4">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Product Description</h3>
-        <div class="text-gray-700 dark:text-gray-300 leading-relaxed ">
-          ${
-            product.description ||
-            reviewData.review ||
-            'No description available.'
-          }
-        </div>
-      </div>
-    `,
-    images: product.images
-      ? product.images.map((img: string) => {
-          if (img.includes('ibb.co')) {
-            const imageId = img.split('/').pop();
-            return `https://i.ibb.co/${imageId}/image.png`;
-          }
-          return img;
-        })
-      : [],
+    description:
+      product.description || reviewData.review || 'No description available.',
+    images: Array.isArray(product.images) ? product.images : [],
     likes: reviewData.likes || 0,
     dislikes: 0,
-    comments:
-      reviewData.comments?.map((c: Comment, index: number) => ({
-        id: index,
-        author: c.user?.name || 'User',
-        avatar: `https://ui-avatars.com/api/?name=${c.user?.name || 'User'}`,
-        date: new Date(
-          c.createdAt || new Date().toISOString()
-        ).toLocaleDateString(),
-        text: c.comment,
-      })) || [],
+    comments: Array.isArray(reviewData.comments)
+      ? reviewData.comments.map((c: Comment) => ({
+          id: c._id,
+          author: c.user?.name || 'User',
+          avatar:
+            c.user?.image || c.user?.avatar || '/assets/default-avatar.svg',
+          date: new Date(c.createdAt || Date.now()).toLocaleDateString(
+            'en-US',
+            {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+            }
+          ),
+          text: c.comment,
+        }))
+      : [],
   };
 
   const relatedReviews = relatedProducts.map((p: Product) => {
@@ -213,10 +198,14 @@ export default async function ReviewDetailPage({
 
             {/* Review Content */}
             <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-              <div
-                className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
-                dangerouslySetInnerHTML={{ __html: review.content }}
-              />
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Product Description
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                  {review.description}
+                </p>
+              </div>
 
               {/* Images Gallery */}
               {review.images.length > 0 && (
@@ -271,7 +260,7 @@ export default async function ReviewDetailPage({
                 Related Products
               </h3>
               <div className="flex flex-col gap-4">
-                {relatedReviews.map((related: Releted) => (
+                {relatedReviews.map((related: Related) => (
                   <Link
                     key={related.id}
                     href={`/reviews/${related.id}`}

@@ -182,7 +182,7 @@ export default function EditUserModal({
               </div>
 
               <div className="flex items-end">
-                <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-900 rounded-lg w-full">
+                <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-card-dark rounded-lg w-full dark:border-gray-700">
                   <input
                     type="checkbox"
                     id="isActive"

@@ -46,7 +46,7 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
           />
         </div>
       ) : (
-        <div className="mb-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center">
+        <div className="mb-8 p-4 bg-gray-100 dark:bg-card-dark rounded-lg text-center">
           <p className="text-text-light dark:text-white">
             Please{' '}
             <Link href="/login" className="text-primary hover:underline">
