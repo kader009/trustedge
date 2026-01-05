@@ -128,13 +128,13 @@ export default function UserReviewsPage() {
       </div>
 
       {/* Reviews List */}
-      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+          <h2 className="text-xl font-bold text-text-light dark:text-text-dark w-full sm:w-auto text-left">
             All Reviews
           </h2>
-          <Link href="/create-review">
-            <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer">
+          <Link href="/create-review" className="w-full sm:w-auto">
+            <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer w-full sm:w-auto">
               Write New Review
             </button>
           </Link>
@@ -186,14 +186,14 @@ export default function UserReviewsPage() {
 
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-4 mb-2">
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                    <div className="flex flex-col sm:flex-row items-start justify-between gap-2 mb-2">
+                      <div className="min-w-0 w-full">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 truncate">
                           {review.productId?.title || 'Untitled Product'}
                         </h3>
                         {getStatusBadge(review.status)}
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 shrink-0">
                         {review.status === 'pending' && (
                           <>
                             <button
@@ -235,13 +235,13 @@ export default function UserReviewsPage() {
                     </div>
 
                     {/* Review Text */}
-                    <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-2 mb-3">
+                    <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-2 mb-3 break-words">
                       {review.review}
                     </p>
 
                     {/* Admin Feedback (if rejected) */}
                     {review.status === 'rejected' && review.adminFeedback && (
-                      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 mb-3">
+                      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 mb-3 break-words">
                         <p className="text-sm font-medium text-red-800 dark:text-red-300 mb-1">
                           Rejection Reason:
                         </p>
