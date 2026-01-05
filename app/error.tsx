@@ -11,12 +11,9 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Only log in development - production errors should go to monitoring service
     if (process.env.NODE_ENV === 'development') {
       console.error('Error details:', error);
     }
-    // In production, send to error monitoring service (e.g., Sentry)
-    // Example: if (process.env.NODE_ENV === 'production') { Sentry.captureException(error); }
   }, [error]);
 
   return (
