@@ -49,7 +49,6 @@ const Loginview = () => {
 
     try {
       const response = await login({ email, password }).unwrap();
-      console.log('Login response:', response);
 
       // Dispatch to Redux store - setUser already expects { user, token }
       dispatch(
@@ -59,13 +58,11 @@ const Loginview = () => {
         })
       );
 
-      console.log('Token saved to Redux:', response.data.accessToken);
       toast.success('Login successful!');
       route.replace('/');
       dispatch(setEmail(''));
       dispatch(setPassword(''));
     } catch (error) {
-      console.log('Login failed:', error);
       toast.error('Login failed. Please check your credentials and try again.');
     }
   };

@@ -34,10 +34,6 @@ export default function CommentForm({
     }
 
     try {
-      console.log('Posting comment with:', {
-        reviewId,
-        content: content.trim(),
-      });
       const response = await postComment({
         reviewId,
         content: content.trim(),
@@ -49,7 +45,6 @@ export default function CommentForm({
       router.refresh();
     } catch (error) {
       const err = error as { status?: number; data?: { message?: string } };
-      console.error('Comment error:', error);
 
       if (err?.data?.message === 'Review not found' || err?.status === 404) {
         toast.error(

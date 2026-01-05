@@ -78,7 +78,6 @@ const Registerview = () => {
         password,
         role,
       });
-      console.log(user);
       toast.success('Registration successful!');
       router.replace('/login');
 
@@ -88,7 +87,6 @@ const Registerview = () => {
       dispatch(setPassword(''));
       dispatch(setRole(''));
     } catch (error) {
-      console.log(error);
       toast.error('Registration failed. Please try again.');
     }
   };
