@@ -132,9 +132,9 @@ export default function PendingCommentsPage() {
   };
 
   return (
-    <div className="flex flex-1 flex-col px-1 py-2">
+    <div className="flex flex-1 flex-col w-full max-w-[100vw] overflow-x-hidden px-2 py-4 md:p-6">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div className="flex w-full flex-col gap-3">
           <h1 className="text-text-light dark:text-white text-2xl sm:text-4xl font-black leading-tight tracking-[-0.033em]">
             Pending Comment Moderation
@@ -147,7 +147,7 @@ export default function PendingCommentsPage() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="px-1 py-2">
+      <div className="mb-6">
         <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700 overflow-x-auto pb-1 scrollbar-hide">
           <button
             onClick={() => setFilter('pending')}
@@ -193,7 +193,7 @@ export default function PendingCommentsPage() {
       </div>
 
       {/* Search Bar */}
-      <div className="px-1 py-2">
+      <div className="mb-6">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
             <FaSearch className="text-gray-400" />
@@ -202,14 +202,14 @@ export default function PendingCommentsPage() {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+            className="w-full pl-12 pr-4 h-12 md:h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
             placeholder="Search comments by content or author..."
           />
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-1 py-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
@@ -260,7 +260,7 @@ export default function PendingCommentsPage() {
       </div>
 
       {/* Comments List */}
-      <div className="px-1 py-2">
+      <div>
         {isLoading ? (
           <div className="text-center py-12 text-gray-500 dark:text-gray-200">
             Loading comments...
@@ -288,10 +288,10 @@ export default function PendingCommentsPage() {
                   comment.status === 'approved'
                     ? 'border-green-200 dark:border-green-800/30'
                     : 'border-yellow-200 dark:border-yellow-800/30'
-                } p-6 hover:shadow-lg transition-shadow`}
+                } p-4 md:p-6 hover:shadow-lg transition-shadow`}
               >
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
-                  <div className="flex-1 w-full">
+                  <div className="flex-1 w-full min-w-0">
                     {/* Status Badge */}
                     <div className="mb-3">
                       {comment.status === 'published' ||
@@ -352,8 +352,8 @@ export default function PendingCommentsPage() {
                     </div>
 
                     {/* Comment Content */}
-                    <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-4 mb-3">
-                      <p className="text-gray-500 dark:text-white wrap-break-word">
+                    <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-3 md:p-4 mb-3">
+                      <p className="text-gray-500 dark:text-white break-all">
                         {comment.text || comment.content || 'No content'}
                       </p>
                     </div>
