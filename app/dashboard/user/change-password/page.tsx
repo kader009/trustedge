@@ -56,14 +56,14 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <div className="flex flex-1 justify-center py-5 px-4 sm:px-6 md:px-8">
-      <div className="layout-content-container flex flex-col w-full max-w-2xl">
-        <div className="flex flex-wrap justify-between gap-3 p-4">
-          <div className="flex min-w-72 flex-col gap-3">
-            <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+    <div className="flex flex-1 justify-center py-5 px-2 sm:px-4 md:px-6 w-full max-w-[100vw] overflow-x-hidden">
+      <div className="flex flex-col w-full max-w-xl mx-auto">
+        <div className="flex flex-wrap justify-between gap-3 mb-4 px-1">
+          <div className="flex w-full flex-col gap-3">
+            <h1 className="text-text-light dark:text-white text-2xl sm:text-4xl font-black leading-tight tracking-[-0.033em]">
               Change Password
-            </p>
-            <p className="text-text-light dark:text-white text-base font-normal leading-normal">
+            </h1>
+            <p className="text-text-light dark:text-white text-sm sm:text-base font-normal leading-normal">
               Update your password to keep your account secure.
             </p>
           </div>
@@ -71,11 +71,11 @@ export default function ChangePasswordPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-6 p-6 bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 mt-4"
+          className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 w-full"
         >
           {/* Current Password */}
           <div className="flex flex-col gap-2">
-            <label className="text-gray-900 dark:text-white text-base font-medium leading-normal">
+            <label className="text-gray-900 dark:text-white text-sm sm:text-base font-medium leading-normal">
               Current Password
             </label>
             <div className="relative">
@@ -86,7 +86,7 @@ export default function ChangePasswordPage() {
                 type={showCurrent ? 'text' : 'password'}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full pl-12 pr-12 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+                className="w-full pl-12 pr-12 h-12 sm:h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-0 focus:ring-2 focus:ring-primary/50 text-sm sm:text-base"
                 placeholder="Enter current password"
                 required
               />
@@ -102,7 +102,7 @@ export default function ChangePasswordPage() {
 
           {/* New Password */}
           <div className="flex flex-col gap-2">
-            <label className="text-gray-900 dark:text-white text-base font-medium leading-normal">
+            <label className="text-gray-900 dark:text-white text-sm sm:text-base font-medium leading-normal">
               New Password
             </label>
             <div className="relative">
@@ -113,8 +113,8 @@ export default function ChangePasswordPage() {
                 type={showNew ? 'text' : 'password'}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full pl-12 pr-12 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-0 focus:ring-2 focus:ring-primary/50"
-                placeholder="Enter new password (min. 6 characters)"
+                className="w-full pl-12 pr-12 h-12 sm:h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-0 focus:ring-2 focus:ring-primary/50 text-sm sm:text-base"
+                placeholder="Enter new password (min. 6 chars)"
                 required
               />
               <button
@@ -129,7 +129,7 @@ export default function ChangePasswordPage() {
 
           {/* Confirm New Password */}
           <div className="flex flex-col gap-2">
-            <label className="text-gray-900 dark:text-white text-base font-medium leading-normal">
+            <label className="text-gray-900 dark:text-white text-sm sm:text-base font-medium leading-normal">
               Confirm New Password
             </label>
             <div className="relative">
@@ -140,7 +140,7 @@ export default function ChangePasswordPage() {
                 type={showConfirm ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full pl-12 pr-12 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-0 focus:ring-2 focus:ring-primary/50"
+                className="w-full pl-12 pr-12 h-12 sm:h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-0 focus:ring-2 focus:ring-primary/50 text-sm sm:text-base"
                 placeholder="Confirm new password"
                 required
               />
@@ -154,18 +154,18 @@ export default function ChangePasswordPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+          <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 sm:gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-6 h-12 rounded-lg bg-gray-700 dark:bg-neutral-900 dark:text-gray-200 text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors cursor-pointer text-white"
+              className="w-full sm:w-auto px-6 h-12 rounded-lg bg-gray-700 dark:bg-neutral-900 dark:text-gray-200 text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors cursor-pointer text-white"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="px-6 h-12 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full sm:w-auto px-6 h-12 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap"
             >
               {isLoading ? 'Changing...' : 'Change Password'}
             </button>
