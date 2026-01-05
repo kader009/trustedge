@@ -77,11 +77,11 @@ export default function CommentModerationPage() {
     <div className="flex flex-1 flex-col px-1 py-2">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-2">
-        <div className="flex min-w-72 flex-col gap-3">
-          <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+        <div className="flex w-full flex-col gap-3">
+          <h1 className="text-text-light dark:text-white text-2xl sm:text-4xl font-black leading-tight tracking-[-0.033em]">
             All Comment Moderation
-          </p>
-          <p className="text-text-light dark:text-white text-base font-normal leading-normal">
+          </h1>
+          <p className="text-text-light dark:text-white text-sm sm:text-base font-normal leading-normal">
             Review and moderate user comments across all reviews.
           </p>
         </div>
@@ -179,10 +179,10 @@ export default function CommentModerationPage() {
                 key={comment._id}
                 className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                  <div className="flex-1 w-full">
+                    <div className="flex flex-wrap items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                         <Image
                           src={comment.user?.image}
                           alt={comment.user?.name}
@@ -191,21 +191,21 @@ export default function CommentModerationPage() {
                           className="object-cover w-full h-full rounded-full"
                         />
                       </div>
-                      <div>
-                        <p className="text-gray-500 dark:text-white font-bold">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-gray-500 dark:text-white font-bold truncate">
                           {comment.user?.name || 'Unknown User'}
                         </p>
-                        <p className="text-gray-500 dark:text-gray-200 text-sm">
+                        <p className="text-gray-500 dark:text-gray-200 text-sm truncate">
                           {comment.user?.email || 'No email'}
                         </p>
                       </div>
-                      <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm">
-                        {new Date(comment.createdAt).toLocaleString()}
+                      <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm whitespace-nowrap">
+                        {new Date(comment.createdAt).toLocaleDateString()}
                       </span>
                     </div>
 
                     <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-4 mb-3">
-                      <p className="text-gray-500 dark:text-white">
+                      <p className="text-gray-500 dark:text-white wrap-break-word">
                         {comment?.text}
                       </p>
                     </div>
@@ -218,13 +218,15 @@ export default function CommentModerationPage() {
                       )}
                   </div>
 
-                  <button
-                    onClick={() => handleDelete(comment._id, comment.text)}
-                    disabled={isDeleting}
-                    className="flex items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
-                  >
-                    <FaTrash /> Delete
-                  </button>
+                  <div className="w-full sm:w-auto">
+                    <button
+                      onClick={() => handleDelete(comment._id, comment.text)}
+                      disabled={isDeleting}
+                      className="flex items-center justify-center gap-2 px-4 h-10 w-full sm:w-auto rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
+                    >
+                      <FaTrash /> Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

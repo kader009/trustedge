@@ -135,11 +135,11 @@ export default function PendingCommentsPage() {
     <div className="flex flex-1 flex-col px-1 py-2">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-2">
-        <div className="flex min-w-72 flex-col gap-3">
-          <p className="text-text-light dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+        <div className="flex w-full flex-col gap-3">
+          <h1 className="text-text-light dark:text-white text-2xl sm:text-4xl font-black leading-tight tracking-[-0.033em]">
             Pending Comment Moderation
-          </p>
-          <p className="text-text-light dark:text-white text-base font-normal leading-normal">
+          </h1>
+          <p className="text-text-light dark:text-white text-sm sm:text-base font-normal leading-normal">
             Review and moderate user comments. Approve or reject pending
             comments.
           </p>
@@ -148,10 +148,10 @@ export default function PendingCommentsPage() {
 
       {/* Filter Tabs */}
       <div className="px-1 py-2">
-        <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700 overflow-x-auto pb-1 scrollbar-hide">
           <button
             onClick={() => setFilter('pending')}
-            className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer ${
+            className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer whitespace-nowrap ${
               filter === 'pending'
                 ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-500 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300'
@@ -166,7 +166,7 @@ export default function PendingCommentsPage() {
           </button>
           <button
             onClick={() => setFilter('approved')}
-            className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer ${
+            className={`px-6 py-3 font-semibold transition-colors relative cursor-pointer whitespace-nowrap ${
               filter === 'approved'
                 ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-500 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300'
@@ -181,7 +181,7 @@ export default function PendingCommentsPage() {
           </button>
           <button
             onClick={() => setFilter('all')}
-            className={`px-6 py-3 font-semibold transition-colors cursor-pointer ${
+            className={`px-6 py-3 font-semibold transition-colors cursor-pointer whitespace-nowrap ${
               filter === 'all'
                 ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-500 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300'
@@ -290,8 +290,8 @@ export default function PendingCommentsPage() {
                     : 'border-yellow-200 dark:border-yellow-800/30'
                 } p-6 hover:shadow-lg transition-shadow`}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                  <div className="flex-1 w-full">
                     {/* Status Badge */}
                     <div className="mb-3">
                       {comment.status === 'published' ||
@@ -307,8 +307,8 @@ export default function PendingCommentsPage() {
                     </div>
 
                     {/* User Info */}
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center">
+                    <div className="flex flex-wrap items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center shrink-0">
                         {comment.user?.image ||
                         comment.user?.avatar ||
                         comment.userId?.image ||
@@ -334,26 +334,26 @@ export default function PendingCommentsPage() {
                           <FaUser className="text-primary" />
                         )}
                       </div>
-                      <div>
-                        <p className="text-gray-500 dark:text-white font-bold">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-gray-500 dark:text-white font-bold truncate">
                           {comment.user?.name ||
                             comment.userId?.name ||
                             'Unknown User'}
                         </p>
-                        <p className="text-gray-500 dark:text-gray-200 text-sm">
+                        <p className="text-gray-500 dark:text-gray-200 text-sm truncate">
                           {comment.user?.email ||
                             comment.userId?.email ||
                             'No email'}
                         </p>
                       </div>
-                      <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm">
-                        {new Date(comment.createdAt).toLocaleString()}
+                      <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm whitespace-nowrap">
+                        {new Date(comment.createdAt).toLocaleDateString()}
                       </span>
                     </div>
 
                     {/* Comment Content */}
                     <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-4 mb-3">
-                      <p className="text-gray-500 dark:text-white">
+                      <p className="text-gray-500 dark:text-white wrap-break-word">
                         {comment.text || comment.content || 'No content'}
                       </p>
                     </div>
@@ -366,12 +366,12 @@ export default function PendingCommentsPage() {
                       )}
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-row sm:flex-col gap-2 w-full sm:w-auto">
                     {comment.status !== 'published' &&
                       comment.status !== 'approved' && (
                         <button
                           onClick={() => handleApprove(comment._id)}
-                          className="flex items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap cursor-pointer"
+                          className="flex-1 sm:flex-none justify-center items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap cursor-pointer"
                         >
                           <FaCheckCircle /> Approve
                         </button>
@@ -384,7 +384,7 @@ export default function PendingCommentsPage() {
                         )
                       }
                       disabled={isDeleting}
-                      className="flex items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap cursor-pointer"
+                      className="flex-1 sm:flex-none justify-center items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap cursor-pointer"
                     >
                       <FaTrash /> Delete
                     </button>

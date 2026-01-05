@@ -124,7 +124,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary p-3 rounded-lg text-white">
@@ -173,7 +173,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Search and Filter */}
-      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 mb-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-4 sm:p-6 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
@@ -190,7 +190,7 @@ export default function AdminUsersPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
+            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-auto"
           >
             <option value="all">All Roles</option>
             <option value="admin">Admin</option>
@@ -199,7 +199,7 @@ export default function AdminUsersPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary"
+            className="px-4 py-2 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-card-dark text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-auto"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -209,7 +209,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users List */}
-      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-4 sm:p-6">
         {isLoading ? (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
@@ -230,107 +230,187 @@ export default function AdminUsersPage() {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border-light dark:border-border-dark">
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
-                    Name
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
-                    Email
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
-                    Role
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
-                    Status
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
-                    Joined
-                  </th>
-                  <th className="text-right py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredUsers.map((user: User) => (
-                  <tr
-                    key={user._id}
-                    className="border-b border-border-light dark:border-border-dark hover:bg-gray-50 dark:hover:bg-gray-800"
-                  >
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-3">
-                        {user.image ? (
-                          <Image
-                            src={user.image}
-                            alt={user.name}
-                            width={40}
-                            height={40}
-                            className="w-10 h-10 rounded-full object-cover"
-                          />
-                        ) : (
-                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                            <FaUser className="text-primary" />
-                          </div>
-                        )}
-                        <span className="font-medium text-text-light dark:text-text-dark">
-                          {user.name}
-                        </span>
+          <>
+            {/* Mobile Card View */}
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+              {filteredUsers.map((user: User) => (
+                <div
+                  key={user._id}
+                  className="bg-white dark:bg-card-dark p-4 rounded-xl border border-border-light dark:border-border-dark shadow-sm"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    {user.image ? (
+                      <Image
+                        src={user.image}
+                        alt={user.name}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <FaUser className="text-primary" />
                       </div>
-                    </td>
-                    <td className="py-3 px-4 text-gray-500 dark:text-gray-200">
-                      {user.email}
-                    </td>
-                    <td className="py-3 px-4">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          user.role === 'admin'
-                            ? 'bg-purple-100 text-primary dark:bg-purple-900 dark:text-purple-300'
-                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                        }`}
+                    )}
+                    <div>
+                      <p className="font-semibold text-text-light dark:text-text-dark">
+                        {user.name}
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 break-all">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                        user.role === 'admin'
+                          ? 'bg-purple-100 text-primary dark:bg-purple-900 dark:text-purple-300'
+                          : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+                      }`}
+                    >
+                      {user.role}
+                    </span>
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                        user.isActive
+                          ? 'bg-green-100 text-primary dark:bg-primary dark:text-green-300'
+                          : 'bg-gray-100 text-primary dark:bg-primary dark:text-gray-300'
+                      }`}
+                    >
+                      {user.isActive ? 'Active' : 'Inactive'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span>
+                      Joined: {new Date(user.createdAt).toLocaleDateString()}
+                    </span>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleEditClick(user)}
+                        className="p-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors cursor-pointer"
+                        title="Edit user"
                       >
-                        {user.role}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          user.isActive
-                            ? 'bg-green-100 text-primary dark:bg-primary dark:text-green-300'
-                            : 'bg-gray-100 text-primary dark:bg-primary dark:text-gray-300'
-                        }`}
+                        <FaEdit />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(user)}
+                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer"
+                        title="Delete user"
                       >
-                        {user.isActive ? 'Active' : 'Inactive'}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
-                      {new Date(user.createdAt).toLocaleDateString()}
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center justify-end gap-2">
-                        <button
-                          onClick={() => handleEditClick(user)}
-                          className="p-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors cursor-pointer"
-                          title="Edit user"
-                        >
-                          <FaEdit />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(user)}
-                          className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer"
-                          title="Delete user"
-                        >
-                          <FaTrash />
-                        </button>
-                      </div>
-                    </td>
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border-light dark:border-border-dark">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
+                      Name
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
+                      Email
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
+                      Role
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
+                      Status
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
+                      Joined
+                    </th>
+                    <th className="text-right py-3 px-4 text-sm font-semibold text-gray-500 dark:text-gray-200">
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {filteredUsers.map((user: User) => (
+                    <tr
+                      key={user._id}
+                      className="border-b border-border-light dark:border-border-dark hover:bg-gray-50 dark:hover:bg-gray-800"
+                    >
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-3">
+                          {user.image ? (
+                            <Image
+                              src={user.image}
+                              alt={user.name}
+                              width={40}
+                              height={40}
+                              className="w-10 h-10 rounded-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                              <FaUser className="text-primary" />
+                            </div>
+                          )}
+                          <span className="font-medium text-text-light dark:text-text-dark">
+                            {user.name}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4 text-gray-500 dark:text-gray-200">
+                        {user.email}
+                      </td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                            user.role === 'admin'
+                              ? 'bg-purple-100 text-primary dark:bg-purple-900 dark:text-purple-300'
+                              : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+                          }`}
+                        >
+                          {user.role}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                            user.isActive
+                              ? 'bg-green-100 text-primary dark:bg-primary dark:text-green-300'
+                              : 'bg-gray-100 text-primary dark:bg-primary dark:text-gray-300'
+                          }`}
+                        >
+                          {user.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
+                        {new Date(user.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            onClick={() => handleEditClick(user)}
+                            className="p-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors cursor-pointer"
+                            title="Edit user"
+                          >
+                            <FaEdit />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteClick(user)}
+                            className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer"
+                            title="Delete user"
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
 

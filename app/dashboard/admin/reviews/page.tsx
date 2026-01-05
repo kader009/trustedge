@@ -158,15 +158,15 @@ export default function AdminReviewsPage() {
       </div>
 
       {/* Reviews List */}
-      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
+      <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+          <h2 className="text-xl font-bold text-text-light dark:text-text-dark whitespace-nowrap">
             All Reviews
           </h2>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`flex-1 sm:flex-none px-4 py-2 rounded-lg transition-colors text-center ${
                 filter === 'all'
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 dark:bg-card-dark text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
@@ -176,7 +176,7 @@ export default function AdminReviewsPage() {
             </button>
             <button
               onClick={() => setFilter('pending')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`flex-1 sm:flex-none px-4 py-2 rounded-lg transition-colors text-center ${
                 filter === 'pending'
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 dark:bg-card-dark text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
@@ -186,7 +186,7 @@ export default function AdminReviewsPage() {
             </button>
             <button
               onClick={() => setFilter('approved')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`flex-1 sm:flex-none px-4 py-2 rounded-lg transition-colors text-center ${
                 filter === 'approved'
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 dark:bg-card-dark text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700'
@@ -240,10 +240,10 @@ export default function AdminReviewsPage() {
                       />
                     </div>
                   )}
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="font-semibold text-text-light dark:text-text-dark text-lg">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col sm:flex-row items-start justify-between mb-2 gap-2">
+                      <div className="min-w-0 w-full">
+                        <h3 className="font-semibold text-text-light dark:text-text-dark text-lg truncate">
                           {review.title ||
                             review.productId?.name ||
                             'Untitled Review'}
