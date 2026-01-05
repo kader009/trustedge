@@ -63,7 +63,7 @@ export default function AnalyticsPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* Total Users */}
-        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaUsers className="text-primary text-xl" />
@@ -82,7 +82,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Total Reviews */}
-        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaFileAlt className="text-primary text-xl" />
@@ -100,7 +100,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Premium Content */}
-        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaCrown className="text-primary text-xl" />
@@ -116,7 +116,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Potential Value */}
-        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div className="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaDollarSign className="text-primary text-xl" />
@@ -137,7 +137,7 @@ export default function AnalyticsPage() {
       {/* Charts / Lists Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Popular Premium Reviews */}
-        <div className="lg:col-span-2 bg-white dark:bg-card-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm p-6">
+        <div className="lg:col-span-2 bg-white dark:bg-card-dark rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm p-6">
           <h2 className="text-xl font-bold text-text-light dark:text-white mb-6">
             Popular Premium Reviews
           </h2>
@@ -146,7 +146,7 @@ export default function AnalyticsPage() {
               popularPremium.map((review: IReview) => (
                 <div
                   key={review._id}
-                  className="flex items-center gap-4 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-700"
+                  className="flex items-center gap-4 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-700"
                 >
                   <div className="w-16 h-16 bg-gray-200 dark:bg-card-dark rounded-lg overflow-hidden shrink-0 relative">
                     {review.images?.[0] ? (
@@ -194,7 +194,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Summary Card */}
-        <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm p-6">
           <h2 className="text-xl font-bold text-text-light dark:text-white mb-6">
             Platform Health
           </h2>
