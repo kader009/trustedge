@@ -7,7 +7,7 @@ import { setUser } from '@/src/redux/userAuth/userSlice';
 import { FaUser, FaEnvelope, FaCalendar, FaShieldAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import EditProfileModal from '@/src/components/profile/EditProfileModal';
-import { ProfileSkeleton } from '@/src/components/shared/LoadingSkeleton';
+import { ProfileSkeleton } from '@/src/components/skeletons/CommonSkeletons';
 
 export default function UserProfileClient() {
   const { user, token } = useAppSelector((state: RootState) => state.user);
@@ -198,7 +198,8 @@ export default function UserProfileClient() {
             <button className="w-full text-left p-4 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
               <p className="font-medium text-danger mb-1">Delete Account</p>
               <p className="text-sm text-gray-500 dark:text-gray-200">
-                Permanently delete your account and all data (Only admins can perform this action)
+                Permanently delete your account and all data (Only admins can
+                perform this action)
               </p>
             </button>
           </div>

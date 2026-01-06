@@ -6,6 +6,7 @@ import {
   useGetPendingReviewsQuery,
 } from '@/src/redux/store/api/endApi';
 import Image from 'next/image';
+import { ListSkeleton } from '@/src/components/skeletons/CommonSkeletons';
 
 interface Review {
   _id: string;
@@ -198,9 +199,7 @@ export default function AdminReviewsPage() {
         </div>
 
         {isLoading ? (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-200">
-            Loading reviews...
-          </div>
+          <ListSkeleton count={5} />
         ) : filteredReviews.length === 0 ? (
           <div className="text-center py-12">
             <FaStar className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />

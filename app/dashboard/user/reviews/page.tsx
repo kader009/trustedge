@@ -18,6 +18,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ReviewType } from '@/src/types/reviewType';
 import { Review } from '@/src/types/reviews';
+import {
+  StatsSkeleton,
+  ListSkeleton,
+} from '@/src/components/skeletons/CommonSkeletons';
 
 export default function UserReviewsPage() {
   const { data, isLoading, error, refetch } = useGetUserReviewsQuery(undefined);
@@ -79,53 +83,57 @@ export default function UserReviewsPage() {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-primary p-3 rounded-lg text-white">
-              <FaStar className="w-6 h-6" />
+      {isLoading ? (
+        <StatsSkeleton />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+          <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-primary p-3 rounded-lg text-white">
+                <FaStar className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-text-light dark:text-text-dark">
+                  {stats.total || reviews.length}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-200">
+                  Total Reviews
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                {isLoading ? '...' : stats.total || reviews.length}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-200">
-                Total Reviews
-              </p>
+          </div>
+          <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-primary p-3 rounded-lg text-white">
+                <FaEye className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-text-light dark:text-text-dark">
+                  {stats.totalViews || 0}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-200">
+                  Total Views
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-primary p-3 rounded-lg text-white">
+                <FaStar className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-text-light dark:text-text-dark">
+                  {(stats.avgRating || 0).toFixed(1)}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-200">
+                  Avg Rating
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-primary p-3 rounded-lg text-white">
-              <FaEye className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                {isLoading ? '...' : stats.totalViews || 0}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-200">
-                Total Views
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-primary p-3 rounded-lg text-white">
-              <FaStar className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-text-light dark:text-text-dark">
-                {isLoading ? '...' : (stats.avgRating || 0).toFixed(1)}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-200">
-                Avg Rating
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* Reviews List */}
       <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-4 sm:p-6">
@@ -141,12 +149,7 @@ export default function UserReviewsPage() {
         </div>
 
         {isLoading ? (
-          <div className="text-center py-12">
-            <FaSpinner className="w-12 h-12 text-primary mx-auto mb-4 animate-spin" />
-            <p className="text-gray-500 dark:text-gray-200">
-              Loading your reviews...
-            </p>
-          </div>
+          <ListSkeleton count={3} />
         ) : error ? (
           <div className="text-center py-12">
             <p className="text-red-500 mb-2">Failed to load reviews</p>
