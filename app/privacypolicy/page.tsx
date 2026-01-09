@@ -161,7 +161,7 @@ const PrivacyPolicy = () => {
               <FaCookieBite className="w-5 h-5" />
               Cookie Policy Overview
             </h4>
-            <p className="text-sm text-text-secondary dark:text-blue-200/70 leading-relaxed mb-4">
+            <p className="text-sm text-text-secondary dark:text-gray-300 leading-relaxed mb-4">
               We may use cookies, web beacons, tracking pixels, and other
               tracking technologies on the Site to help customize the Site and
               improve your experience. When you access the Site, your personal

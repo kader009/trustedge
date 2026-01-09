@@ -82,12 +82,14 @@ export default async function ReviewDetailPage({
     likes: reviewData.likes || 0,
     dislikes: 0,
     comments: Array.isArray(reviewData.comments)
-      ? reviewData.comments.map((c: Comment) => ({
-          id: c._id,
-          author: c.user?.name || 'User',
+      ? reviewData.comments.map((card: Comment) => ({
+          id: card._id,
+          author: card.user?.name || 'User',
           avatar:
-            c.user?.image || c.user?.avatar || '/assets/default-avatar.svg',
-          date: new Date(c.createdAt || Date.now()).toLocaleDateString(
+            card.user?.image ||
+            card.user?.avatar ||
+            '/assets/default-avatar.svg',
+          date: new Date(card.createdAt || '2025-12-25').toLocaleDateString(
             'en-US',
             {
               month: 'short',
@@ -95,7 +97,7 @@ export default async function ReviewDetailPage({
               year: 'numeric',
             }
           ),
-          text: c.comment,
+          text: card.comment,
         }))
       : [],
   };
