@@ -39,7 +39,7 @@ export default function AuthSync() {
 
           const response = await socialLogin(userInfo).unwrap();
 
-          if (response.success && response.data) {
+          if (response?.success && response?.data) {
             dispatch(
               setUser({
                 user: response.data.user,
@@ -56,7 +56,12 @@ export default function AuthSync() {
 
           const err = error as FetchBaseQueryError | SerializedError;
 
-          if ('status' in err && err.status === 404) {
+          if (
+            err &&
+            typeof err === 'object' &&
+            'status' in err &&
+            err.status === 404
+          ) {
             console.error(
               'Account not found. Please register first or backend implementation missing.'
             );

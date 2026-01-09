@@ -39,11 +39,11 @@ export default function Error({
         {process.env.NODE_ENV === 'development' && (
           <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-left">
             <p className="text-xs font-mono text-red-600 dark:text-red-400 break-all">
-              {error.message}
+              {error?.message || 'No error message available'}
             </p>
-            {error.digest && (
+            {error?.digest && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                Error ID: {error.digest}
+                Error ID: {error?.digest}
               </p>
             )}
           </div>
