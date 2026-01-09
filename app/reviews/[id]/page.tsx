@@ -29,7 +29,7 @@ export default async function ReviewDetailPage({
       productId: product,
       rating: product.rating || 5,
       review: product.description || 'Great product! Highly recommended.',
-      createdAt: new Date().toISOString(),
+      createdAt: '2025-12-25T00:00:00.000Z',
       likes: 0,
       comments: [],
     };
@@ -64,7 +64,7 @@ export default async function ReviewDetailPage({
         '/assets/default-avatar.svg',
       role: 'Verified Buyer',
     },
-    date: new Date(reviewData.createdAt || Date.now()).toLocaleDateString(
+    date: new Date(reviewData.createdAt || '2025-12-25').toLocaleDateString(
       'en-US',
       {
         month: 'short',
