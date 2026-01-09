@@ -18,8 +18,9 @@ const Footer = () => {
             <div className="flex gap-4 mt-2">
               <Link
                 className="text-white/80 hover:text-primary transition-colors"
-                href="#"
+                href="https://www.facebook.com/"
                 aria-label="Visit our Facebook page"
+                target="_blank"
               >
                 <svg
                   className="h-6 w-6"
@@ -32,8 +33,9 @@ const Footer = () => {
               </Link>
               <Link
                 className="text-white/80 hover:text-primary transition-colors"
-                href="#"
+                href="https://x.com/home"
                 aria-label="Visit our Twitter page"
+                target="_blank"
               >
                 <svg
                   className="h-6 w-6"
@@ -46,8 +48,9 @@ const Footer = () => {
               </Link>
               <Link
                 className="text-white/80 hover:text-primary transition-colors"
-                href="#"
+                href="https://www.instagram.com/"
                 aria-label="Visit our Instagram page"
+                target="_blank"
               >
                 <svg
                   className="h-6 w-6"
