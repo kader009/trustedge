@@ -9,7 +9,7 @@ import { setEmail, setPassword } from '@/src/redux/userAuth/loginSlice';
 import { setUser } from '@/src/redux/userAuth/userSlice';
 import { loginSchema } from '@/src/validation/authSchema';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'sonner';
@@ -23,6 +23,8 @@ const Loginview = () => {
   const { email, password } = useAppSelector((state: RootState) => state.login);
   const [login, { isLoading }] = useLoginMutation();
   const route = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +61,7 @@ const Loginview = () => {
       );
 
       toast.success('Login successful!');
-      route.replace('/');
+      route.replace(callbackUrl);
       dispatch(setEmail(''));
       dispatch(setPassword(''));
     } catch (error) {
@@ -78,10 +80,12 @@ const Loginview = () => {
         </p>
 
         {/*  Admin Access Info */}
-        <AdminLogin onDemoLogin={(email, password) => {
-          dispatch(setEmail(email));
-          dispatch(setPassword(password));
-        }} />
+        <AdminLogin
+          onDemoLogin={(email, password) => {
+            dispatch(setEmail(email));
+            dispatch(setPassword(password));
+          }}
+        />
 
         {/* user form */}
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>

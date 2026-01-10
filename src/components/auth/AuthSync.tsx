@@ -62,9 +62,8 @@ export default function AuthSync() {
             'status' in err &&
             err.status === 404
           ) {
-            console.error(
-              'Account not found. Please register first or backend implementation missing.'
-            );
+            console.error('Account not found. Please register first.');
+            toast.error('Account not found. Please register first.');
           } else {
             toast.error('Social login sync failed.');
           }

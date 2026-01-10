@@ -237,13 +237,13 @@ export default function UserReviewsPage() {
                     </div>
 
                     {/* Review Text */}
-                    <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-2 mb-3 break-words">
+                    <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-2 mb-3 wrap-break-word">
                       {review.review}
                     </p>
 
                     {/* Admin Feedback (if rejected) */}
                     {review.status === 'rejected' && review.adminFeedback && (
-                      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 mb-3 break-words">
+                      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 mb-3 wrap-break-word">
                         <p className="text-sm font-medium text-red-800 dark:text-red-300 mb-1">
                           Rejection Reason:
                         </p>
