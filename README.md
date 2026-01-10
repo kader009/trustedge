@@ -46,7 +46,7 @@
 
 ### Prerequisites
 - Node.js (Latest LTS version recommended)
-- npm or yarn
+- npm or yarn your choice
 
 ### Installation
 
