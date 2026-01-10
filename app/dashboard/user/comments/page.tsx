@@ -19,17 +19,7 @@ import Link from 'next/link';
 import { useAppSelector } from '@/src/redux/hook';
 import Image from 'next/image';
 import UserCommentSkeleton from '@/src/components/skeletons/UserCommentSkeleton';
-
-interface Comment {
-  _id: string;
-  text: string;
-  review: {
-    _id: string;
-    title: string;
-  };
-  createdAt: string;
-  updatedAt?: string;
-}
+import { Comment } from '@/src/types/userComment';
 
 export default function UserCommentsPage() {
   const { user } = useAppSelector((state) => state.user);

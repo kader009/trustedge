@@ -1,27 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaStar, FaThumbsUp, FaUser, FaCalendar } from 'react-icons/fa';
-
-interface ReviewCardProps {
-  review: {
-    _id: string;
-    title: string;
-    rating: number;
-    productId?: {
-      images?: string[];
-      title?: string;
-    };
-    user?: {
-      name: string;
-      image?: string;
-    };
-    category?: {
-      name: string;
-    };
-    createdAt: string;
-    voteCount?: number;
-  };
-}
+import { ReviewCardProps } from '@/src/types/reviewProps';
 
 export default function ReviewCard({ review }: ReviewCardProps) {
   const imageUrl =

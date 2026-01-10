@@ -4,30 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Pagination from '@/src/components/product/Pagination';
 import ReviewCard from '@/src/components/product/ReviewCard';
-
-interface Review {
-  id: string;
-  category: string;
-  categoryColor: string;
-  title: string;
-  rating: number;
-  imageUrl: string;
-  author: string;
-  date: string;
-  likes: number;
-  comments: number;
-  description?: string;
-  product: {
-    title: string;
-    price: number;
-    category: string;
-    image: string;
-  };
-}
-
-interface CategoriesClientProps {
-  reviews: Review[];
-}
+import { CategoriesClientProps, Review } from '@/src/types/categoryClient';
 
 export default function CategoriesClient({ reviews }: CategoriesClientProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');

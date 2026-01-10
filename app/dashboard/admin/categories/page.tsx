@@ -11,14 +11,7 @@ import {
 import { toast } from 'sonner';
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaTag } from 'react-icons/fa';
 import CategorySkeleton from '@/src/components/skeletons/CategorySkeleton';
-
-interface Category {
-  _id: string;
-  name: string;
-  slug?: string;
-  image?: string;
-  createdAt?: string;
-}
+import { Category } from '@/src/types/adminCategory';
 
 export default function CategoryManagementPage() {
   const { data: categoriesData, isLoading: isLoadingCategories } =

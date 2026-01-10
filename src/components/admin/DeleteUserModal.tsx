@@ -3,19 +3,7 @@
 import { FaTimes, FaExclamationTriangle } from 'react-icons/fa';
 import { useDeleteUserMutation } from '@/src/redux/store/api/endApi';
 import { toast } from 'sonner';
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-interface DeleteUserModalProps {
-  user: User;
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { DeleteUserModalProps } from '@/src/types/deleteUserModal';
 
 export default function DeleteUserModal({
   user,

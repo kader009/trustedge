@@ -8,21 +8,7 @@ import { toast } from 'sonner';
 import { FaTrash, FaComment, FaUser, FaClock, FaSearch } from 'react-icons/fa';
 import CommentSkeleton from '@/src/components/skeletons/CommentSkeleton';
 import Image from 'next/image';
-
-interface Comment {
-  _id: string;
-  text: string;
-  image: string;
-  reviewId: string;
-  user: {
-    _id: string;
-    image: string;
-    name: string;
-    email: string;
-  };
-  createdAt: string;
-  updatedAt?: string;
-}
+import { Comment } from '@/src/types/adminpendingComment';
 
 export default function CommentModerationPage() {
   const [searchTerm, setSearchTerm] = useState('');
