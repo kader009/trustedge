@@ -4,7 +4,7 @@ import { FaGavel, FaBan, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 const TermAndServices = () => {
   return (
     <main className="grow w-full flex flex-col items-center py-8 px-4">
-      <article className="w-full max-w-380 bg-white dark:bg-[#151c2b] rounded-md shadow-sm border border-border-light dark:border-border-dark overflow-hidden">
+      <article className="w-full max-w-380 bg-white dark:bg-card-dark rounded-md shadow-sm border border-border-light dark:border-border-dark overflow-hidden">
         <div className="p-8 sm:p-12 border-b border-border-light dark:border-border-dark bg-linear-to-br from-white to-blue-50 dark:from-primary dark:to-primary">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 text-primary text-sm font-semibold uppercase tracking-wide">
@@ -62,7 +62,7 @@ const TermAndServices = () => {
               Failure to do so constitutes a breach of the Terms, which may
               result in immediate termination of your account on our Service.
             </p>
-            <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-primary p-4 rounded-r text-sm text-gray-800 dark:text-gray-200">
+            <div className="bg-blue-50 dark:bg-card-dark border-l-4 border-primary p-4 rounded-r text-sm text-gray-800 dark:text-gray-200">
               <span className="font-bold block mb-1">Security Notice</span>
               You are responsible for safeguarding the password that you use to
               access the Service and for any activities or actions under your
