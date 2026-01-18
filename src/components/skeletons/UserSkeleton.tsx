@@ -12,7 +12,7 @@ export default function UserDashboardSkeleton() {
         {/* Total Reviews Card */}
         <div className="bg-white dark:bg-card-dark rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
           <div className="w-12 h-12 sm:w-14 sm:h-14 bg-teal-600 dark:bg-teal-700 rounded-xl mb-3 sm:mb-4 animate-pulse flex items-center justify-center">
-            <div className="w-6 h-6 bg-white/30 rounded animate-pulse"></div>
+            <div className="w-6 h-6 bg-white/30 rounded-full animate-pulse"></div>
           </div>
           <div className="h-8 sm:h-9 bg-gray-200 dark:bg-card-dark rounded w-10 mb-2 sm:mb-3 animate-pulse"></div>
           <div className="h-4 sm:h-5 bg-gray-200 dark:bg-card-dark rounded w-24 sm:w-28 animate-pulse"></div>
@@ -30,7 +30,7 @@ export default function UserDashboardSkeleton() {
         {/* Comments Card */}
         <div className="bg-white dark:bg-card-dark rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow sm:col-span-2 lg:col-span-1">
           <div className="w-12 h-12 sm:w-14 sm:h-14 bg-teal-600 dark:bg-teal-700 rounded-xl mb-3 sm:mb-4 animate-pulse flex items-center justify-center">
-            <div className="w-6 h-6 bg-white/30 rounded animate-pulse"></div>
+            <div className="w-6 h-6 bg-white/30 rounded-full animate-pulse"></div>
           </div>
           <div className="h-8 sm:h-9 bg-gray-200 dark:bg-card-dark rounded w-10 mb-2 sm:mb-3 animate-pulse"></div>
           <div className="h-4 sm:h-5 bg-gray-200 dark:bg-card-dark rounded w-24 sm:w-28 animate-pulse"></div>
