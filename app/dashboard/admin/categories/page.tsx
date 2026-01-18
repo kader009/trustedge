@@ -106,7 +106,7 @@ export default function CategoryManagementPage() {
           label: 'Cancel',
           onClick: () => {},
         },
-      }
+      },
     );
   };
 
@@ -149,7 +149,7 @@ export default function CategoryManagementPage() {
             {categories.map((category: Category) => (
               <div
                 key={category._id}
-                className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-6 hover:shadow-lg transition-shadow"
+                className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-border-dark p-6 hover:shadow-lg transition-shadow"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
@@ -180,7 +180,7 @@ export default function CategoryManagementPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+                <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-border-dark">
                   <button
                     onClick={() => handleOpenModal(category)}
                     className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-500 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
@@ -285,8 +285,8 @@ export default function CategoryManagementPage() {
                   {isCreating || isUpdating
                     ? 'Saving...'
                     : editingCategory
-                    ? 'Update Category'
-                    : 'Create Category'}
+                      ? 'Update Category'
+                      : 'Create Category'}
                 </button>
               </div>
             </form>

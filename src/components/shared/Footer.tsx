@@ -17,7 +17,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-4 mt-2">
               <Link
-                className="text-white/80 hover:text-primary transition-colors"
+                className="text-white/80 hover:text-primary transition-colors transition hover:translate-y-1"
                 href="https://www.facebook.com/"
                 aria-label="Visit our Facebook page"
                 target="_blank"
@@ -32,7 +32,7 @@ const Footer = () => {
                 </svg>
               </Link>
               <Link
-                className="text-white/80 hover:text-primary transition-colors"
+                className="text-white/80 hover:text-primary transition-colors transition hover:translate-y-1"
                 href="https://x.com/home"
                 aria-label="Visit our Twitter page"
                 target="_blank"
@@ -47,7 +47,7 @@ const Footer = () => {
                 </svg>
               </Link>
               <Link
-                className="text-white/80 hover:text-primary transition-colors"
+                className="text-white/80 hover:text-primary transition-colors transition hover:translate-y-1"
                 href="https://www.instagram.com/"
                 aria-label="Visit our Instagram page"
                 target="_blank"
