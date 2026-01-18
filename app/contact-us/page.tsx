@@ -86,7 +86,7 @@ const ContactPage = () => {
                 Inquiry Type
               </label>
               <select
-                className="form-select block w-full rounded-lg border-0 bg-gray-100 dark:bg-white/5 py-3.5 px-4 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-200 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-primary text-sm leading-6"
+                className="form-select block w-full rounded-lg border-0 bg-gray-100 dark:bg-card-dark py-3.5 px-4 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-200 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-primary text-sm leading-6"
                 id="inquiry-type"
                 name="inquiry-type"
               >
@@ -128,9 +128,6 @@ const ContactPage = () => {
                 htmlFor="accordion-toggle"
               >
                 <span>Other Support Channels &amp; FAQ</span>
-                <span className="text-gray-500 dark:text-gray-400">
-                  <FaChevronDown />
-                </span>
               </label>
               <div className="space-y-6 pt-4">
                 <div className="space-y-4">
