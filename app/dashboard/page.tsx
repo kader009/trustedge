@@ -21,13 +21,9 @@ export default function DashboardPage() {
     }
   }, [user, router]);
 
-  // Show role-specific skeleton while determining role
   if (!user) {
-    // Default to user skeleton if role unknown
     return <UserDashboardSkeleton />;
   }
-
-  // Show correct skeleton during redirect
   return user.role === 'admin' ? (
     <AdminDashboardSkeleton />
   ) : (

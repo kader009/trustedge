@@ -162,7 +162,7 @@ export default function DashboardLayout({
             <Link
               href="/"
               onClick={closeSidebar}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors"
             >
               <FaHome className="w-5 h-5" />
               <span className="font-medium">Back to Home</span>

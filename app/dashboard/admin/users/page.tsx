@@ -28,7 +28,7 @@ export default function AdminUsersPage() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { user: currentUser } = useAppSelector(
-    (state: RootState) => state.user
+    (state: RootState) => state.user,
   );
 
   const { data: usersData, isLoading } = useGetAllUsersQuery(undefined);
@@ -102,7 +102,7 @@ export default function AdminUsersPage() {
           label: 'Cancel',
           onClick: () => {},
         },
-      }
+      },
     );
   };
 
@@ -337,7 +337,7 @@ export default function AdminUsersPage() {
                   {filteredUsers.map((user: User) => (
                     <tr
                       key={user._id}
-                      className="border-b border-border-light dark:border-border-dark hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="border-b border-border-light dark:border-border-dark hover:bg-gray-50 dark:hover:bg-gray-600 rounded"
                     >
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">

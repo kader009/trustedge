@@ -360,7 +360,7 @@ export default function PendingCommentsPage() {
                         )
                       }
                       disabled={isDeleting}
-                      className="flex-1 sm:flex-none justify-center items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap cursor-pointer"
+                      className="flex sm:flex-none justify-center items-center gap-2 px-4 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap cursor-pointer"
                     >
                       <FaTrash /> Delete
                     </button>

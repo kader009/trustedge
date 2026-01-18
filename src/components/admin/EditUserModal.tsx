@@ -210,7 +210,7 @@ export default function EditUserModal({
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 cursor-pointer"
+              className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors disabled:opacity-50 cursor-pointer"
             >
               Cancel
             </button>

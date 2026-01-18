@@ -113,7 +113,7 @@ export default function AdminDashboard() {
               {recentUsers.map((user: User) => (
                 <div
                   key={user._id}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors"
                 >
                   <div className="w-10 h-10 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center">
                     {user.image ? (
