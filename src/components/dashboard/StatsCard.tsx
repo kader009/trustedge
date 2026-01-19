@@ -10,7 +10,7 @@ export default function StatsCard({
   href,
 }: StatsCardProps) {
   const content = (
-    <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105">
+    <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all">
       <div className="flex items-center justify-between mb-4">
         <div className={`${color} p-3 rounded-lg text-white`}>
           <Icon className="w-6 h-6" />

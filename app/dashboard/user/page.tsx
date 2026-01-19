@@ -66,7 +66,7 @@ export default function UserDashboard() {
               <Link
                 key={index}
                 href={stat.href}
-                className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all hover:scale-105 cursor-pointer"
+                className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6 hover:shadow-lg transition-all"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className={`${stat.color} p-3 rounded-lg text-white`}>
