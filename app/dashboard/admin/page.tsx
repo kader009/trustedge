@@ -4,6 +4,7 @@ import { FaCheckCircle, FaUsers } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 import StatsCard from '@/src/components/dashboard/StatsCard';
+import RecentUserSkeleton from '@/src/components/skeletons/RecentUserSkeleton';
 import { adminStats } from '@/src/data/adminStats';
 import {
   useGetallReviewQuery,
@@ -14,7 +15,8 @@ import {
 import { Comment, Review, User } from '@/src/types/userIndex';
 
 export default function AdminDashboard() {
-  const { data: usersData } = useGetAllUsersQuery(undefined);
+  const { data: usersData, isLoading: isUsersLoading } =
+    useGetAllUsersQuery(undefined);
   const users = usersData?.data || [];
   const { data: reviewData } = useGetallReviewQuery(undefined);
   const { data: pendingReview } = useGetPendingReviewsQuery(undefined);
@@ -40,7 +42,7 @@ export default function AdminDashboard() {
 
   // Calculate pending comments (matching status === 'pending' or missing status)
   const pendingCommentsCount = comments.filter(
-    (comment: Comment) => comment.status === 'pending' || !comment.status
+    (comment: Comment) => comment.status === 'pending' || !comment.status,
   ).length;
 
   // Get recent 3 users
@@ -89,61 +91,65 @@ export default function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Recent Users */}
-        <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
-              Recent Users
-            </h2>
-            <Link
-              href="/dashboard/admin/users"
-              className="text-primary hover:underline text-sm font-medium"
-            >
-              View All →
-            </Link>
+        {isUsersLoading ? (
+          <RecentUserSkeleton />
+        ) : (
+          <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-text-light dark:text-text-dark">
+                Recent Users
+              </h2>
+              <Link
+                href="/dashboard/admin/users"
+                className="text-primary hover:underline text-sm font-medium"
+              >
+                View All →
+              </Link>
+            </div>
+            {recentUsers.length === 0 ? (
+              <div className="text-center py-8">
+                <FaUsers className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
+                <p className="text-gray-500 dark:text-gray-200">
+                  No users registered yet
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {recentUsers.map((user: User) => (
+                  <div
+                    key={user._id}
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center">
+                      {user.image ? (
+                        <Image
+                          src={user.image}
+                          alt={user.name}
+                          width={40}
+                          height={40}
+                          className="object-cover w-full h-full"
+                        />
+                      ) : (
+                        <FaUsers className="text-primary" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                        {user.name}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                        {user.email}
+                      </p>
+                    </div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
+                      {user.role}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-          {recentUsers.length === 0 ? (
-            <div className="text-center py-8">
-              <FaUsers className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-              <p className="text-gray-500 dark:text-gray-200">
-                No users registered yet
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {recentUsers.map((user: User) => (
-                <div
-                  key={user._id}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center">
-                    {user.image ? (
-                      <Image
-                        src={user.image}
-                        alt={user.name}
-                        width={40}
-                        height={40}
-                        className="object-cover w-full h-full"
-                      />
-                    ) : (
-                      <FaUsers className="text-primary" />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                      {user.name}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {user.email}
-                    </p>
-                  </div>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                    {user.role}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        )}
 
         {/* Pending Reviews */}
         <div className="bg-white dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-6">
