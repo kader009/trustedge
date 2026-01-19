@@ -147,7 +147,7 @@ export default function CommentItem({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-4">
+      <div className="flex gap-3 sm:gap-4">
         {/* Avatar */}
         <div className="shrink-0">
           {comment.user.image ||
@@ -176,11 +176,11 @@ export default function CommentItem({
         {/* Content */}
         <div className="flex-1 min-w-0">
           {/* Header */}
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1">
             <span className="font-semibold text-text-light dark:text-text-dark">
               {comment.user.name}
             </span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
               {formattedDate}
             </span>
             {isEdited && (
@@ -328,7 +328,7 @@ export default function CommentItem({
 
       {/* Nested Replies */}
       {showReplies && (
-        <div className="pl-12 space-y-4 border-l-2 border-gray-100 dark:border-gray-800 ml-4">
+        <div className="pl-4 sm:pl-12 space-y-4 border-l-2 border-gray-100 dark:border-gray-800 ml-0 sm:ml-4">
           {isLoadingReplies ? (
             <div className="text-sm text-gray-500 dark:text-gray-400 py-2">
               Loading replies...
