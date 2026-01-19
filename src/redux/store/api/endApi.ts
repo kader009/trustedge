@@ -388,6 +388,9 @@ const TrustEdgeApi = baseApi.injectEndpoints({
         url: `/api/v1/comments/count/${reviewId}`,
         method: 'GET',
       }),
+      providesTags: (result, error, reviewId) => [
+        { type: 'Comment', id: reviewId },
+      ],
     }),
 
     // Hard delete comment (admin)

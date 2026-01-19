@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 import { useAppSelector } from '@/src/redux/hook';
-import { useGetCommentsQuery } from '@/src/redux/store/api/endApi';
+import {
+  useGetCommentsQuery,
+  useGetCommentCountQuery,
+} from '@/src/redux/store/api/endApi';
 import CommentForm from '@/src/components/reviews/CommentForm';
 import CommentItem from '@/src/components/reviews/CommentItem';
 import { FaComment } from 'react-icons/fa';
@@ -20,6 +23,9 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
     limit: 10,
   });
 
+  const { data: countData, refetch: refetchCount } =
+    useGetCommentCountQuery(reviewId);
+
   const comments = Array.isArray(data?.data)
     ? data.data
     : data?.data?.comments || [];
@@ -27,6 +33,7 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
 
   const handleCommentAdded = () => {
     refetch();
+    refetchCount();
   };
 
   return (
@@ -34,7 +41,13 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
       {/* Header */}
       <h3 className="text-2xl font-bold text-text-light dark:text-white mb-6 flex items-center gap-2">
         <FaComment className="text-primary" />
-        Comments ({pagination.total || comments.length || 0})
+        Comments (
+        {countData?.data?.count ||
+          countData?.data ||
+          pagination.total ||
+          comments.length ||
+          0}
+        )
       </h3>
 
       {/* Comment Form */}
