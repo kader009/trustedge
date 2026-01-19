@@ -199,7 +199,7 @@ export default async function ReviewDetailPage({
             </div>
 
             {/* Review Content */}
-            <div className="bg-white dark:bg-card-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="bg-white dark:bg-card-dark rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   Product Description
@@ -229,7 +229,7 @@ export default async function ReviewDetailPage({
               )}
 
               {/* Voting Buttons */}
-              <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+              <div className="flex flex-wrap items-center justify-between gap-4 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100 dark:border-gray-700">
                 <VotingButtons
                   reviewId={review.id}
                   initialVoteCount={review.likes}

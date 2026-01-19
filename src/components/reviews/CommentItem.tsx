@@ -68,7 +68,7 @@ export default function CommentItem({
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-    }
+    },
   );
 
   const handleUpdate = async () => {
@@ -184,7 +184,7 @@ export default function CommentItem({
               {formattedDate}
             </span>
             {isEdited && (
-              <span className="text-xs text-gray-400 dark:text-gray-500 italic">
+              <span className="text-xs text-gray-400 dark:text-gray-500">
                 (edited)
               </span>
             )}

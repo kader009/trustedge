@@ -68,43 +68,45 @@ export default function VotingButtons({
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-2 sm:gap-4">
       {/* Upvote Button */}
       <button
         onClick={() => handleVote('upvote')}
         disabled={isLoading}
-        className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
+        className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-lg border transition-all ${
           userVote === 'upvote'
             ? 'bg-primary text-white border-primary'
             : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
         } disabled:opacity-50 disabled:cursor-not-allowed`}
       >
-        <FaThumbsUp className="w-5 h-5" />
-        <span className="font-semibold">
+        <FaThumbsUp className="w-4 h-4 sm:w-5 sm:h-5" />
+        <span className="font-semibold text-sm sm:text-base">
           {userVote === 'upvote' ? 'Upvoted' : 'Helpful'}
         </span>
       </button>
 
       {/* Vote Count */}
-      <div className="text-center">
-        <p className="text-2xl font-bold text-text-light dark:text-text-dark">
+      <div className="text-center min-w-[3rem]">
+        <p className="text-xl sm:text-2xl font-bold text-text-light dark:text-text-dark">
           {displayCount}
         </p>
-        <p className="text-sm text-gray-500 dark:text-gray-400">votes</p>
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+          votes
+        </p>
       </div>
 
       {/* Downvote Button */}
       <button
         onClick={() => handleVote('downvote')}
         disabled={isLoading}
-        className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
+        className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-lg border transition-all ${
           userVote === 'downvote'
             ? 'bg-red-500 text-white border-red-500'
             : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
         } disabled:opacity-50 disabled:cursor-not-allowed`}
       >
-        <FaThumbsDown className="w-5 h-5" />
-        <span className="font-semibold">
+        <FaThumbsDown className="w-4 h-4 sm:w-5 sm:h-5" />
+        <span className="font-semibold text-sm sm:text-base">
           {userVote === 'downvote' ? 'Downvoted' : 'Not Helpful'}
         </span>
       </button>
