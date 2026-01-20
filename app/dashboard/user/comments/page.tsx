@@ -35,23 +35,30 @@ export default function UserCommentsPage() {
   const comments: Comment[] = useMemo(
     () =>
       (commentsData?.data || []).filter(
-        (c: Comment) => c.review && c.review._id && c.review.title
+        (c: Comment) => c.review && c.review._id && c.review.title,
       ),
-    [commentsData?.data]
+    [commentsData?.data],
   );
 
-  const handleDelete = async (commentId: string) => {
-    if (!confirm('Are you sure you want to delete this comment?')) {
-      return;
-    }
-
-    try {
-      await deleteComment(commentId).unwrap();
-      toast.success('Comment deleted successfully!');
-    } catch (error: unknown) {
-      const err = error as { data?: { message?: string } };
-      toast.error(err?.data?.message || 'Failed to delete comment');
-    }
+  const handleDelete = (commentId: string) => {
+    toast('Are you sure you want to delete this comment?', {
+      action: {
+        label: 'Yes',
+        onClick: async () => {
+          try {
+            await deleteComment(commentId).unwrap();
+            toast.success('Comment deleted successfully!');
+          } catch (error: unknown) {
+            const err = error as { data?: { message?: string } };
+            toast.error(err?.data?.message || 'Failed to delete comment');
+          }
+        },
+      },
+      cancel: {
+        label: 'Cancel',
+        onClick: () => console.log('Delete cancelled'),
+      },
+    });
   };
 
   const startEdit = (comment: Comment) => {
@@ -118,7 +125,7 @@ export default function UserCommentsPage() {
               <p className="text-2xl font-bold text-text-light dark:text-white">
                 {
                   comments.filter(
-                    (c) => c.updatedAt && c.updatedAt !== c.createdAt
+                    (c) => c.updatedAt && c.updatedAt !== c.createdAt,
                   ).length
                 }
               </p>
