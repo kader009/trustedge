@@ -14,11 +14,13 @@ import {
   FaCrown,
 } from 'react-icons/fa';
 import Image from 'next/image';
+import PopularPremiumReviewsSkeleton from '@/src/components/skeletons/PopularPremiumReviewsSkeleton';
 import { IReview } from '@/src/types/common';
 
 export default function AnalyticsPage() {
   const { data: allReviewsData } = useGetallReviewQuery(undefined);
-  const { data: premiumReviewsData } = useGetPremiumReviewsQuery(undefined);
+  const { data: premiumReviewsData, isLoading: isPremiumLoading } =
+    useGetPremiumReviewsQuery(undefined);
   const { data: pendingReviewsData } = useGetPendingReviewsQuery(undefined);
   const { data: usersData } = useGetAllUsersQuery(undefined);
 
@@ -32,7 +34,7 @@ export default function AnalyticsPage() {
     (acc: number, review: IReview) => {
       return acc + (Number(review.price) || 0); // Use real price or 0
     },
-    0
+    0,
   );
 
   // Popular Premium Reviews (Sorted by rating)
@@ -44,8 +46,8 @@ export default function AnalyticsPage() {
     typeof cat === 'string'
       ? cat
       : cat && typeof cat === 'object' && 'name' in (cat as object)
-      ? (cat as { name?: string }).name
-      : undefined;
+        ? (cat as { name?: string }).name
+        : undefined;
 
   return (
     <div className="flex flex-1 flex-col px-2 lg:px-4 py-8 max-w-full mx-auto w-full">
@@ -142,7 +144,9 @@ export default function AnalyticsPage() {
             Popular Premium Reviews
           </h2>
           <div className="space-y-4">
-            {popularPremium.length > 0 ? (
+            {isPremiumLoading ? (
+              <PopularPremiumReviewsSkeleton />
+            ) : popularPremium.length > 0 ? (
               popularPremium.map((review: IReview) => (
                 <div
                   key={review._id}
@@ -221,7 +225,7 @@ export default function AnalyticsPage() {
                     ? Math.round(
                         (reviews.length /
                           (reviews.length + pendingReviews.length)) *
-                          100
+                          100,
                       )
                     : 0}
                   %
