@@ -49,7 +49,7 @@ export default async function ReviewDetailPage({
   const allProducts = await getProducts(100);
   const relatedProducts = allProducts
     .filter(
-      (p: Product) => p.category === product.category && p._id !== product._id
+      (p: Product) => p.category === product.category && p._id !== product._id,
     )
     .slice(0, 2);
 
@@ -70,7 +70,7 @@ export default async function ReviewDetailPage({
         month: 'short',
         day: 'numeric',
         year: 'numeric',
-      }
+      },
     ),
     rating: reviewData.rating || 0,
     category: categoryName,
@@ -79,7 +79,10 @@ export default async function ReviewDetailPage({
     description:
       product.description || reviewData.review || 'No description available.',
     images: Array.isArray(product.images) ? product.images : [],
-    likes: reviewData.likes || 0,
+    likes:
+      typeof reviewData.likes === 'object'
+        ? reviewData.likes.count || 0
+        : reviewData.likes || 0,
     dislikes: 0,
     comments: Array.isArray(reviewData.comments)
       ? reviewData.comments.map((card: Comment) => ({
@@ -95,7 +98,7 @@ export default async function ReviewDetailPage({
               month: 'short',
               day: 'numeric',
               year: 'numeric',
-            }
+            },
           ),
           text: card.comment,
         }))

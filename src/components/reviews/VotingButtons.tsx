@@ -40,7 +40,10 @@ export default function VotingButtons({
   const isLoading = isVoting || isUnvoting;
 
   // Derive display values from API data with fallback to local state/props
-  const displayCount = voteCountsData?.data?.upvotes ?? localVoteState.count;
+  const apiUpvotes = voteCountsData?.data?.upvotes;
+  const displayCount =
+    (typeof apiUpvotes === 'object' ? apiUpvotes?.count : apiUpvotes) ??
+    localVoteState.count;
   const userVote = userVoteData?.data?.type ?? localVoteState.userVote;
 
   const handleVote = async (voteType: 'upvote' | 'downvote') => {
