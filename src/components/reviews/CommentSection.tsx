@@ -42,10 +42,11 @@ export default function CommentSection({ reviewId }: CommentSectionProps) {
       <h3 className="text-2xl font-bold text-text-light dark:text-white mb-6 flex items-center gap-2">
         <FaComment className="text-primary" />
         Comments (
-        {countData?.data?.count ||
-          countData?.data ||
-          pagination.total ||
-          comments.length ||
+        {(typeof countData?.data === 'object'
+          ? countData?.data?.count
+          : countData?.data) ??
+          pagination.total ??
+          comments.length ??
           0}
         )
       </h3>

@@ -89,9 +89,11 @@ export default function VotingButtons({
       </button>
 
       {/* Vote Count */}
-      <div className="text-center min-w-[3rem]">
+      <div className="text-center min-w-12">
         <p className="text-xl sm:text-2xl font-bold text-text-light dark:text-text-dark">
-          {displayCount}
+          {typeof displayCount === 'number'
+            ? displayCount
+            : ((displayCount as any)?.count ?? 0)}
         </p>
         <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
           votes
