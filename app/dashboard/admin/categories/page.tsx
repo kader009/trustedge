@@ -183,7 +183,7 @@ export default function CategoryManagementPage() {
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-border-dark">
                   <button
                     onClick={() => handleOpenModal(category)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-500 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-500 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:border-gray-700"
                   >
                     <FaEdit /> Edit
                   </button>
@@ -273,7 +273,7 @@ export default function CategoryManagementPage() {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:border-gray-700"
                 >
                   Cancel
                 </button>
