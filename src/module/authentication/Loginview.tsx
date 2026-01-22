@@ -9,7 +9,7 @@ import { setEmail, setPassword } from '@/src/redux/userAuth/loginSlice';
 import { setUser } from '@/src/redux/userAuth/userSlice';
 import { loginSchema } from '@/src/validation/authSchema';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'sonner';
@@ -23,8 +23,6 @@ const Loginview = () => {
   const { email, password } = useAppSelector((state: RootState) => state.login);
   const [login, { isLoading }] = useLoginMutation();
   const route = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +50,6 @@ const Loginview = () => {
     try {
       const response = await login({ email, password }).unwrap();
 
-      // Dispatch to Redux store - setUser already expects { user, token }
       dispatch(
         setUser({
           user: response.data.user,
@@ -61,7 +58,7 @@ const Loginview = () => {
       );
 
       toast.success('Login successful!');
-      route.replace(callbackUrl);
+      route.replace('/');
       dispatch(setEmail(''));
       dispatch(setPassword(''));
     } catch (error) {

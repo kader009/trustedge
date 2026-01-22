@@ -238,7 +238,7 @@ export default function UserCommentsPage() {
                           <button
                             onClick={cancelEdit}
                             disabled={isUpdating}
-                            className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-card-dark text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
+                            className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-card-dark text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600 dark:border-gray-700"
                           >
                             <FaTimes size={12} /> Cancel
                           </button>
