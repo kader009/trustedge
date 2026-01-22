@@ -58,7 +58,7 @@ const Loginview = () => {
       );
 
       toast.success('Login successful!');
-      route.replace('/');
+      route.replace('/'); //place to home page
       dispatch(setEmail(''));
       dispatch(setPassword(''));
     } catch (error) {
