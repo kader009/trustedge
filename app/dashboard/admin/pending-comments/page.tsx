@@ -218,7 +218,7 @@ export default function PendingCommentsPage() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
               <FaComment className="text-white text-xl" />
