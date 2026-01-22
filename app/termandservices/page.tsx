@@ -185,14 +185,6 @@ const TermAndServices = () => {
               </div>
             </div>
           </section>
-          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 mt-6 border-t border-border-light dark:border-border-dark">
-            <button className="px-6 py-2.5 rounded-lg border border-border-light dark:border-border-dark text-text-main dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
-              Decline
-            </button>
-            <button className="px-6 py-2.5 rounded-lg bg-primary text-white font-bold shadow-md transition-all hover:shadow-lg cursor-pointer">
-              I Agree to Terms
-            </button>
-          </div>
         </div>
       </article>
     </main>

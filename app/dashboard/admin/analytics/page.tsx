@@ -32,7 +32,7 @@ export default function AnalyticsPage() {
   // Calculate Real Earnings based on review.price
   const estimatedValue = premiumReviews.reduce(
     (acc: number, review: IReview) => {
-      return acc + (Number(review.price) || 0); // Use real price or 0
+      return acc + (Number(review.price) || 0);
     },
     0,
   );
