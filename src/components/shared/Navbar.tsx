@@ -4,7 +4,6 @@ import { logout } from '@/src/redux/userAuth/userSlice';
 import { RootState } from '@/src/redux/store/store';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { FaUser, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
@@ -12,7 +11,6 @@ import { toast } from 'sonner';
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
-  // const router = useRouter();
   const { user, token } = useAppSelector((state: RootState) => state.user);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
