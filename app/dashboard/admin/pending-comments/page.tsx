@@ -347,7 +347,7 @@ export default function PendingCommentsPage() {
                       comment.status !== 'approved' && (
                         <button
                           onClick={() => handleApprove(comment._id)}
-                          className="flex-1 sm:flex-none justify-center items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap cursor-pointer"
+                          className="flex sm:flex-none justify-center items-center gap-2 px-4 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors whitespace-nowrap cursor-pointer"
                         >
                           <FaCheckCircle /> Approve
                         </button>
