@@ -12,7 +12,7 @@
 - **Review Moderation**: Efficiently approve or reject pending reviews with an intuitive interface.
 - **Comment Moderation**: Dedicated system for managing nested discussions and ensuring platform safety.
 
-### 📝 Comprehensive Review System
+###  Comprehensive Review System
 - **Product Discovery**: Browse products by categories with smart filtering and search.
 - **Detailed Insights**: View in-depth product descriptions, ratings, and community feedback.
 - **Related Recommendations**: Intelligent display of similar products based on category.
@@ -62,7 +62,7 @@
    ```
 
 3. **Environment Setup**:
-   Create a `.env.local` file in the root directory (refer to `.env.example` if available).
+   Create a `.env` file in the root directory (refer to `.env.example` and add criteria as it is).
 
 4. **Run the development server**:
    ```bash
