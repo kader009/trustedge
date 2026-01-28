@@ -70,7 +70,7 @@ export default function AnalyticsPage() {
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaUsers className="text-primary text-xl" />
             </div>
-            <span className="text-sm font-medium text-text-light/60 dark:text-gray-400">
+            <span className="text-sm font-medium text-text-light dark:text-white">
               Total Users
             </span>
           </div>
@@ -89,14 +89,14 @@ export default function AnalyticsPage() {
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaFileAlt className="text-primary text-xl" />
             </div>
-            <span className="text-sm font-medium text-text-light/60 dark:text-gray-400">
+            <span className="text-sm font-medium text-text-light dark:text-white">
               Published Reviews
             </span>
           </div>
           <p className="text-3xl font-bold text-text-light dark:text-white">
             {reviews.length}
           </p>
-          <div className="mt-2 text-sm text-text-light/60 dark:text-gray-400">
+          <div className="mt-2 text-sm text-text-light dark:text-white">
             {pendingReviews.length} pending approval
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function AnalyticsPage() {
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaCrown className="text-primary text-xl" />
             </div>
-            <span className="text-sm font-medium text-text-light/60 dark:text-gray-400">
+            <span className="text-sm font-medium text-text-light dark:text-white">
               Premium Reviews
             </span>
           </div>
@@ -123,15 +123,15 @@ export default function AnalyticsPage() {
             <div className="p-3 bg-primary/10 rounded-lg">
               <FaDollarSign className="text-primary text-xl" />
             </div>
-            <span className="text-sm font-medium text-text-light/60 dark:text-gray-400">
+            <span className="text-sm font-medium text-text-light dark:text-white">
               Content Value
             </span>
           </div>
           <p className="text-3xl font-bold text-text-light dark:text-text-dark">
             ${estimatedValue}
           </p>
-          <div className="mt-2 text-xs text-text-light/60 dark:text-gray-500">
-            *Total value of potential premium unlocks
+          <div className="mt-2 text-xs text-text-light dark:text-white">
+            Total value of potential premium unlocks
           </div>
         </div>
       </div>
@@ -205,7 +205,7 @@ export default function AnalyticsPage() {
           <div className="space-y-6">
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-text-light/60 dark:text-gray-400">
+                <span className="text-text-light dark:text-white">
                   System Status
                 </span>
                 <span className="text-primary font-medium">Operational</span>
@@ -217,7 +217,7 @@ export default function AnalyticsPage() {
 
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-text-light/60 dark:text-gray-400">
+                <span className="text-text-light dark:text-white">
                   Review Approval Rate
                 </span>
                 <span className="text-primary font-medium">
@@ -252,7 +252,7 @@ export default function AnalyticsPage() {
             <h4 className="font-semibold text-text-light dark:text-white mb-2">
               Need Help?
             </h4>
-            <p className="text-sm text-text-light/60 dark:text-gray-400">
+            <p className="text-sm text-text-light dark:text-white">
               Check the developer documentation for API usage and integration
               guides.
             </p>
