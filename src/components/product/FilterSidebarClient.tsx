@@ -72,15 +72,15 @@ export default function FilterSidebarClient({
   return (
     <aside className="w-full lg:w-64 xl:w-72 shrink-0">
       <div className="sticky top-24 space-y-6">
-        <h3 className="text-lg font-bold text-text-light dark:text-text-dark">
-          Filters
-        </h3>
+        <h1 className="text-lg font-bold text-text-light dark:text-text-dark">
+          Filter Option
+        </h1>
 
         {/* Categories Filter */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-text-light dark:text-text-dark">
+          <h2 className="font-semibold text-text-light dark:text-text-dark">
             Categories
-          </h4>
+          </h2>
           <div className="space-y-2 text-sm">
             {categories.length > 0 ? (
               categories.map((category) => (
@@ -107,9 +107,9 @@ export default function FilterSidebarClient({
 
         {/* Rating Filter */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-text-light dark:text-white">
+          <h3 className="font-semibold text-text-light dark:text-white">
             Filter by Rating
-          </h4>
+          </h3>
           <div className="space-y-2">
             {[5, 4, 3].map((rating) => (
               <button
