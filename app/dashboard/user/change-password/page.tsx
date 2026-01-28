@@ -158,7 +158,7 @@ export default function ChangePasswordPage() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="w-full sm:w-auto px-6 h-12 rounded-lg bg-gray-600 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-semibold hover:bg-gray-700 dark:hover:bg-gray-700 transition-colors cursor-pointer text-white"
+              className="w-full sm:w-auto px-6 h-12 rounded-lg bg-gray-600 dark:bg-gray-800 dark:text-gray-200 text-sm font-semibold hover:bg-gray-700 dark:hover:bg-gray-700 transition-colors cursor-pointer text-white"
             >
               Cancel
             </button>
