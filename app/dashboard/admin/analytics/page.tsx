@@ -24,7 +24,16 @@ export default function AnalyticsPage() {
   const { data: pendingReviewsData } = useGetPendingReviewsQuery(undefined);
   const { data: usersData } = useGetAllUsersQuery(undefined);
 
-  const reviews = allReviewsData?.data || [];
+  const allReviews: IReview[] =
+    allReviewsData?.data?.reviews ||
+    allReviewsData?.reviews ||
+    (Array.isArray(allReviewsData?.data) ? allReviewsData.data : []);
+  const reviews: IReview[] = allReviews.filter(
+    (r: IReview) => r.status === 'approved' || r.status === 'published',
+  );
+  const rejectedReviews: IReview[] = allReviews.filter(
+    (r: IReview) => r.status === 'rejected' || r.status === 'unpublished',
+  );
   const premiumReviews = premiumReviewsData?.data || [];
   const pendingReviews = pendingReviewsData?.data || [];
   const users = usersData?.data || [];
@@ -210,7 +219,7 @@ export default function AnalyticsPage() {
                 </span>
                 <span className="text-primary font-medium">Operational</span>
               </div>
-              <div className="w-full bg-gray-100 dark:bg-card-dark rounded-full h-2">
+              <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2">
                 <div className="bg-primary h-2 rounded-full w-full"></div>
               </div>
             </div>
@@ -221,29 +230,30 @@ export default function AnalyticsPage() {
                   Review Approval Rate
                 </span>
                 <span className="text-primary font-medium">
-                  {reviews.length > 0
-                    ? Math.round(
-                        (reviews.length /
-                          (reviews.length + pendingReviews.length)) *
-                          100,
-                      )
+                  {allReviews.length > 0
+                    ? Math.round((reviews.length / allReviews.length) * 100)
                     : 0}
                   %
                 </span>
               </div>
-              <div className="w-full bg-gray-100 dark:bg-card-dark rounded-full h-2 overflow-hidden">
+              <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                 <div
-                  className="bg-primary h-2 rounded-full"
+                  className="bg-primary h-2 rounded-full transition-all duration-500"
                   style={{
                     width: `${
-                      reviews.length > 0
-                        ? (reviews.length /
-                            (reviews.length + pendingReviews.length)) *
-                          100
+                      allReviews.length > 0
+                        ? (reviews.length / allReviews.length) * 100
                         : 0
                     }%`,
                   }}
                 ></div>
+              </div>
+              <div className="flex justify-between text-xs mt-1 text-gray-500 dark:text-gray-400">
+                <span>{reviews.length} approved</span>
+                <span>
+                  {pendingReviews.length} pending · {rejectedReviews.length}{' '}
+                  rejected
+                </span>
               </div>
             </div>
           </div>
