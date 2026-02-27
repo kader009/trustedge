@@ -31,8 +31,7 @@ const PrivacyPolicy = () => {
           </div>
           <div className="prose prose-lg dark:prose-invert text-text-secondary dark:text-gray-300 leading-relaxed wrap-break-word max-w-full">
             <p className="mb-4">
-              At <strong>ReviewPortal</strong> (&quot;we,&quot; &quot;our,&quot;
-              or &quot;us&quot;), we value your trust and are committed to
+              At <strong>ReviewPortal</strong> we value your trust and are committed to
               protecting your privacy. This Privacy Policy outlines how we
               collect, use, disclose, and safeguard your information when you
               visit our website including any other media form, media channel,
