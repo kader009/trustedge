@@ -248,7 +248,7 @@ export default function AnalyticsPage() {
                   }}
                 ></div>
               </div>
-              <div className="flex justify-between text-xs mt-1 text-gray-500 dark:text-gray-400">
+              <div className="flex justify-between text-xs mt-1 text-text-light dark:text-white">
                 <span>{reviews.length} approved</span>
                 <span>
                   {pendingReviews.length} pending · {rejectedReviews.length}{' '}

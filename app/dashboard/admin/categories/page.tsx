@@ -183,7 +183,7 @@ export default function CategoryManagementPage() {
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-border-dark">
                   <button
                     onClick={() => handleOpenModal(category)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-500 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:border-border-dark border border-gray-800"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-500 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:border-border-dark border border-gray-100"
                   >
                     <FaEdit /> Edit
                   </button>
