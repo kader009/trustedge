@@ -12,6 +12,7 @@ import { Comment } from '@/src/types/adminpendingComment';
 
 export default function CommentModerationPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [visibleCount, setVisibleCount] = useState(3);
 
   const { data: commentsData, isLoading } = useGetAllCommentsQuery({
     page: 1,
@@ -30,8 +31,20 @@ export default function CommentModerationPage() {
         .includes((searchTerm || '').toLowerCase()) ||
       (comment.text || '')
         .toLowerCase()
-        .includes((searchTerm || '').toLowerCase())
+        .includes((searchTerm || '').toLowerCase()),
   );
+
+  const visibleComments = filteredComments.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredComments.length;
+
+  const handleViewMore = () => {
+    setVisibleCount((prev) => prev + 3);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    setVisibleCount(3);
+  };
 
   const handleDelete = (commentId: string, text: string) => {
     toast(
@@ -55,7 +68,7 @@ export default function CommentModerationPage() {
           label: 'Cancel',
           onClick: () => {},
         },
-      }
+      },
     );
   };
 
@@ -82,7 +95,7 @@ export default function CommentModerationPage() {
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
             className="w-full pl-12 pr-4 h-14 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-card-dark text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-0 focus:ring-2 focus:ring-primary/50"
             placeholder="Search comments by content or author..."
           />
@@ -136,7 +149,7 @@ export default function CommentModerationPage() {
                 {(() => {
                   const oneDayAgo = new Date().getTime() - 24 * 60 * 60 * 1000;
                   return comments.filter(
-                    (c) => new Date(c.createdAt).getTime() > oneDayAgo
+                    (c) => new Date(c.createdAt).getTime() > oneDayAgo,
                   ).length;
                 })()}
               </p>
@@ -159,64 +172,91 @@ export default function CommentModerationPage() {
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
-            {filteredComments.map((comment) => (
-              <div
-                key={comment._id}
-                className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow"
-              >
-                <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
-                  <div className="flex-1 w-full">
-                    <div className="flex flex-wrap items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                        <Image
-                          src={comment.user?.image}
-                          alt={comment.user?.name}
-                          width={40}
-                          height={40}
-                          className="object-cover w-full h-full rounded-full"
-                        />
+          <>
+            <div className="space-y-4">
+              {visibleComments.map((comment) => (
+                <div
+                  key={comment._id}
+                  className="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow animate-in fade-in slide-in-from-bottom-2 duration-300"
+                >
+                  <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                    <div className="flex-1 w-full">
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                          <Image
+                            src={comment.user?.image}
+                            alt={comment.user?.name}
+                            width={40}
+                            height={40}
+                            className="object-cover w-full h-full rounded-full"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-gray-500 dark:text-white font-bold truncate">
+                            {comment.user?.name || 'Unknown User'}
+                          </p>
+                          <p className="text-gray-500 dark:text-gray-200 text-sm truncate">
+                            {comment.user?.email || 'No email'}
+                          </p>
+                        </div>
+                        <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm whitespace-nowrap">
+                          {new Date(comment.createdAt).toLocaleDateString()}
+                        </span>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-gray-500 dark:text-white font-bold truncate">
-                          {comment.user?.name || 'Unknown User'}
-                        </p>
-                        <p className="text-gray-500 dark:text-gray-200 text-sm truncate">
-                          {comment.user?.email || 'No email'}
+
+                      <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-4 mb-3">
+                        <p className="text-gray-500 dark:text-white wrap-break-word">
+                          {comment?.text}
                         </p>
                       </div>
-                      <span className="ml-auto text-gray-500 dark:text-gray-200 text-sm whitespace-nowrap">
-                        {new Date(comment.createdAt).toLocaleDateString()}
-                      </span>
+
+                      {comment.updatedAt &&
+                        comment.updatedAt !== comment.createdAt && (
+                          <p className="text-gray-500 dark:text-gray-200 text-xs">
+                            Edited:{' '}
+                            {new Date(comment.updatedAt).toLocaleString()}
+                          </p>
+                        )}
                     </div>
 
-                    <div className="bg-gray-50 dark:bg-card-dark rounded-lg p-4 mb-3">
-                      <p className="text-gray-500 dark:text-white wrap-break-word">
-                        {comment?.text}
-                      </p>
+                    <div className="w-full sm:w-auto">
+                      <button
+                        onClick={() => handleDelete(comment._id, comment.text)}
+                        disabled={isDeleting}
+                        className="flex items-center justify-center gap-2 px-4 h-10 w-full sm:w-auto rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
+                      >
+                        <FaTrash /> Delete
+                      </button>
                     </div>
-
-                    {comment.updatedAt &&
-                      comment.updatedAt !== comment.createdAt && (
-                        <p className="text-gray-500 dark:text-gray-200 text-xs">
-                          Edited: {new Date(comment.updatedAt).toLocaleString()}
-                        </p>
-                      )}
-                  </div>
-
-                  <div className="w-full sm:w-auto">
-                    <button
-                      onClick={() => handleDelete(comment._id, comment.text)}
-                      disabled={isDeleting}
-                      className="flex items-center justify-center gap-2 px-4 h-10 w-full sm:w-auto rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 cursor-pointer"
-                    >
-                      <FaTrash /> Delete
-                    </button>
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {/* View More Button */}
+            {hasMore && (
+              <div className="flex flex-col items-center gap-2 mt-6">
+                <p className="text-sm text-text-light dark:text-text-dark">
+                  Showing {visibleCount} of {filteredComments.length} comments
+                </p>
+                <button
+                  onClick={handleViewMore}
+                  className="px-6 py-2.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary/90 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
+                >
+                  View More ({filteredComments.length - visibleCount} remaining)
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+
+            {/* All loaded indicator */}
+            {!hasMore && filteredComments.length > 3 && (
+              <div className="flex justify-center mt-6">
+                <p className="text-sm text-gray-400 dark:text-gray-500">
+                  All {filteredComments.length} comments loaded
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

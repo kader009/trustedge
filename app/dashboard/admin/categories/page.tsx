@@ -273,7 +273,7 @@ export default function CategoryManagementPage() {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:border-gray-700 border border-gray-800"
+                  className="flex-1 h-12 rounded-lg bg-gray-100 dark:bg-card-dark text-gray-800 dark:text-gray-200 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:border-gray-700 border border-gray-100"
                 >
                   Cancel
                 </button>
