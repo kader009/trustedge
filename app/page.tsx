@@ -5,7 +5,7 @@ import CommunityFavorites from '@/src/components/home/CommunityFavorites';
 import PopularThisWeek from '@/src/components/home/PopularThisWeek';
 import WhyChooseUs from '@/src/components/home/WhyChooose';
 
-export default function Home() {
+export default async function Home() {
   return (
     <div>
       <main className="container mx-auto px-4 py-8">
