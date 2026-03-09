@@ -165,8 +165,7 @@ const BannerSection = async () => {
           </div>
 
           {/* Card 5 — Explore Reviews */}
-          <Link
-            href="/reviews"
+          <div
             className="group relative flex flex-col justify-center gap-4 rounded-xl p-6 md:p-8 bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark hover:scale-[1.02] transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(0,128,128,0.1)]"
           >
             <div className="size-14 shrink-0 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
@@ -181,7 +180,7 @@ const BannerSection = async () => {
                 favorite product.
               </p>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </section>
