@@ -74,7 +74,7 @@ const BannerSection = async () => {
                 <button
                   aria-label="Browse Categories"
                   role="button"
-                  className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary/10 text-primary dark:bg-primary/20 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors border border-primary/30"
+                  className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary/10 text-primary dark:bg-primary/20 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors"
                 >
                   Categories
                 </button>
