@@ -1,4 +1,3 @@
-export const dynamic = 'force-dynamic';
 import BannerSection from '@/src/components/home/BannerSection';
 import Category from '@/src/components/home/Category';
 import CommunityFavorites from '@/src/components/home/CommunityFavorites';
@@ -8,13 +7,11 @@ import WhyChooseUs from '@/src/components/home/WhyChooose';
 export default async function Home() {
   return (
     <div>
-      <main className="container mx-auto px-4 py-8">
-        <BannerSection />
-        <WhyChooseUs />
-        <Category />
-        <CommunityFavorites />
-        <PopularThisWeek />
-      </main>
+      <BannerSection />
+      <WhyChooseUs />
+      <Category />
+      <CommunityFavorites />
+      <PopularThisWeek />
     </div>
   );
 }
